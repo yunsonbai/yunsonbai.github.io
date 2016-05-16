@@ -285,8 +285,8 @@
             
               
                 
-                <a class="post-title-link" href="/2016/05/12/firstblog/" itemprop="url">
-                  firstblog
+                <a class="post-title-link" href="/2016/05/12/fiddler/" itemprop="url">
+                  fiddler代理利器
                 </a>
               
             
@@ -313,8 +313,8 @@
               <span class="post-meta-item-text">分类于</span>
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/firstblog/" itemprop="url" rel="index">
-                    <span itemprop="name">firstblog</span>
+                  <a href="/categories/fiddler/" itemprop="url" rel="index">
+                    <span itemprop="name">fiddler</span>
                   </a>
                 </span>
 
@@ -329,8 +329,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/05/12/firstblog/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/05/12/firstblog/" itemprop="commentsCount"></span>
+                <a href="/2016/05/12/fiddler/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/05/12/fiddler/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -355,7 +355,14 @@
       
         
           
-            
+            <h2 id="下边我将说说作为后端工程师这段时间用到的的fiddler配置"><a href="#下边我将说说作为后端工程师这段时间用到的的fiddler配置" class="headerlink" title="下边我将说说作为后端工程师这段时间用到的的fiddler配置"></a>下边我将说说作为后端工程师这段时间用到的的fiddler配置</h2><h3 id="只代理某个url"><a href="#只代理某个url" class="headerlink" title="只代理某个url"></a>只代理某个url</h3><h4 id="应用"><a href="#应用" class="headerlink" title="应用"></a>应用</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">比如把线上某个url代理到本地/或者调试某个接口,便于调试</span><br></pre></td></tr></table></figure>
+<h4 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">点击AotuResponder,之后把三个复选框全选上,然后点击add ruler</span><br><span class="line">加入:</span><br><span class="line">    regex:.*yunsonbai.com /activity/(.*)</span><br><span class="line">    http://127.0.0.1:8000/activity/<span class="variable">$1</span></span><br></pre></td></tr></table></figure>
+<h3 id="设置host"><a href="#设置host" class="headerlink" title="设置host"></a>设置host</h3><h4 id="应用-1"><a href="#应用-1" class="headerlink" title="应用"></a>应用</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">把某个域全部代理到本地</span><br></pre></td></tr></table></figure>
+<h4 id="配置-1"><a href="#配置-1" class="headerlink" title="配置"></a>配置</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">点击Tools-&gt;HOSTS-&gt;选上复选框</span><br><span class="line">加入:</span><br><span class="line">    127.0.0.1:8000 yunsonbai.com</span><br></pre></td></tr></table></figure>
+<h3 id="如何让手机也走设置好的代理"><a href="#如何让手机也走设置好的代理" class="headerlink" title="如何让手机也走设置好的代理"></a>如何让手机也走设置好的代理</h3><h4 id="应用-2"><a href="#应用-2" class="headerlink" title="应用"></a>应用</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">调试移动端应用</span><br></pre></td></tr></table></figure>
+<h4 id="配置-2"><a href="#配置-2" class="headerlink" title="配置"></a>配置</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">设置wifi代理为手动；</span><br><span class="line">servername: 你电脑的ip/或域名</span><br><span class="line">port: 8888（fiddler默认是启动8888端口）</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="http://www.telerik.com/fiddler" target="_blank" rel="external">Generating</a></p>
+
           
         
       
@@ -568,7 +575,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-count">6</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
