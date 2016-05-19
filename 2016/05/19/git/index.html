@@ -68,7 +68,7 @@
 <link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="yunson" />
+  <meta name="keywords" content="git,常用命令,删除远程分支,fetch,status,branch,diff,回滚," />
 
 
 
@@ -84,15 +84,22 @@
 
 
 
-<meta name="description" content="just do it!">
-<meta property="og:type" content="website">
-<meta property="og:title" content="yunson">
-<meta property="og:url" content="http://yunsonbai.github.io/index.html">
+<meta name="description" content="总结一下这段时间用到的git命令删除远程分支12git branch -r -d origin/branch-namegit push origin :branch-name
+创建本地/push到远端分支123git branch devgit checkout devgit push origin dev
+删除本地分支12345git branch 分支名称 -d例如，在master分支下，删除">
+<meta property="og:type" content="article">
+<meta property="og:title" content="git">
+<meta property="og:url" content="http://yunsonbai.github.io/2016/05/19/git/index.html">
 <meta property="og:site_name" content="yunson">
-<meta property="og:description" content="just do it!">
+<meta property="og:description" content="总结一下这段时间用到的git命令删除远程分支12git branch -r -d origin/branch-namegit push origin :branch-name
+创建本地/push到远端分支123git branch devgit checkout devgit push origin dev
+删除本地分支12345git branch 分支名称 -d例如，在master分支下，删除">
+<meta property="og:updated_time" content="2016-05-19T02:55:27.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="yunson">
-<meta name="twitter:description" content="just do it!">
+<meta name="twitter:title" content="git">
+<meta name="twitter:description" content="总结一下这段时间用到的git命令删除远程分支12git branch -r -d origin/branch-namegit push origin :branch-name
+创建本地/push到远端分支123git branch devgit checkout devgit push origin dev
+删除本地分支12345git branch 分支名称 -d例如，在master分支下，删除">
 
 
 
@@ -110,7 +117,7 @@
   };
 </script>
 
-  <title> yunson </title>
+  <title> git | yunson </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -150,9 +157,7 @@
     
   
 
-  <div class="container one-collumn sidebar-position-left 
-   page-home 
- ">
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -262,9 +267,9 @@
         <div class="content-wrap">
           <div id="content" class="content">
             
-  <section id="posts" class="posts-expand">
+
+  <div id="posts" class="posts-expand">
     
-      
 
   
   
@@ -284,10 +289,7 @@
             
             
               
-                
-                <a class="post-title-link" href="/2016/05/19/git/" itemprop="url">
-                  git
-                </a>
+                git
               
             
           </h1>
@@ -342,6 +344,11 @@
           
 
           
+              &nbsp; | &nbsp;
+              <span class="page-pv"><i class="fa fa-eye"></i>
+              <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+              </span>
+          
         </div>
       </header>
     
@@ -353,9 +360,7 @@
       
 
       
-        
-          
-            <h2 id="总结一下这段时间用到的git命令"><a href="#总结一下这段时间用到的git命令" class="headerlink" title="总结一下这段时间用到的git命令"></a>总结一下这段时间用到的git命令</h2><h3 id="删除远程分支"><a href="#删除远程分支" class="headerlink" title="删除远程分支"></a>删除远程分支</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git branch -r <span class="_">-d</span> origin/branch-name</span><br><span class="line">git push origin :branch-name</span><br></pre></td></tr></table></figure>
+        <h2 id="总结一下这段时间用到的git命令"><a href="#总结一下这段时间用到的git命令" class="headerlink" title="总结一下这段时间用到的git命令"></a>总结一下这段时间用到的git命令</h2><h3 id="删除远程分支"><a href="#删除远程分支" class="headerlink" title="删除远程分支"></a>删除远程分支</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git branch -r <span class="_">-d</span> origin/branch-name</span><br><span class="line">git push origin :branch-name</span><br></pre></td></tr></table></figure>
 <h3 id="创建本地-push到远端分支"><a href="#创建本地-push到远端分支" class="headerlink" title="创建本地/push到远端分支"></a>创建本地/push到远端分支</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git branch dev</span><br><span class="line">git checkout dev</span><br><span class="line">git push origin dev</span><br></pre></td></tr></table></figure>
 <h3 id="删除本地分支"><a href="#删除本地分支" class="headerlink" title="删除本地分支"></a>删除本地分支</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">git branch 分支名称 <span class="_">-d</span></span><br><span class="line">例如，在master分支下，删除新开的dev分支：</span><br><span class="line">git branch dev <span class="_">-d</span></span><br><span class="line">注意：如果dev的更改，push到远程，在GitLab(或者其他git系统)上面进行了merge操作，但是本地master没有pull最新的代码，会删除不成功，可以先git pull origin master，或者强制删除</span><br><span class="line">git branch dev -D</span><br></pre></td></tr></table></figure>
 <h3 id="创建tag号并push到远端"><a href="#创建tag号并push到远端" class="headerlink" title="创建tag号并push到远端"></a>创建tag号并push到远端</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">git tag <span class="_">-a</span> v1.01 -m <span class="string">"Relase version 1.01"</span></span><br><span class="line">git push origin -tags(提交全部tag)</span><br><span class="line">或者：</span><br><span class="line">git tag <span class="_">-a</span> v1.01 -m <span class="string">"Relase version 1.01"</span></span><br><span class="line">git push origin v1.01</span><br></pre></td></tr></table></figure>
@@ -367,289 +372,116 @@
 <h3 id="回滚"><a href="#回滚" class="headerlink" title="回滚"></a>回滚</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git reset --hard f46821f94eeb106ea841b9fbafa4bfb76beea691 </span><br><span class="line">(f46821f94eeb106ea841b9fbafa4bfb76beea691为commit编号)</span><br></pre></td></tr></table></figure>
 <h3 id="查看commit编号"><a href="#查看commit编号" class="headerlink" title="查看commit编号"></a>查看commit编号</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git log</span><br></pre></td></tr></table></figure>
 <h3 id="显示不通"><a href="#显示不通" class="headerlink" title="显示不通"></a>显示不通</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git diff  全部的改动，包括没有add的</span><br><span class="line">git diff --stage   显示add的，</span><br><span class="line">git diff  commit1 commit2  （显示两次的不通，输入commit号）</span><br></pre></td></tr></table></figure>
-          
+      
+    </div>
+
+    <div>
+      
         
       
     </div>
 
     <div>
       
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="/images/weixin_dashang.jpg" alt="yunson WeChat Pay"/>
+          <p>微信打赏</p>
+        </div>
+      
+      
+        <div id="alipay" style="display: inline-block">
+          <img id="alipay_qr" src="/path/to/alipay-reward-image" alt="yunson Alipay"/>
+          <p>支付宝打赏</p>
+        </div>
+      
     </div>
+  </div>
 
-    <div>
+
       
     </div>
 
     <footer class="post-footer">
       
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/05/12/fiddler/" itemprop="url">
-                  fiddler代理利器
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-05-12T18:38:02+08:00" content="2016-05-12">
-              2016-05-12
-            </time>
-          </span>
-
+        <div class="post-tags">
           
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/fiddler/" itemprop="url" rel="index">
-                    <span itemprop="name">fiddler</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
+            <a href="/tags/git/" rel="tag">#git</a>
           
-
+            <a href="/tags/常用命令/" rel="tag">#常用命令</a>
           
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/05/12/fiddler/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/05/12/fiddler/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
+            <a href="/tags/删除远程分支/" rel="tag">#删除远程分支</a>
           
-
+            <a href="/tags/fetch/" rel="tag">#fetch</a>
           
-
+            <a href="/tags/status/" rel="tag">#status</a>
           
+            <a href="/tags/branch/" rel="tag">#branch</a>
           
-
+            <a href="/tags/diff/" rel="tag">#diff</a>
+          
+            <a href="/tags/回滚/" rel="tag">#回滚</a>
           
         </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
       
 
       
-        
-          
-            <h2 id="下边我将说说作为后端工程师这段时间用到的的fiddler配置"><a href="#下边我将说说作为后端工程师这段时间用到的的fiddler配置" class="headerlink" title="下边我将说说作为后端工程师这段时间用到的的fiddler配置"></a>下边我将说说作为后端工程师这段时间用到的的fiddler配置</h2><h3 id="只代理某个url"><a href="#只代理某个url" class="headerlink" title="只代理某个url"></a>只代理某个url</h3><h4 id="应用"><a href="#应用" class="headerlink" title="应用"></a>应用</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">比如把线上某个url代理到本地/或者调试某个接口,便于调试</span><br></pre></td></tr></table></figure>
-<h4 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">点击AotuResponder,之后把三个复选框全选上,然后点击add ruler</span><br><span class="line">加入:</span><br><span class="line">    regex:.*yunsonbai.com /activity/(.*)</span><br><span class="line">    http://127.0.0.1:8000/activity/<span class="variable">$1</span></span><br></pre></td></tr></table></figure>
-<h3 id="设置host"><a href="#设置host" class="headerlink" title="设置host"></a>设置host</h3><h4 id="应用-1"><a href="#应用-1" class="headerlink" title="应用"></a>应用</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">把某个域全部代理到本地</span><br></pre></td></tr></table></figure>
-<h4 id="配置-1"><a href="#配置-1" class="headerlink" title="配置"></a>配置</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">点击Tools-&gt;HOSTS-&gt;选上复选框</span><br><span class="line">加入:</span><br><span class="line">    127.0.0.1:8000 yunsonbai.com</span><br></pre></td></tr></table></figure>
-<h3 id="如何让手机也走设置好的代理"><a href="#如何让手机也走设置好的代理" class="headerlink" title="如何让手机也走设置好的代理"></a>如何让手机也走设置好的代理</h3><h4 id="应用-2"><a href="#应用-2" class="headerlink" title="应用"></a>应用</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">调试移动端应用</span><br></pre></td></tr></table></figure>
-<h4 id="配置-2"><a href="#配置-2" class="headerlink" title="配置"></a>配置</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">设置wifi代理为手动；</span><br><span class="line">servername: 你电脑的ip/或域名</span><br><span class="line">port: 8888（fiddler默认是启动8888端口）</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="http://www.telerik.com/fiddler" target="_blank" rel="external">Generating</a></p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
             
+              <a href="/2016/05/12/fiddler/" rel="next" title="fiddler代理利器">
+                <i class="fa fa-chevron-left"></i> fiddler代理利器
+              </a>
             
-              
-                
-                <a class="post-title-link" href="/2016/05/12/hexo命令/" itemprop="url">
-                  hexo命令
-                </a>
-              
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
             
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-05-12T18:38:02+08:00" content="2016-05-12">
-              2016-05-12
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/杂谈/" itemprop="url" rel="index">
-                    <span itemprop="name">杂谈</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/05/12/hexo命令/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/05/12/hexo命令/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
+          </div>
         </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
       
 
       
-        
-          
-            <h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
       
     </footer>
   </article>
 
 
-    
-  </section>
 
-  
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+  <a class="jiathis_button_tsina"></a>
+  <a class="jiathis_button_tqq"></a>
+  <a class="jiathis_button_weixin"></a>
+  <a class="jiathis_button_cqq"></a>
+  <a class="jiathis_button_douban"></a>
+  <a class="jiathis_button_renren"></a>
+  <a class="jiathis_button_qzone"></a>
+  <a class="jiathis_button_kaixin001"></a>
+  <a class="jiathis_button_copy"></a>
+  <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank"></a>
+  <a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" >
+  var jiathis_config={
+    hideMore:false
+  }
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+
+      
+    </div>
+  </div>
 
 
           </div>
@@ -657,6 +489,14 @@
 
 
           
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/05/19/git/"
+           data-title="git" data-url="http://yunsonbai.github.io/2016/05/19/git/">
+      </div>
+    
+  </div>
+
 
         </div>
         
@@ -676,8 +516,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel  sidebar-panel-active ">
+      <section class="site-overview sidebar-panel ">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="http://yunsonbai.github.io/images/avtar.jpg"
@@ -741,6 +590,17 @@
 
       </section>
 
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#总结一下这段时间用到的git命令"><span class="nav-number">1.</span> <span class="nav-text">总结一下这段时间用到的git命令</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#删除远程分支"><span class="nav-number">1.1.</span> <span class="nav-text">删除远程分支</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#创建本地-push到远端分支"><span class="nav-number">1.2.</span> <span class="nav-text">创建本地/push到远端分支</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#删除本地分支"><span class="nav-number">1.3.</span> <span class="nav-text">删除本地分支</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#创建tag号并push到远端"><span class="nav-number">1.4.</span> <span class="nav-text">创建tag号并push到远端</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#删除远端tag号"><span class="nav-number">1.5.</span> <span class="nav-text">删除远端tag号</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#merge"><span class="nav-number">1.6.</span> <span class="nav-text">merge</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#status"><span class="nav-number">1.7.</span> <span class="nav-text">status</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#与远程保持同步"><span class="nav-number">1.8.</span> <span class="nav-text">与远程保持同步</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#追踪远程分支"><span class="nav-number">1.9.</span> <span class="nav-text">追踪远程分支</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#回滚"><span class="nav-number">1.10.</span> <span class="nav-text">回滚</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#查看commit编号"><span class="nav-number">1.11.</span> <span class="nav-text">查看commit编号</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#显示不通"><span class="nav-number">1.12.</span> <span class="nav-text">显示不通</span></a></li></ol></li></ol></div>
+            
+          </div>
+        </section>
       
 
     </div>
@@ -858,6 +718,10 @@
 
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
 
   
 
