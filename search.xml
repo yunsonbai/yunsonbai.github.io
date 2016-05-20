@@ -4,7 +4,7 @@
   
     
     <entry>
-      <title><![CDATA[git]]></title>
+      <title><![CDATA[git常用命令]]></title>
       <url>http://yunsonbai.github.io/2016/05/19/git/</url>
       <content type="html"><![CDATA[<h2 id="总结一下这段时间用到的git命令"><a href="#总结一下这段时间用到的git命令" class="headerlink" title="总结一下这段时间用到的git命令"></a>总结一下这段时间用到的git命令</h2><h3 id="删除远程分支"><a href="#删除远程分支" class="headerlink" title="删除远程分支"></a>删除远程分支</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git branch -r <span class="_">-d</span> origin/branch-name</span><br><span class="line">git push origin :branch-name</span><br></pre></td></tr></table></figure>
 <h3 id="创建本地-push到远端分支"><a href="#创建本地-push到远端分支" class="headerlink" title="创建本地/push到远端分支"></a>创建本地/push到远端分支</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git branch dev</span><br><span class="line">git checkout dev</span><br><span class="line">git push origin dev</span><br></pre></td></tr></table></figure>
