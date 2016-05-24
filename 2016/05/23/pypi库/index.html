@@ -74,7 +74,7 @@
 <link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="python,pypi库,创建自己的pypi库,pypiserver," />
+  <meta name="keywords" content="python,pypi库,创建自己的pypi库,pypiserver,pypi-server," />
 
 
 
@@ -100,7 +100,7 @@
 <meta property="og:description" content="引言123在做项目的时候你会发现有好多重复性的工作在做着，如果我们能抽出公共部分的话那样你的工作就会事半功倍，那抽出来的公共部分就需要存放在自己的pypi库（也不排除你还有其他的办法）
 搭建服务端创建环境12如果你不想混乱自己的环境可以利用virtualenvvirtualenv3.5 pypi
 安装需要的库123yum install apache2-utilspip install pypis">
-<meta property="og:updated_time" content="2016-05-23T08:36:00.000Z">
+<meta property="og:updated_time" content="2016-05-24T06:19:21.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="创建自己的pypi库">
 <meta name="twitter:description" content="引言123在做项目的时候你会发现有好多重复性的工作在做着，如果我们能抽出公共部分的话那样你的工作就会事半功倍，那抽出来的公共部分就需要存放在自己的pypi库（也不排除你还有其他的办法）
@@ -354,6 +354,7 @@
 <h3 id="启动服务"><a href="#启动服务" class="headerlink" title="启动服务"></a>启动服务</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pypi-server -p 3141 -P ./.htaccess ./packages</span><br></pre></td></tr></table></figure>
 <h2 id="客户端上传公共库"><a href="#客户端上传公共库" class="headerlink" title="客户端上传公共库"></a>客户端上传公共库</h2><h3 id="在用户根目录下添加配置文件-pypirc"><a href="#在用户根目录下添加配置文件-pypirc" class="headerlink" title="在用户根目录下添加配置文件.pypirc"></a>在用户根目录下添加配置文件.pypirc</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">比如你是root用户：</span><br><span class="line">    <span class="built_in">cd</span></span><br><span class="line">    vim .pypirc</span><br><span class="line">    加入内容如下：（distutils处一定要换行）</span><br><span class="line">    [distutils]</span><br><span class="line">    index-servers =</span><br><span class="line">      <span class="built_in">local</span></span><br><span class="line"></span><br><span class="line">    [<span class="built_in">local</span>]</span><br><span class="line">    repository:http://xx.xx.xx.xx:3141</span><br><span class="line">    username:user</span><br><span class="line">    password:123456</span><br></pre></td></tr></table></figure>
 <h3 id="上传包"><a href="#上传包" class="headerlink" title="上传包"></a>上传包</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python setup.py sdist upload -r <span class="built_in">local</span></span><br></pre></td></tr></table></figure>
+<h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install -i http://localhost:3134/simple/ some-package</span><br></pre></td></tr></table></figure>
       
     </div>
 
@@ -402,6 +403,8 @@
             <a href="/tags/创建自己的pypi库/" rel="tag">#创建自己的pypi库</a>
           
             <a href="/tags/pypiserver/" rel="tag">#pypiserver</a>
+          
+            <a href="/tags/pypi-server/" rel="tag">#pypi-server</a>
           
         </div>
       
@@ -528,7 +531,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">26</span>
+                <span class="site-state-item-count">27</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -571,7 +574,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#引言"><span class="nav-number">1.</span> <span class="nav-text">引言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#搭建服务端"><span class="nav-number">2.</span> <span class="nav-text">搭建服务端</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#创建环境"><span class="nav-number">2.1.</span> <span class="nav-text">创建环境</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#安装需要的库"><span class="nav-number">2.2.</span> <span class="nav-text">安装需要的库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#创建packages文件夹和配置文件-htaccess"><span class="nav-number">2.3.</span> <span class="nav-text">创建packages文件夹和配置文件.htaccess</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#启动服务"><span class="nav-number">2.4.</span> <span class="nav-text">启动服务</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#客户端上传公共库"><span class="nav-number">3.</span> <span class="nav-text">客户端上传公共库</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#在用户根目录下添加配置文件-pypirc"><span class="nav-number">3.1.</span> <span class="nav-text">在用户根目录下添加配置文件.pypirc</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#上传包"><span class="nav-number">3.2.</span> <span class="nav-text">上传包</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#引言"><span class="nav-number">1.</span> <span class="nav-text">引言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#搭建服务端"><span class="nav-number">2.</span> <span class="nav-text">搭建服务端</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#创建环境"><span class="nav-number">2.1.</span> <span class="nav-text">创建环境</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#安装需要的库"><span class="nav-number">2.2.</span> <span class="nav-text">安装需要的库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#创建packages文件夹和配置文件-htaccess"><span class="nav-number">2.3.</span> <span class="nav-text">创建packages文件夹和配置文件.htaccess</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#启动服务"><span class="nav-number">2.4.</span> <span class="nav-text">启动服务</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#客户端上传公共库"><span class="nav-number">3.</span> <span class="nav-text">客户端上传公共库</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#在用户根目录下添加配置文件-pypirc"><span class="nav-number">3.1.</span> <span class="nav-text">在用户根目录下添加配置文件.pypirc</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#上传包"><span class="nav-number">3.2.</span> <span class="nav-text">上传包</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#安装"><span class="nav-number">3.3.</span> <span class="nav-text">安装</span></a></li></ol></li></ol></div>
             
           </div>
         </section>
