@@ -90,22 +90,16 @@
 
 
 
-<meta name="description" content="总结一下这段时间用到的git命令删除远程分支12git branch -r -d origin/branch-namegit push origin :branch-name
-创建本地/push到远端分支123git branch devgit checkout devgit push origin dev
-删除本地分支12345git branch 分支名称 -d例如，在master分支下，删除">
+<meta name="description" content="总结一下这段时间用到的git命令">
 <meta property="og:type" content="article">
 <meta property="og:title" content="git常用命令">
 <meta property="og:url" content="http://yunsonbai.github.io/2016/05/19/git/index.html">
 <meta property="og:site_name" content="雲son">
-<meta property="og:description" content="总结一下这段时间用到的git命令删除远程分支12git branch -r -d origin/branch-namegit push origin :branch-name
-创建本地/push到远端分支123git branch devgit checkout devgit push origin dev
-删除本地分支12345git branch 分支名称 -d例如，在master分支下，删除">
-<meta property="og:updated_time" content="2016-05-20T03:11:04.000Z">
+<meta property="og:description" content="总结一下这段时间用到的git命令">
+<meta property="og:updated_time" content="2016-05-24T07:06:08.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="git常用命令">
-<meta name="twitter:description" content="总结一下这段时间用到的git命令删除远程分支12git branch -r -d origin/branch-namegit push origin :branch-name
-创建本地/push到远端分支123git branch devgit checkout devgit push origin dev
-删除本地分支12345git branch 分支名称 -d例如，在master分支下，删除">
+<meta name="twitter:description" content="总结一下这段时间用到的git命令">
 
 
 
@@ -366,7 +360,8 @@
       
 
       
-        <h2 id="总结一下这段时间用到的git命令"><a href="#总结一下这段时间用到的git命令" class="headerlink" title="总结一下这段时间用到的git命令"></a>总结一下这段时间用到的git命令</h2><h3 id="删除远程分支"><a href="#删除远程分支" class="headerlink" title="删除远程分支"></a>删除远程分支</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git branch -r <span class="_">-d</span> origin/branch-name</span><br><span class="line">git push origin :branch-name</span><br></pre></td></tr></table></figure>
+        <h2 id="总结一下这段时间用到的git命令"><a href="#总结一下这段时间用到的git命令" class="headerlink" title="总结一下这段时间用到的git命令"></a>总结一下这段时间用到的git命令</h2><a id="more"></a>
+<h3 id="删除远程分支"><a href="#删除远程分支" class="headerlink" title="删除远程分支"></a>删除远程分支</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git branch -r <span class="_">-d</span> origin/branch-name</span><br><span class="line">git push origin :branch-name</span><br></pre></td></tr></table></figure>
 <h3 id="创建本地-push到远端分支"><a href="#创建本地-push到远端分支" class="headerlink" title="创建本地/push到远端分支"></a>创建本地/push到远端分支</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git branch dev</span><br><span class="line">git checkout dev</span><br><span class="line">git push origin dev</span><br></pre></td></tr></table></figure>
 <h3 id="删除本地分支"><a href="#删除本地分支" class="headerlink" title="删除本地分支"></a>删除本地分支</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">git branch 分支名称 <span class="_">-d</span></span><br><span class="line">例如，在master分支下，删除新开的dev分支：</span><br><span class="line">git branch dev <span class="_">-d</span></span><br><span class="line">注意：如果dev的更改，push到远程，在GitLab(或者其他git系统)上面进行了merge操作，但是本地master没有pull最新的代码，会删除不成功，可以先git pull origin master，或者强制删除</span><br><span class="line">git branch dev -D</span><br></pre></td></tr></table></figure>
 <h3 id="创建tag号并push到远端"><a href="#创建tag号并push到远端" class="headerlink" title="创建tag号并push到远端"></a>创建tag号并push到远端</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">git tag <span class="_">-a</span> v1.01 -m <span class="string">"Relase version 1.01"</span></span><br><span class="line">git push origin -tags(提交全部tag)</span><br><span class="line">或者：</span><br><span class="line">git tag <span class="_">-a</span> v1.01 -m <span class="string">"Relase version 1.01"</span></span><br><span class="line">git push origin v1.01</span><br></pre></td></tr></table></figure>
