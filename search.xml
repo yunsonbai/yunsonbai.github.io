@@ -4,7 +4,7 @@
   
     
     <entry>
-      <title><![CDATA[使用rsyslog收集Django的日志]]></title>
+      <title><![CDATA[使用rsyslog收集Django的日志1]]></title>
       <url>http://yunsonbai.github.io/2016/06/08/django-rsyslog/</url>
       <content type="html"><![CDATA[<h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">日志收集对项目很重要,在前边我写过一篇如何利用sentry收集django程序运行时的日志,</span><br><span class="line">我们的项目中一般用sentry来收集error日志，因为打的比较详细，可观性也比较强。但是</span><br><span class="line">我们如果把info日志达到sentry上不方便观看，所以不妨使用rsyslog来收集Django中的一</span><br><span class="line">些info日志，当然只是打我们想要的东西。</span><br></pre></td></tr></table></figure>
 <a id="more"></a>
