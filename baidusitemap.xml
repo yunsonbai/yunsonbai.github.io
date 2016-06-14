@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-
+<url>
+    <loc>http://www.yunsonbai.top/2016/05/24/mqtt-python/</loc>
+    <priority>0.8</priority>
+    <changefreq>Monthly</changefreq>
+    <lastmod>2016-05-24T17:02:52+00:00</lastmod>
+</url>
 
 </urlset>
