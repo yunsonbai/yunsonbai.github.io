@@ -102,7 +102,7 @@
 <meta property="og:url" content="http://yunsonbai.github.io/2016/06/09/nginx-https配置/index.html">
 <meta property="og:site_name" content="雲Son">
 <meta property="og:description" content="引言12   nginx是一个高性能的HTTP和反向代理服务器，也是一个IMAP/POP3/SMTP服务器，下边说一下nginx关于https的配置">
-<meta property="og:updated_time" content="2016-06-19T14:16:10.000Z">
+<meta property="og:updated_time" content="2016-06-20T06:05:03.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="nginx实现https">
 <meta name="twitter:description" content="引言12   nginx是一个高性能的HTTP和反向代理服务器，也是一个IMAP/POP3/SMTP服务器，下边说一下nginx关于https的配置">
@@ -376,6 +376,8 @@
 <h3 id="创建静态页"><a href="#创建静态页" class="headerlink" title="创建静态页"></a>创建静态页</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cd /test/static</span><br><span class="line">touch test.html</span><br><span class="line">echo &apos;test https&apos; &gt; test.html</span><br></pre></td></tr></table></figure>
 <h3 id="访问"><a href="#访问" class="headerlink" title="访问"></a>访问</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">在浏览器中访问https:127..0.1/static/test.html</span><br></pre></td></tr></table></figure>
 <h2 id="补充"><a href="#补充" class="headerlink" title="补充"></a>补充</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">最近发现了一个很奇怪的问题，就是使用python在访问https下的链接的时候一切正常</span><br><span class="line">然而在ios9下访问就会时不时的出现1004问题（访问不到）,最后的解决办法是使用最</span><br><span class="line">新的nginx解决</span><br></pre></td></tr></table></figure>
+<p><a href="http://www.yunsonbai.top/2016/06/09/nginx%E5%B8%B8%E7%94%A8%E9%85%8D%E7%BD%AE/" target="_blank" rel="external">nginx常用配置</a></p>
+
       
     </div>
 
@@ -434,8 +436,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2016/06/09/eth0-no-ipv4/" rel="prev" title="当eth0没有ipv4地址的解决办法">
-                当eth0没有ipv4地址的解决办法 <i class="fa fa-chevron-right"></i>
+              <a href="/2016/06/09/nginx常用配置/" rel="prev" title="nginx常用配置">
+                nginx常用配置 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>

@@ -102,7 +102,7 @@
 <meta property="og:url" content="http://yunsonbai.github.io/2016/06/09/nginx常用配置/index.html">
 <meta property="og:site_name" content="雲Son">
 <meta property="og:description" content="引言12   nginx是一个高性能的HTTP和反向代理服务器，也是一个IMAP/POP3/SMTP服务器，下边说一下这断时间用到的nginx配置">
-<meta property="og:updated_time" content="2016-06-19T14:16:10.000Z">
+<meta property="og:updated_time" content="2016-06-20T06:04:10.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="nginx常用配置">
 <meta name="twitter:description" content="引言12   nginx是一个高性能的HTTP和反向代理服务器，也是一个IMAP/POP3/SMTP服务器，下边说一下这断时间用到的nginx配置">
@@ -380,6 +380,7 @@
 <h3 id="控制缓冲区溢出攻击"><a href="#控制缓冲区溢出攻击" class="headerlink" title="控制缓冲区溢出攻击"></a>控制缓冲区溢出攻击</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">client_body_buffer_size  1K;</span><br><span class="line">client_header_buffer_size 1k;</span><br><span class="line">   client_max_body_size 1k;</span><br><span class="line">   large_client_header_buffers 2 1k;</span><br></pre></td></tr></table></figure>
 <h3 id="if语句"><a href="#if语句" class="headerlink" title="if语句"></a>if语句</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 限制可用的请求方法</span></span><br><span class="line"><span class="keyword">if</span> (<span class="variable">$request_method</span> !~ ^(GET|HEAD|POST)$ ) &#123;</span><br><span class="line">        <span class="built_in">return</span> 403;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h3 id="防止图片盗链"><a href="#防止图片盗链" class="headerlink" title="防止图片盗链"></a>防止图片盗链</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">只有www.example1.com example2.com 能访问</span><br><span class="line">   location /images/ &#123;</span><br><span class="line">        valid_referers none blocked www.example1.com example2.com;</span><br><span class="line">        <span class="keyword">if</span> (<span class="variable">$invalid_referer</span>) &#123;</span><br><span class="line">             <span class="built_in">return</span>   403;</span><br><span class="line">        &#125;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+<p><a href="http://www.yunsonbai.top/2016/06/09/nginx-https%E9%85%8D%E7%BD%AE/" target="_blank" rel="external">nginx实现https</a></p>
 
       
     </div>
@@ -431,16 +432,16 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/06/09/eth0-no-ipv4/" rel="next" title="当eth0没有ipv4地址的解决办法">
-                <i class="fa fa-chevron-left"></i> 当eth0没有ipv4地址的解决办法
+              <a href="/2016/06/09/nginx-https配置/" rel="next" title="nginx实现https">
+                <i class="fa fa-chevron-left"></i> nginx实现https
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2016/06/13/python-diamond/" rel="prev" title="使用diamond监控系统或api">
-                使用diamond监控系统或api <i class="fa fa-chevron-right"></i>
+              <a href="/2016/06/09/eth0-no-ipv4/" rel="prev" title="当eth0没有ipv4地址的解决办法">
+                当eth0没有ipv4地址的解决办法 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
