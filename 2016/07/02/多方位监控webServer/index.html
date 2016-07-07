@@ -1,0 +1,902 @@
+<!doctype html>
+
+<!--  -->
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Monda:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|Lobster Two:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="监控 - api监控 - 监控系统 - 系统监控 - webServer监控," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/images/logo_b.png?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="引言123最近趁着开发需求较少，着手整理了一段时间关于系统监控的东西，系统监控的目的就是为了快速的发现系统问题、找到问题所在、并解决它。下边分享一下">
+<meta property="og:type" content="article">
+<meta property="og:title" content="多方位监控webServer">
+<meta property="og:url" content="http://yunsonbai.github.io/2016/07/02/多方位监控webServer/index.html">
+<meta property="og:site_name" content="雲Son">
+<meta property="og:description" content="引言123最近趁着开发需求较少，着手整理了一段时间关于系统监控的东西，系统监控的目的就是为了快速的发现系统问题、找到问题所在、并解决它。下边分享一下">
+<meta property="og:updated_time" content="2016-07-07T05:47:26.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="多方位监控webServer">
+<meta name="twitter:description" content="引言123最近趁着开发需求较少，着手整理了一段时间关于系统监控的东西，系统监控的目的就是为了快速的发现系统问题、找到问题所在、并解决它。下边分享一下">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+  <title> 多方位监控webServer | 雲Son </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans,en,default">
+
+  
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?11f968f1dccff5bc4f6ed78778a799da";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//tajs.qq.com/stats?sId=56396983";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">雲Son</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="#" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup">
+ <span class="search-icon fa fa-search"></span>
+ <input type="text" id="local-search-input">
+ <div id="local-search-result"></div>
+ <span class="popup-btn-close">close</span>
+</div>
+
+
+    </div>
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                多方位监控webServer
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-07-02T14:27:22+08:00" content="2016-07-02">
+              2016-07-02
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/api或系统监控/" itemprop="url" rel="index">
+                    <span itemprop="name">api或系统监控</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/07/02/多方位监控webServer/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/02/多方位监控webServer/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+              &nbsp; | &nbsp;
+              <span class="page-pv"><i class="fa fa-eye"></i>
+              <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+              </span>
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">最近趁着开发需求较少，着手整理了一段时间关于系统监控的东西，</span><br><span class="line">系统监控的目的就是为了快速的发现系统问题、找到问题所在、并</span><br><span class="line">解决它。下边分享一下</span><br></pre></td></tr></table></figure>
+<a id="more"></a>
+<h2 id="初识监控"><a href="#初识监控" class="headerlink" title="初识监控"></a>初识监控</h2><h3 id="懵懂"><a href="#懵懂" class="headerlink" title="懵懂"></a>懵懂</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">记得当初来公司的时候，师傅让我在代码关键的部位打日志，初来乍到，</span><br><span class="line">以为日志嘛，还按照上边的写的例子接着写得了。学习期间知道该方法</span><br><span class="line">是为了帮助排错用的，但是该怎么用，怎么打并没有好好研究过，甚至</span><br><span class="line">还有怀疑，既然测试人员已经测试好了还有必要再在业务部分加吗，这</span><br><span class="line">样不会降低系统的处理效率吗？</span><br></pre></td></tr></table></figure>
+<h3 id="第一次使用日志"><a href="#第一次使用日志" class="headerlink" title="第一次使用日志"></a>第一次使用日志</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">好景不长，没多久就出了一个很奇怪的问题，大部分情况下系统正常，</span><br><span class="line">但是总有意外发生（而且是事后一段时间后才发现，因为当时没有加</span><br><span class="line">报错邮件），很是烦恼，苦恼时刻想到了曾经师傅让打的日志，开始</span><br><span class="line">用grep过滤这个意外的问题，很快找到了问题所在，多亏日志是仿照</span><br><span class="line">前辈打的（当时完全不知道人家为啥要那样打）。从那感受到了日志</span><br><span class="line">的魅力。</span><br></pre></td></tr></table></figure>
+<h3 id="如何打"><a href="#如何打" class="headerlink" title="如何打"></a>如何打</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">原则，不能因为添加监控而导致服务质量大幅度下滑, 打关键点不乱打</span><br></pre></td></tr></table></figure>
+<h3 id="开始谈这段时间的结果"><a href="#开始谈这段时间的结果" class="headerlink" title="开始谈这段时间的结果"></a>开始谈这段时间的结果</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">上边说的有点废话，但是对于刚毕业的学生来讲，很多人会遇到这样的</span><br><span class="line">情况，下边开始说说这段时间是怎么来监控我们的系统的。</span><br></pre></td></tr></table></figure>
+<h2 id="报错邮件的添加"><a href="#报错邮件的添加" class="headerlink" title="报错邮件的添加"></a>报错邮件的添加</h2><h3 id="重要性"><a href="#重要性" class="headerlink" title="重要性"></a>重要性</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">我们知道在稳定的系统，都有可能因为这样或那样的问题（硬件、网络</span><br><span class="line">等问题）导致出错，尤其是在系统中调用第三方接口的代码段，第三方</span><br><span class="line">的接口是不可控的，换句话说就是这些地方极易出现问题。所以这些地</span><br><span class="line">方需要有报警邮件及时通知。</span><br></pre></td></tr></table></figure>
+<h3 id="添加报警模块"><a href="#添加报警模块" class="headerlink" title="添加报警模块"></a>添加报警模块</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">之前我写过一篇文章，是如何利用sentry（采用Django开发，当然有</span><br><span class="line">其他的可以留言讨论）来监控系统，如下是连接，sentry可以使全局的</span><br><span class="line">监控，也可以是部分代码段的监控，在部分代码段的监控上建议使用try</span><br><span class="line">语句监控，这样避免致服务中断，给用户不好的体验。</span><br></pre></td></tr></table></figure>
+<p><a href="http://www.yunsonbai.top/2016/05/30/django-sentry/" target="_blank" rel="external">利用sentry收集django的日志</a></p>
+<h2 id="Api响应时间的监控"><a href="#Api响应时间的监控" class="headerlink" title="Api响应时间的监控"></a>Api响应时间的监控</h2><h3 id="必要性"><a href="#必要性" class="headerlink" title="必要性"></a>必要性</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">关于api的响应时间监控显然很重要，如果你能实时或准实时的看到你</span><br><span class="line">写的接口的响应时间的话，你就会很有目的性的去优化你的接口，就能</span><br><span class="line">提供更好的服务。在调用第三方接口的地方最好也能加上监控，因为有</span><br><span class="line">可能你接口慢就是由于第三方的接口导致的。</span><br></pre></td></tr></table></figure>
+<h3 id="准实时监控"><a href="#准实时监控" class="headerlink" title="准实时监控"></a>准实时监控</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">我叫它准实时因为过一小段时间后我们才能知道结果。</span><br></pre></td></tr></table></figure>
+<h4 id="利用nginx日志"><a href="#利用nginx日志" class="headerlink" title="利用nginx日志"></a>利用nginx日志</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">在nginx日志中可以根据<span class="variable">$request_time</span>(全程的时间：从用户点击到所</span><br><span class="line">有结果返回）和<span class="variable">$upstream_response_time</span>（Nginx向后端建立连接开</span><br><span class="line">始到接受完数据然后关闭连接为止的时间），可以根据需求来利用这两个</span><br><span class="line">参数的值。当然你需要写一个日志分析脚本，这个不难。</span><br></pre></td></tr></table></figure>
+<h4 id="利用diamond"><a href="#利用diamond" class="headerlink" title="利用diamond"></a>利用diamond</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">diamond是可以实现类似于定期任务的工具,可以监控系统内存、CPU使用</span><br><span class="line">情况等等，你可以事先写好代码片段去请求自己的接口，然后加到diamond</span><br><span class="line">的collectors中，定期执行，它能给你在单位时间内系统的监控参数。可</span><br><span class="line">以看一下之前的文章。</span><br></pre></td></tr></table></figure>
+<p><a href="http://www.yunsonbai.top/2016/06/13/python-diamond/" target="_blank" rel="external">使用diamond监控系统或api</a></p>
+<h3 id="实时监控"><a href="#实时监控" class="headerlink" title="实时监控"></a>实时监控</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">个人觉得最好只监控api中的关键部位，因为他将会影响api的整体</span><br><span class="line">响应时间。</span><br></pre></td></tr></table></figure>
+<h4 id="利用Metrology"><a href="#利用Metrology" class="headerlink" title="利用Metrology"></a>利用Metrology</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line">import time</span><br><span class="line">from metrology import Metrology</span><br><span class="line">from metrology.reporter import GraphiteReporter</span><br><span class="line"></span><br><span class="line">class ApiTimer(object):</span><br><span class="line"></span><br><span class="line">	__instance = None</span><br><span class="line"></span><br><span class="line">	def __init__(self, key, carbon_host, carbon_port):</span><br><span class="line">		self.timer = Metrology.timer(key)</span><br><span class="line">		self.carbon_host = carbon_host</span><br><span class="line">		self.carbon_port = carbon_port</span><br><span class="line"></span><br><span class="line">	def reporte(self):</span><br><span class="line">		<span class="comment"># 主要负责往传输统计结果</span></span><br><span class="line">		reporter = GraphiteReporter(self.carbon_host, self.carbon_port)</span><br><span class="line">		reporter.write()</span><br><span class="line"></span><br><span class="line">	def probe(self, func, *arg, **args):</span><br><span class="line">		<span class="comment"># 代理执行函数</span></span><br><span class="line">		st = time.time()</span><br><span class="line">		res = func(*arg, **args)</span><br><span class="line">		self.timer.update(int((time.time() - st) * 1000))</span><br><span class="line">		last_tick = self.timer.meter.last_tick.value</span><br><span class="line">		<span class="keyword">if</span> last_tick - self.timer.meter.start_time &gt; 2:</span><br><span class="line">			self.reporte()</span><br><span class="line">			self.timer.clear()</span><br><span class="line">		<span class="built_in">return</span> res</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">def fun(a):</span><br><span class="line">	pass</span><br><span class="line">	<span class="comment"># time.sleep(random.random())</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">	<span class="comment"># 以下是测试用例</span></span><br><span class="line">	<span class="comment"># import random</span></span><br><span class="line">	st = time.time()</span><br><span class="line">	timer = ApiTimer(<span class="string">'test1.test'</span>, <span class="string">'xx.xx.xx.xx'</span>, xx)</span><br><span class="line">	<span class="keyword">while</span> time.time() - st &lt; 20:</span><br><span class="line">		timer.probe(fun, 1)</span><br></pre></td></tr></table></figure>
+<h2 id="关键部位info日志添加"><a href="#关键部位info日志添加" class="headerlink" title="关键部位info日志添加"></a>关键部位info日志添加</h2><h3 id="重要性-1"><a href="#重要性-1" class="headerlink" title="重要性"></a>重要性</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">有时候你会遇到这样的问题：api响应时间超短，也没有报错邮件，但是就是结</span><br><span class="line">果不对。这一般是返回结果出了问题，遇到最多的就是在调用第三方接口的时候</span><br><span class="line">出了这样的问题，这时候就需要有info日志来帮忙了。打日志最好使用,|:分隔</span><br><span class="line">符分开关键的参数和返回值，方便过滤。</span><br></pre></td></tr></table></figure>
+<h3 id="在api中关键断码段打印日志"><a href="#在api中关键断码段打印日志" class="headerlink" title="在api中关键断码段打印日志"></a>在api中关键断码段打印日志</h3><h4 id="使用sentry"><a href="#使用sentry" class="headerlink" title="使用sentry"></a>使用sentry</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sentry除了能监控error日志，还能收集info日志，你可以尝试使用。但是</span><br><span class="line">sentry打的info日志会有很多额外的信息。可以去前边的链接中看怎么使用。</span><br></pre></td></tr></table></figure>
+<h4 id="使用rsyslog"><a href="#使用rsyslog" class="headerlink" title="使用rsyslog"></a>使用rsyslog</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">该方法比较通用，不论在什么开发语言和框架下，基本上都支持对rsyslog的</span><br><span class="line">使用。我前边写了一篇在Django中使用rsyslog，可以看一下。</span><br></pre></td></tr></table></figure>
+<p><a href="http://www.yunsonbai.top/2016/06/08/django-rsyslog/" target="_blank" rel="external">使用rsyslog收集Django的日志</a></p>
+<h3 id="收集远程日志"><a href="#收集远程日志" class="headerlink" title="收集远程日志"></a>收集远程日志</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">前边说了日志打印，下边说一下如何收集这些日志。</span><br></pre></td></tr></table></figure>
+<h4 id="服务器写传输脚本，定期执行"><a href="#服务器写传输脚本，定期执行" class="headerlink" title="服务器写传输脚本，定期执行"></a>服务器写传输脚本，定期执行</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">有点low，但也不失为一种办法</span><br></pre></td></tr></table></figure>
+<h4 id="使用rsyslog-1"><a href="#使用rsyslog-1" class="headerlink" title="使用rsyslog"></a>使用rsyslog</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">当然如果你使用的是使用的是sentry收集info日志，你不用操心怎么收集，因为</span><br><span class="line">sentry都帮你做好了。如果是使用的rsyslog的话你就需要收集服务器上的日志了。</span><br><span class="line">rsyslog除了可以帮你本地打印日志，还能远程收集日志。可以走默认端口514来收</span><br><span class="line">集，当然需要把web服务器上的rsyslog配置成远程传输的方式，即通过514端口输</span><br><span class="line">出日志到远端rsyslog日志服务器上。</span><br></pre></td></tr></table></figure>
+<h4 id="使用syslog-ng收集"><a href="#使用syslog-ng收集" class="headerlink" title="使用syslog-ng收集"></a>使用syslog-ng收集</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">syslog-ng收集日志的方式和rsyslog一样都是走514端口，但是syslog-ng可以</span><br><span class="line">很方便的根据关键词帮你进行日志过滤，这样的话你就不用苦恼于web应用太多而</span><br><span class="line"><span class="built_in">local</span>只能从（0-7）总感觉不够用，但是关于rsyslog和syslog-ng的比较大家</span><br><span class="line">可以在网上搜搜，毕竟这里只是提供方法。</span><br></pre></td></tr></table></figure>
+<p>####<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">使用ELK，何为ELK：</span><br><span class="line">	e:</span><br><span class="line">         elasticsearch，搜索引擎，创建索引，存储数据</span><br><span class="line">    	l:</span><br><span class="line">         logstash， 日志收集，过滤，传输日志到elasticsearch</span><br><span class="line">    	k:</span><br><span class="line">         kibana， web展示</span><br><span class="line">用这个日至系统的好处就是能直接通过浏览器访问你的日志，免去了grep操作。目前我</span><br><span class="line">们有部分系统采用ELK。</span><br><span class="line">关于如何搭建请点击下边的链接。</span><br></pre></td></tr></table></figure></p>
+<p><a href="http://www.yunsonbai.top/2016/07/01/ELK%E5%AE%9E%E6%97%B6%E6%97%A5%E5%BF%97%E5%B9%B3%E5%8F%B0%E6%90%AD%E5%BB%BA/" target="_blank" rel="external">ELK系统搭建</a></p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">至此，从error监控、api响应时间监控、关键代码段响应时间监控、info日志打印四个角</span><br><span class="line">度对webServer做了多方位的监控，这些监控是为了方便你及时修改系统bug和做优化的。</span><br><span class="line">如何选择还是要根据具体情况而定，总之一定要遵循这样的原则：不能因为监控系统而拖垮</span><br><span class="line">服务，最终目的是为了更好的提供服务。</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="/images/wei_pay.jpg" alt="yunsonbai WeChat Pay"/>
+          <p>微信打赏</p>
+        </div>
+      
+      
+        <div id="alipay" style="display: inline-block">
+          <img id="alipay_qr" src="/images/alipay.jpg" alt="yunsonbai Alipay"/>
+          <p>支付宝打赏</p>
+        </div>
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/监控-api监控-监控系统-系统监控-webServer监控/" rel="tag">#监控 - api监控 - 监控系统 - 系统监控 - webServer监控</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/07/01/ELK实时日志平台搭建/" rel="next" title="ELK日志平台搭建">
+                <i class="fa fa-chevron-left"></i> ELK日志平台搭建
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+  <a class="jiathis_button_tsina"></a>
+  <a class="jiathis_button_tqq"></a>
+  <a class="jiathis_button_weixin"></a>
+  <a class="jiathis_button_cqq"></a>
+  <a class="jiathis_button_douban"></a>
+  <a class="jiathis_button_renren"></a>
+  <a class="jiathis_button_qzone"></a>
+  <a class="jiathis_button_kaixin001"></a>
+  <a class="jiathis_button_copy"></a>
+  <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank"></a>
+  <a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" >
+  var jiathis_config={
+    hideMore:false
+  }
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/07/02/多方位监控webServer/"
+           data-title="多方位监控webServer" data-url="http://yunsonbai.github.io/2016/07/02/多方位监控webServer/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="http://www.yunsonbai.top/images/avtar.jpg"
+               alt="yunsonbai" />
+          <p class="site-author-name" itemprop="name">yunsonbai</p>
+          <p class="site-description motion-element" itemprop="description">just do it!</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">17</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">10</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">49</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              友情链接
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://yunsonbai.blog.163.com/" title="峻岭云松" target="_blank">峻岭云松</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#引言"><span class="nav-number">1.</span> <span class="nav-text">引言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#初识监控"><span class="nav-number">2.</span> <span class="nav-text">初识监控</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#懵懂"><span class="nav-number">2.1.</span> <span class="nav-text">懵懂</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第一次使用日志"><span class="nav-number">2.2.</span> <span class="nav-text">第一次使用日志</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#如何打"><span class="nav-number">2.3.</span> <span class="nav-text">如何打</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#开始谈这段时间的结果"><span class="nav-number">2.4.</span> <span class="nav-text">开始谈这段时间的结果</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#报错邮件的添加"><span class="nav-number">3.</span> <span class="nav-text">报错邮件的添加</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#重要性"><span class="nav-number">3.1.</span> <span class="nav-text">重要性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#添加报警模块"><span class="nav-number">3.2.</span> <span class="nav-text">添加报警模块</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Api响应时间的监控"><span class="nav-number">4.</span> <span class="nav-text">Api响应时间的监控</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#必要性"><span class="nav-number">4.1.</span> <span class="nav-text">必要性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#准实时监控"><span class="nav-number">4.2.</span> <span class="nav-text">准实时监控</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#利用nginx日志"><span class="nav-number">4.2.1.</span> <span class="nav-text">利用nginx日志</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#利用diamond"><span class="nav-number">4.2.2.</span> <span class="nav-text">利用diamond</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#实时监控"><span class="nav-number">4.3.</span> <span class="nav-text">实时监控</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#利用Metrology"><span class="nav-number">4.3.1.</span> <span class="nav-text">利用Metrology</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#关键部位info日志添加"><span class="nav-number">5.</span> <span class="nav-text">关键部位info日志添加</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#重要性-1"><span class="nav-number">5.1.</span> <span class="nav-text">重要性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#在api中关键断码段打印日志"><span class="nav-number">5.2.</span> <span class="nav-text">在api中关键断码段打印日志</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#使用sentry"><span class="nav-number">5.2.1.</span> <span class="nav-text">使用sentry</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#使用rsyslog"><span class="nav-number">5.2.2.</span> <span class="nav-text">使用rsyslog</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#收集远程日志"><span class="nav-number">5.3.</span> <span class="nav-text">收集远程日志</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#服务器写传输脚本，定期执行"><span class="nav-number">5.3.1.</span> <span class="nav-text">服务器写传输脚本，定期执行</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#使用rsyslog-1"><span class="nav-number">5.3.2.</span> <span class="nav-text">使用rsyslog</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#使用syslog-ng收集"><span class="nav-number">5.3.3.</span> <span class="nav-text">使用syslog-ng收集</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number">6.</span> <span class="nav-text">总结</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2015 - 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">yunsonbai</span>
+</div>
+<div class="powered-by">
+</div>
+
+
+
+        
+
+<div class="busuanzi-count">
+
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+
+  
+    <span class="site-pv">本站总访问量<span class="busuanzi-value" id="busuanzi_value_site_pv"></span>次</span>
+  
+  
+</div>
+
+
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.0.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"yunsonbai"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+  
+
+
+
+
+
+  
+  
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length == 0) {
+       search_path = "search.xml";
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    function proceedsearch() {
+      $("body").append('<div class="popoverlay">').css('overflow', 'hidden');
+      $('.popup').toggle();
+
+    }
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+    'use strict';
+    $.ajax({
+        url: path,
+        dataType: "xml",
+        async: true,
+        success: function( xmlResponse ) {
+            // get the contents from search data
+            isfetched = true;
+            $('.popup').detach().appendTo('.header-inner');
+            var datas = $( "entry", xmlResponse ).map(function() {
+                return {
+                    title: $( "title", this ).text(),
+                    content: $("content",this).text(),
+                    url: $( "url" , this).text()
+                };
+            }).get();
+            var $input = document.getElementById(search_id);
+            var $resultContent = document.getElementById(content_id);
+            $input.addEventListener('input', function(){
+                var matchcounts = 0;
+                var str='<ul class=\"search-result-list\">';                
+                var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                $resultContent.innerHTML = "";
+                if (this.value.trim().length > 1) {
+                // perform local searching
+                datas.forEach(function(data) {
+                    var isMatch = true;
+                    var content_index = [];
+                    var data_title = data.title.trim().toLowerCase();
+                    var data_content = data.content.trim().replace(/<[^>]+>/g,"").toLowerCase();
+                    var data_url = data.url;
+                    var index_title = -1;
+                    var index_content = -1;
+                    var first_occur = -1;
+                    // only match artiles with not empty titles and contents
+                    if(data_title != '' && data_content != '') {
+                        keywords.forEach(function(keyword, i) {
+                            index_title = data_title.indexOf(keyword);
+                            index_content = data_content.indexOf(keyword);
+                            if( index_title < 0 && index_content < 0 ){
+                                isMatch = false;
+                            } else {
+                                if (index_content < 0) {
+                                    index_content = 0;
+                                }
+                                if (i == 0) {
+                                    first_occur = index_content;
+                                }
+                            }
+                        });
+                    }
+                    // show search results
+                    if (isMatch) {
+                        matchcounts += 1;
+                        str += "<li><a href='"+ data_url +"' class='search-result-title'>"+ data_title +"</a>";
+                        var content = data.content.trim().replace(/<[^>]+>/g,"");
+                        if (first_occur >= 0) {
+                            // cut out 100 characters
+                            var start = first_occur - 20;
+                            var end = first_occur + 80;
+                            if(start < 0){
+                                start = 0;
+                            }
+                            if(start == 0){
+                                end = 50;
+                            }
+                            if(end > content.length){
+                                end = content.length;
+                            }
+                            var match_content = content.substring(start, end);
+                            // highlight all keywords
+                            keywords.forEach(function(keyword){
+                                var regS = new RegExp(keyword, "gi");
+                                match_content = match_content.replace(regS, "<b class=\"search-keyword\">"+keyword+"</b>");
+                            });
+                            
+                            str += "<p class=\"search-result\">" + match_content +"...</p>"
+                        }
+                        str += "</li>";
+                    }
+                })};
+                str += "</ul>";
+                if (matchcounts == 0) { str = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>' }
+                if (keywords == "") { str = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>' }
+                $resultContent.innerHTML = str;
+            });
+            proceedsearch();
+        }
+    });}
+
+    // handle and trigger popup window;
+    $('.popup-trigger').mousedown(function(e) {
+      e.stopPropagation();
+      if (isfetched == false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+
+    });
+
+    $('.popup-btn-close').click(function(e){
+      $('.popup').hide();
+      $(".popoverlay").remove();
+      $('body').css('overflow', '');
+    });
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+  </script>
+
+  
+
+  
+
+  
+<script type="text/javascript" async src="//push.zhanzhang.baidu.com/push.js">
+</script>
+
+
+</body>
+</html>
