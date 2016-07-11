@@ -108,4 +108,10 @@
         <changefreq>daily</changefreq>
         <priority>0.8</priority>
     </url>
+    <url>
+        <loc>http://www.yunsonbai.top/2016/07/11/rest_framework_authtoken%E5%AE%9A%E5%88%B6/index.html</loc>
+        <lastmod>2016-07-11</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>0.8</priority>
+    </url>
   </urlset>
