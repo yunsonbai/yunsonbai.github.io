@@ -96,16 +96,16 @@
 
 
 
-<meta name="description" content="引言12   前段时间研究了一下rest_framework.authtoken，它可以实现对用户的token鉴权除了可以使用默认的配置以外，可以实现定制。想快速实现一套用户系统的可以看看">
+<meta name="description" content="引言12前段时间研究了一下rest_framework.authtoken，它可以实现对用户的token鉴权除了可以使用默认的配置以外，可以实现定制。想快速实现一套用户系统的可以看看">
 <meta property="og:type" content="article">
 <meta property="og:title" content="rest_framework.authtoken 定制">
 <meta property="og:url" content="http://yunsonbai.github.io/2016/07/11/rest_framework_authtoken定制/index.html">
 <meta property="og:site_name" content="雲Son">
-<meta property="og:description" content="引言12   前段时间研究了一下rest_framework.authtoken，它可以实现对用户的token鉴权除了可以使用默认的配置以外，可以实现定制。想快速实现一套用户系统的可以看看">
-<meta property="og:updated_time" content="2016-07-11T06:19:24.000Z">
+<meta property="og:description" content="引言12前段时间研究了一下rest_framework.authtoken，它可以实现对用户的token鉴权除了可以使用默认的配置以外，可以实现定制。想快速实现一套用户系统的可以看看">
+<meta property="og:updated_time" content="2016-07-22T06:51:13.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="rest_framework.authtoken 定制">
-<meta name="twitter:description" content="引言12   前段时间研究了一下rest_framework.authtoken，它可以实现对用户的token鉴权除了可以使用默认的配置以外，可以实现定制。想快速实现一套用户系统的可以看看">
+<meta name="twitter:description" content="引言12前段时间研究了一下rest_framework.authtoken，它可以实现对用户的token鉴权除了可以使用默认的配置以外，可以实现定制。想快速实现一套用户系统的可以看看">
 
 
 
@@ -366,9 +366,9 @@
       
 
       
-        <h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">   前段时间研究了一下rest_framework.authtoken，它可以实现对用户的token鉴权</span><br><span class="line">除了可以使用默认的配置以外，可以实现定制。想快速实现一套用户系统的可以看看</span><br></pre></td></tr></table></figure>
+        <h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">前段时间研究了一下rest_framework.authtoken，它可以实现对用户的token鉴权除了可以使用默认的配置以外，可以</span><br><span class="line">实现定制。想快速实现一套用户系统的可以看看</span><br></pre></td></tr></table></figure>
 <a id="more"></a>
-<h2 id="为什么要使用"><a href="#为什么要使用" class="headerlink" title="为什么要使用"></a>为什么要使用</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">如果你急于实现一套用户系统，考虑到完全自己开发所花的时间成本（有可能费劲开发完了并不适用），</span><br><span class="line">不妨试试稍加改动  django自带的用户系统为自己所用，django自带的用户系统还是比较完备的，</span><br><span class="line">而且还有丰富的第三方库。</span><br><span class="line">如果想用token鉴权该怎么办呢，这时候rest_framework.authtoken就用上派场了，</span><br><span class="line">rest_framework.authtoken用起来十分简单。</span><br></pre></td></tr></table></figure>
+<h2 id="为什么要使用"><a href="#为什么要使用" class="headerlink" title="为什么要使用"></a>为什么要使用</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">如果你急于实现一套用户系统，考虑到完全自己开发所花的时间成本（有可能费劲开发完了并不适用），不妨试试稍加改动</span><br><span class="line">django自带的用户系统为自己所用，django自带的用户系统还是比较完备的，而且还有丰富的第三方库。如果想用token</span><br><span class="line">鉴权该怎么办呢，这时候rest_framework.authtoken就用上派场了，rest_framework.authtoken用起来十分简单。</span><br></pre></td></tr></table></figure>
 <h2 id="在django中使用"><a href="#在django中使用" class="headerlink" title="在django中使用"></a>在django中使用</h2><h3 id="添加app"><a href="#添加app" class="headerlink" title="添加app"></a>添加app</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">在INSTALLED_APPS中加入rest_framework.authtoken即可</span><br><span class="line">   INSTALLED_APPS = (</span><br><span class="line">       <span class="string">'django.contrib.admin'</span>,</span><br><span class="line">       <span class="string">'django.contrib.auth'</span>,</span><br><span class="line">       <span class="string">'django.contrib.contenttypes'</span>,</span><br><span class="line">       <span class="string">'django.contrib.sessions'</span>,</span><br><span class="line">       <span class="string">'django.contrib.messages'</span>,</span><br><span class="line">       <span class="string">'django.contrib.staticfiles'</span>,</span><br><span class="line">       <span class="string">'rest_framework'</span>,</span><br><span class="line">       <span class="string">'rest_framework.authtoken'</span>,</span><br><span class="line">   )</span><br></pre></td></tr></table></figure>
 <h3 id="view中使用"><a href="#view中使用" class="headerlink" title="view中使用"></a>view中使用</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">authentication_classes = (BasicAuthentication, TokenAuthentication)</span><br><span class="line">   permission_classes = (AllowAny,)</span><br></pre></td></tr></table></figure>
 <p><a href="http://www.django-rest-framework.org/api-guide/authentication/#tokenauthentication" target="_blank" rel="external">rest_framework</a></p>

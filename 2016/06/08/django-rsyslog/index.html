@@ -96,16 +96,16 @@
 
 
 
-<meta name="description" content="引言1234   日志收集对项目很重要,在前边我写过一篇如何利用sentry收集django程序运行时的日志,我们的项目中一般用sentry来收集error日志，因为打的比较详细，可观性也比较强。但是   我们如果把info日志达到sentry上不方便观看，所以不妨使用rsyslog来收集Django中的一些info日志，当然只是打我们想要的东西。">
+<meta name="description" content="引言123日志收集对项目很重要,在前边我写过一篇如何利用sentry收集django程序运行时的日志,我们的项目中一般用sentry来收集error日志，因为打的比较详细，可观性也比较强。但是我们如果把info日志达到sentry上不方便观看，所以不妨使用rsyslog来收集Django中的一些info日志，当然只是打我们想要的东西。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="使用rsyslog收集Django的日志">
 <meta property="og:url" content="http://yunsonbai.github.io/2016/06/08/django-rsyslog/index.html">
 <meta property="og:site_name" content="雲Son">
-<meta property="og:description" content="引言1234   日志收集对项目很重要,在前边我写过一篇如何利用sentry收集django程序运行时的日志,我们的项目中一般用sentry来收集error日志，因为打的比较详细，可观性也比较强。但是   我们如果把info日志达到sentry上不方便观看，所以不妨使用rsyslog来收集Django中的一些info日志，当然只是打我们想要的东西。">
-<meta property="og:updated_time" content="2016-07-07T05:47:51.000Z">
+<meta property="og:description" content="引言123日志收集对项目很重要,在前边我写过一篇如何利用sentry收集django程序运行时的日志,我们的项目中一般用sentry来收集error日志，因为打的比较详细，可观性也比较强。但是我们如果把info日志达到sentry上不方便观看，所以不妨使用rsyslog来收集Django中的一些info日志，当然只是打我们想要的东西。">
+<meta property="og:updated_time" content="2016-07-22T06:49:19.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="使用rsyslog收集Django的日志">
-<meta name="twitter:description" content="引言1234   日志收集对项目很重要,在前边我写过一篇如何利用sentry收集django程序运行时的日志,我们的项目中一般用sentry来收集error日志，因为打的比较详细，可观性也比较强。但是   我们如果把info日志达到sentry上不方便观看，所以不妨使用rsyslog来收集Django中的一些info日志，当然只是打我们想要的东西。">
+<meta name="twitter:description" content="引言123日志收集对项目很重要,在前边我写过一篇如何利用sentry收集django程序运行时的日志,我们的项目中一般用sentry来收集error日志，因为打的比较详细，可观性也比较强。但是我们如果把info日志达到sentry上不方便观看，所以不妨使用rsyslog来收集Django中的一些info日志，当然只是打我们想要的东西。">
 
 
 
@@ -366,7 +366,7 @@
       
 
       
-        <h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">   日志收集对项目很重要,在前边我写过一篇如何利用sentry收集django程序运行时的日志,</span><br><span class="line">我们的项目中一般用sentry来收集error日志，因为打的比较详细，可观性也比较强。但是</span><br><span class="line">   我们如果把info日志达到sentry上不方便观看，所以不妨使用rsyslog来收集Django中的一</span><br><span class="line">些info日志，当然只是打我们想要的东西。</span><br></pre></td></tr></table></figure>
+        <h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">日志收集对项目很重要,在前边我写过一篇如何利用sentry收集django程序运行时的日志,我们的项目中一般用sentry</span><br><span class="line">来收集error日志，因为打的比较详细，可观性也比较强。但是我们如果把info日志达到sentry上不方便观看，所以不</span><br><span class="line">妨使用rsyslog来收集Django中的一些info日志，当然只是打我们想要的东西。</span><br></pre></td></tr></table></figure>
 <a id="more"></a>
 <h2 id="环境说明"><a href="#环境说明" class="headerlink" title="环境说明"></a>环境说明</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ubuntu12.04</span><br></pre></td></tr></table></figure>
 <h2 id="搭建rsyslog环境"><a href="#搭建rsyslog环境" class="headerlink" title="搭建rsyslog环境"></a>搭建rsyslog环境</h2><h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">在Ubuntu中默认已经装好了rsyslog，当然如果有问题你可以自己安装（使用apt-get </span><br><span class="line">install rsyslog即可，你也可以使用编译安装）</span><br></pre></td></tr></table></figure>

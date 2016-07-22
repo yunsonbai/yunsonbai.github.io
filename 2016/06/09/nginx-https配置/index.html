@@ -96,16 +96,16 @@
 
 
 
-<meta name="description" content="引言12   nginx是一个高性能的HTTP和反向代理服务器，也是一个IMAP/POP3/SMTP服务器，下边说一下nginx关于https的配置">
+<meta name="description" content="引言1nginx是一个高性能的HTTP和反向代理服务器，也是一个IMAP/POP3/SMTP服务器，下边说一下nginx关于https的配置">
 <meta property="og:type" content="article">
 <meta property="og:title" content="nginx实现https">
 <meta property="og:url" content="http://yunsonbai.github.io/2016/06/09/nginx-https配置/index.html">
 <meta property="og:site_name" content="雲Son">
-<meta property="og:description" content="引言12   nginx是一个高性能的HTTP和反向代理服务器，也是一个IMAP/POP3/SMTP服务器，下边说一下nginx关于https的配置">
-<meta property="og:updated_time" content="2016-07-07T05:48:03.000Z">
+<meta property="og:description" content="引言1nginx是一个高性能的HTTP和反向代理服务器，也是一个IMAP/POP3/SMTP服务器，下边说一下nginx关于https的配置">
+<meta property="og:updated_time" content="2016-07-22T06:50:10.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="nginx实现https">
-<meta name="twitter:description" content="引言12   nginx是一个高性能的HTTP和反向代理服务器，也是一个IMAP/POP3/SMTP服务器，下边说一下nginx关于https的配置">
+<meta name="twitter:description" content="引言1nginx是一个高性能的HTTP和反向代理服务器，也是一个IMAP/POP3/SMTP服务器，下边说一下nginx关于https的配置">
 
 
 
@@ -366,7 +366,7 @@
       
 
       
-        <h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">   nginx是一个高性能的HTTP和反向代理服务器，也是一个IMAP/POP3/SMTP服务器，</span><br><span class="line">下边说一下nginx关于https的配置</span><br></pre></td></tr></table></figure>
+        <h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nginx是一个高性能的HTTP和反向代理服务器，也是一个IMAP/POP3/SMTP服务器，下边说一下nginx关于https的配置</span><br></pre></td></tr></table></figure>
 <a id="more"></a>
 <h2 id="使用ssl生成证书"><a href="#使用ssl生成证书" class="headerlink" title="使用ssl生成证书"></a>使用ssl生成证书</h2><h3 id="生成命令"><a href="#生成命令" class="headerlink" title="生成命令"></a>生成命令</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout </span></span><br><span class="line">   /etc/nginx/ssl/nginx.key -out /etc/nginx/ssl/nginx.crt</span><br></pre></td></tr></table></figure>
 <h3 id="输入完命令后的提示"><a href="#输入完命令后的提示" class="headerlink" title="输入完命令后的提示"></a>输入完命令后的提示</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">提示如下，一步一步完成即可（也可以使用默认，也可随意）：</span><br><span class="line">Country Name (2 letter code) [AU]:China</span><br><span class="line">   State or Province Name (full name) [Some-State]: Beijing</span><br><span class="line">   Locality Name (eg, city) []:Beijing</span><br><span class="line">   Organization Name (eg, company) [Internet Widgits Pty Ltd]:Bouncy Castles, Inc.</span><br><span class="line">   Organizational Unit Name (eg, section) []:Ministry of Water Slides</span><br><span class="line">   Common Name (e.g. server FQDN or YOUR name) []:your_domain.com</span><br><span class="line">   Email Address []:admin@your_domain.com</span><br></pre></td></tr></table></figure>
