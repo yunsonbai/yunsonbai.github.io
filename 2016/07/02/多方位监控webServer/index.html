@@ -96,16 +96,16 @@
 
 
 
-<meta name="description" content="引言123最近趁着开发需求较少，着手整理了一段时间关于系统监控的东西，系统监控的目的就是为了快速的发现系统问题、找到问题所在、并解决它。下边分享一下">
+<meta name="description" content="引言12最近趁着开发需求较少，着手整理了一段时间关于系统监控的东西，系统监控的目的就是为了快速的发现系统问题、找到问题所在、并解决它。下边分享一下">
 <meta property="og:type" content="article">
 <meta property="og:title" content="多方位监控webServer">
 <meta property="og:url" content="http://yunsonbai.github.io/2016/07/02/多方位监控webServer/index.html">
 <meta property="og:site_name" content="雲Son">
-<meta property="og:description" content="引言123最近趁着开发需求较少，着手整理了一段时间关于系统监控的东西，系统监控的目的就是为了快速的发现系统问题、找到问题所在、并解决它。下边分享一下">
-<meta property="og:updated_time" content="2016-07-07T05:56:11.000Z">
+<meta property="og:description" content="引言12最近趁着开发需求较少，着手整理了一段时间关于系统监控的东西，系统监控的目的就是为了快速的发现系统问题、找到问题所在、并解决它。下边分享一下">
+<meta property="og:updated_time" content="2016-07-22T05:55:55.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="多方位监控webServer">
-<meta name="twitter:description" content="引言123最近趁着开发需求较少，着手整理了一段时间关于系统监控的东西，系统监控的目的就是为了快速的发现系统问题、找到问题所在、并解决它。下边分享一下">
+<meta name="twitter:description" content="引言12最近趁着开发需求较少，着手整理了一段时间关于系统监控的东西，系统监控的目的就是为了快速的发现系统问题、找到问题所在、并解决它。下边分享一下">
 
 
 
@@ -366,10 +366,10 @@
       
 
       
-        <h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">最近趁着开发需求较少，着手整理了一段时间关于系统监控的东西，</span><br><span class="line">系统监控的目的就是为了快速的发现系统问题、找到问题所在、并</span><br><span class="line">解决它。下边分享一下</span><br></pre></td></tr></table></figure>
+        <h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">最近趁着开发需求较少，着手整理了一段时间关于系统监控的东西，系统监控的目的就是为了快速的发现系统问题、找到问题所在、并</span><br><span class="line">解决它。下边分享一下</span><br></pre></td></tr></table></figure>
 <a id="more"></a>
-<h2 id="初识监控"><a href="#初识监控" class="headerlink" title="初识监控"></a>初识监控</h2><h3 id="懵懂"><a href="#懵懂" class="headerlink" title="懵懂"></a>懵懂</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">记得当初来公司的时候，师傅让我在代码关键的部位打日志，初来乍到，</span><br><span class="line">以为日志嘛，还按照上边的写的例子接着写得了。学习期间知道该方法</span><br><span class="line">是为了帮助排错用的，但是该怎么用，怎么打并没有好好研究过，甚至</span><br><span class="line">还有怀疑，既然测试人员已经测试好了还有必要再在业务部分加吗，这</span><br><span class="line">样不会降低系统的处理效率吗？</span><br></pre></td></tr></table></figure>
-<h3 id="第一次使用日志"><a href="#第一次使用日志" class="headerlink" title="第一次使用日志"></a>第一次使用日志</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">好景不长，没多久就出了一个很奇怪的问题，大部分情况下系统正常，</span><br><span class="line">但是总有意外发生（而且是事后一段时间后才发现，因为当时没有加</span><br><span class="line">报错邮件），很是烦恼，苦恼时刻想到了曾经师傅让打的日志，开始</span><br><span class="line">用grep过滤这个意外的问题，很快找到了问题所在，多亏日志是仿照</span><br><span class="line">前辈打的（当时完全不知道人家为啥要那样打）。从那感受到了日志</span><br><span class="line">的魅力。</span><br></pre></td></tr></table></figure>
+<h2 id="初识监控"><a href="#初识监控" class="headerlink" title="初识监控"></a>初识监控</h2><h3 id="懵懂"><a href="#懵懂" class="headerlink" title="懵懂"></a>懵懂</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">记得当初来公司的时候，师傅让我在代码关键的部位打日志，初来乍到，以为日志嘛，还按照上边的写的例子接着写得了。学习期间</span><br><span class="line">知道该方法是为了帮助排错用的，但是该怎么用，怎么打并没有好好研究过，甚至还有怀疑，既然测试人员已经测试好了还有必要再在</span><br><span class="line">业务部分加吗，这样不会降低系统的处理效率吗？</span><br></pre></td></tr></table></figure>
+<h3 id="第一次使用日志"><a href="#第一次使用日志" class="headerlink" title="第一次使用日志"></a>第一次使用日志</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">好景不长，没多久就出了一个很奇怪的问题，大部分情况下系统正常，但是总有意外发生（而且是事后一段时间后才发现，因为当时</span><br><span class="line">没有加报错邮件），很是烦恼，苦恼时刻想到了曾经师傅让打的日志，开始用grep过滤这个意外的问题，很快找到了问题所在，多亏</span><br><span class="line">日志是仿照前辈打的（当时完全不知道人家为啥要那样打）。从那感受到了日志的魅力。</span><br></pre></td></tr></table></figure>
 <h3 id="如何打"><a href="#如何打" class="headerlink" title="如何打"></a>如何打</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">原则，不能因为添加监控而导致服务质量大幅度下滑, 打关键点不乱打</span><br></pre></td></tr></table></figure>
 <h3 id="开始谈这段时间的结果"><a href="#开始谈这段时间的结果" class="headerlink" title="开始谈这段时间的结果"></a>开始谈这段时间的结果</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">上边说的有点废话，但是对于刚毕业的学生来讲，很多人会遇到这样的</span><br><span class="line">情况，下边开始说说这段时间是怎么来监控我们的系统的。</span><br></pre></td></tr></table></figure>
 <h2 id="报错邮件的添加"><a href="#报错邮件的添加" class="headerlink" title="报错邮件的添加"></a>报错邮件的添加</h2><h3 id="重要性"><a href="#重要性" class="headerlink" title="重要性"></a>重要性</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">我们知道在稳定的系统，都有可能因为这样或那样的问题（硬件、网络</span><br><span class="line">等问题）导致出错，尤其是在系统中调用第三方接口的代码段，第三方</span><br><span class="line">的接口是不可控的，换句话说就是这些地方极易出现问题。所以这些地</span><br><span class="line">方需要有报警邮件及时通知。</span><br></pre></td></tr></table></figure>
