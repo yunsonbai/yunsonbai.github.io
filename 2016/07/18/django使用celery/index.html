@@ -96,18 +96,18 @@
 
 
 
-<meta name="description" content="引言123前段时间分享了一篇在django中使用djcelery来完成异步任务，使用的小伙伴会发现djcelery会在mysql创建很多表，如果你不使用mysql作为BROKER的话,数据显得很脏，另外如果你用了mysql作为BROKER又会带来性能问题，毕竟数据库的读写速度不如缓存。接下来就分享一下如何在django中不使用djcelery，而是纯粹的使用celery来实现异步任务。">
+<meta name="description" content="引言1前段时间分享了一篇在django中使用djcelery来完成异步任务，使用的小伙伴会发现djcelery会在mysql创建很多表，如果你不使用mysql作为BROKER的话,数据显得很脏，另外如果你用了mysql作为BROKER又会带来性能问题，毕竟数据库的读写速度不如缓存。接下来就分享一下如何在django中不使用djcelery，而是纯粹的使用celery来实现异步任务。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="在django中只使用celery">
 <meta property="og:url" content="http://yunsonbai.github.io/2016/07/18/django使用celery/index.html">
 <meta property="og:site_name" content="雲Son">
-<meta property="og:description" content="引言123前段时间分享了一篇在django中使用djcelery来完成异步任务，使用的小伙伴会发现djcelery会在mysql创建很多表，如果你不使用mysql作为BROKER的话,数据显得很脏，另外如果你用了mysql作为BROKER又会带来性能问题，毕竟数据库的读写速度不如缓存。接下来就分享一下如何在django中不使用djcelery，而是纯粹的使用celery来实现异步任务。">
+<meta property="og:description" content="引言1前段时间分享了一篇在django中使用djcelery来完成异步任务，使用的小伙伴会发现djcelery会在mysql创建很多表，如果你不使用mysql作为BROKER的话,数据显得很脏，另外如果你用了mysql作为BROKER又会带来性能问题，毕竟数据库的读写速度不如缓存。接下来就分享一下如何在django中不使用djcelery，而是纯粹的使用celery来实现异步任务。">
 <meta property="og:image" content="http://yunsonbai.github.io/images/celery/celery_django.png">
 <meta property="og:image" content="http://yunsonbai.github.io/images/celery/moresettings.jpg">
-<meta property="og:updated_time" content="2016-07-22T05:54:02.000Z">
+<meta property="og:updated_time" content="2016-07-22T06:13:28.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="在django中只使用celery">
-<meta name="twitter:description" content="引言123前段时间分享了一篇在django中使用djcelery来完成异步任务，使用的小伙伴会发现djcelery会在mysql创建很多表，如果你不使用mysql作为BROKER的话,数据显得很脏，另外如果你用了mysql作为BROKER又会带来性能问题，毕竟数据库的读写速度不如缓存。接下来就分享一下如何在django中不使用djcelery，而是纯粹的使用celery来实现异步任务。">
+<meta name="twitter:description" content="引言1前段时间分享了一篇在django中使用djcelery来完成异步任务，使用的小伙伴会发现djcelery会在mysql创建很多表，如果你不使用mysql作为BROKER的话,数据显得很脏，另外如果你用了mysql作为BROKER又会带来性能问题，毕竟数据库的读写速度不如缓存。接下来就分享一下如何在django中不使用djcelery，而是纯粹的使用celery来实现异步任务。">
 <meta name="twitter:image" content="http://yunsonbai.github.io/images/celery/celery_django.png">
 
 
@@ -369,7 +369,7 @@
       
 
       
-        <h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">前段时间分享了一篇在django中使用djcelery来完成异步任务，使用的小伙伴会发现djcelery会在mysql创建很多表，如果你不使</span><br><span class="line">用mysql作为BROKER的话,数据显得很脏，另外如果你用了mysql作为BROKER又会带来性能问题，毕竟数据库的读写速度不如缓存。</span><br><span class="line">接下来就分享一下如何在django中不使用djcelery，而是纯粹的使用celery来实现异步任务。</span><br></pre></td></tr></table></figure>
+        <h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">前段时间分享了一篇在django中使用djcelery来完成异步任务，使用的小伙伴会发现djcelery会在mysql创建很多表，如果你不使用mysql作为BROKER的话,数据显得很脏，另外如果你用了mysql作为BROKER又会带来性能问题，毕竟数据库的读写速度不如缓存。接下来就分享一下如何在django中不使用djcelery，而是纯粹的使用celery来实现异步任务。</span><br></pre></td></tr></table></figure>
 <a id="more"></a>
 <h2 id="先看一下目录结构"><a href="#先看一下目录结构" class="headerlink" title="先看一下目录结构"></a>先看一下目录结构</h2><img src="/images/celery/celery_django.png">
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">注意看celery.py 和tasks.py两个文件，这个是celery官方给出的例子</span><br></pre></td></tr></table></figure>
