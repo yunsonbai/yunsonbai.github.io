@@ -126,4 +126,10 @@
         <changefreq>daily</changefreq>
         <priority>0.8</priority>
     </url>
+    <url>
+        <loc>http://www.yunsonbai.top/2016/07/26/rest-framework%E7%88%B6%E8%A1%A8%E6%9F%A5%E5%AD%90%E8%A1%A8/index.html</loc>
+        <lastmod>2016-07-26</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>0.8</priority>
+    </url>
   </urlset>
