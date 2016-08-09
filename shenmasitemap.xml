@@ -132,4 +132,10 @@
         <changefreq>daily</changefreq>
         <priority>0.8</priority>
     </url>
+    <url>
+        <loc>http://www.yunsonbai.top/2016/08/09/nginx%E5%9B%BE%E7%89%87%E9%89%B4%E6%9D%83/index.html</loc>
+        <lastmod>2016-07-18</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>0.8</priority>
+    </url>
   </urlset>
