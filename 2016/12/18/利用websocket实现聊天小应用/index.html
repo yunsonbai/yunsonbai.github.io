@@ -89,7 +89,7 @@
 
 
 
-  <link rel="shortcut icon" type="image/x-icon" href="/images/logo_b.png?v=5.0.1" />
+  <link rel="shortcut icon" type="image/x-icon" href="https://yunsonbai.github.io/images/logo_b.png?v=5.0.1" />
 
 
 
@@ -102,15 +102,15 @@
 <meta property="og:url" content="http://yunsonbai.github.io/2016/12/18/利用websocket实现聊天小应用/index.html">
 <meta property="og:site_name" content="雲Son">
 <meta property="og:description" content="引言12   趁着清闲研究了一下websocket，并利用python和html简单的实现了简单的聊天系统，希望对想要了解的有所帮助，有什么好的意见还请大家提出。">
-<meta property="og:image" content="http://www.yunsonbai.top/images/push/jl.jpg">
-<meta property="og:image" content="http://www.yunsonbai.top/images/push/fx.jpg">
-<meta property="og:image" content="http://www.yunsonbai.top/images/push/c1.jpg">
-<meta property="og:image" content="http://www.yunsonbai.top/images/push/c2.jpg">
-<meta property="og:updated_time" content="2017-01-05T07:23:52.183Z">
+<meta property="og:image" content="https://yunsonbai.github.io/images/push/jl.jpg">
+<meta property="og:image" content="https://yunsonbai.github.io/push/fx.jpg">
+<meta property="og:image" content="https://yunsonbai.github.io/images/push/c1.jpg">
+<meta property="og:image" content="https://yunsonbai.github.io/images/push/c2.jpg">
+<meta property="og:updated_time" content="2017-01-11T10:23:41.267Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="利用websocket实现聊天小应用">
 <meta name="twitter:description" content="引言12   趁着清闲研究了一下websocket，并利用python和html简单的实现了简单的聊天系统，希望对想要了解的有所帮助，有什么好的意见还请大家提出。">
-<meta name="twitter:image" content="http://www.yunsonbai.top/images/push/jl.jpg">
+<meta name="twitter:image" content="https://yunsonbai.github.io/images/push/jl.jpg">
 
 
 
@@ -387,8 +387,8 @@
 </li>
 </ul>
 <h2 id="关于流程图"><a href="#关于流程图" class="headerlink" title="关于流程图"></a>关于流程图</h2><ul>
-<li>建立连接过程<br><img src="http://www.yunsonbai.top/images/push/jl.jpg" alt="Catch8D7B"></li>
-<li>发信过程<br><img src="http://www.yunsonbai.top/images/push/fx.jpg" alt="Catch8D7B"></li>
+<li>建立连接过程<br><img src="https://yunsonbai.github.io/images/push/jl.jpg" alt="Catch8D7B"></li>
+<li>发信过程<br><img src="https://yunsonbai.github.io/push/fx.jpg" alt="Catch8D7B"></li>
 </ul>
 <h2 id="后端代码"><a href="#后端代码" class="headerlink" title="后端代码"></a>后端代码</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line">   <span class="comment"># codind=utf-8</span></span><br><span class="line"><span class="keyword">import</span> asyncio</span><br><span class="line"><span class="keyword">import</span> websockets</span><br><span class="line"><span class="keyword">import</span> json</span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line">ALLSOKETS = &#123;&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">add_connection</span><span class="params">(ws_id, ws)</span>:</span></span><br><span class="line">	<span class="keyword">global</span> ALLSOKETS</span><br><span class="line">	ALLSOKETS[ws_id] = ws</span><br><span class="line">	print(ALLSOKETS)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">filter_handle</span><span class="params">(ws_id)</span>:</span></span><br><span class="line">	<span class="keyword">return</span> ALLSOKETS.get(ws_id)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">def</span> <span class="title">handler</span><span class="params">(websocket, path)</span>:</span></span><br><span class="line">	<span class="comment"># print(path)</span></span><br><span class="line">	<span class="keyword">while</span> <span class="keyword">True</span>:</span><br><span class="line">		message = <span class="keyword">await</span> websocket.recv()</span><br><span class="line">		message = json.loads(message)</span><br><span class="line">		login = message.get(<span class="string">'login'</span>)</span><br><span class="line">		<span class="keyword">if</span> login:</span><br><span class="line">			add_connection(message[<span class="string">'user_id'</span>], websocket)</span><br><span class="line">		<span class="keyword">else</span>:</span><br><span class="line">			ws = filter_handle(message[<span class="string">'to_user_id'</span>])</span><br><span class="line">			<span class="keyword">if</span> ws:</span><br><span class="line">				<span class="keyword">await</span> ws.send(message[<span class="string">'msg'</span>])</span><br><span class="line">		print(<span class="string">'recv:'</span>, message)</span><br><span class="line">		print(time.time())</span><br><span class="line"></span><br><span class="line">start_server = websockets.serve(</span><br><span class="line">	handler, <span class="string">'localhost'</span>, <span class="number">8765</span>, klass=websockets.WebSocketServerProtocol)</span><br><span class="line">asyncio.get_event_loop().run_until_complete(start_server)</span><br><span class="line">asyncio.get_event_loop().run_forever()</span><br></pre></td></tr></table></figure>
 <h2 id="前端代码"><a href="#前端代码" class="headerlink" title="前端代码"></a>前端代码</h2><ul>
@@ -405,8 +405,8 @@
 <li>相互发信</li>
 </ul>
 <h2 id="效果图"><a href="#效果图" class="headerlink" title="效果图"></a>效果图</h2><ul>
-<li>clent1<br><img src="http://www.yunsonbai.top/images/push/c1.jpg" alt="Catch8D7B"></li>
-<li>clent2<br><img src="http://www.yunsonbai.top/images/push/c2.jpg" alt="Catch8D7B"></li>
+<li>clent1<br><img src="https://yunsonbai.github.io/images/push/c1.jpg" alt="Catch8D7B"></li>
+<li>clent2<br><img src="https://yunsonbai.github.io/images/push/c2.jpg" alt="Catch8D7B"></li>
 </ul>
 <h2 id="还需要优化的地方"><a href="#还需要优化的地方" class="headerlink" title="还需要优化的地方"></a>还需要优化的地方</h2><ul>
 <li>添加鉴权<ul>
@@ -442,13 +442,13 @@
     <div id="QR" style="display: none;">
       
         <div id="wechat" style="display: inline-block">
-          <img id="wechat_qr" src="/images/wei_pay.jpg" alt="yunsonbai WeChat Pay"/>
+          <img id="wechat_qr" src="https://yunsonbai.github.io/images/wei_pay.jpg" alt="yunsonbai WeChat Pay"/>
           <p>微信打赏</p>
         </div>
       
       
         <div id="alipay" style="display: inline-block">
-          <img id="alipay_qr" src="/images/alipay.jpg" alt="yunsonbai Alipay"/>
+          <img id="alipay_qr" src="https://yunsonbai.github.io/images/alipay.jpg" alt="yunsonbai Alipay"/>
           <p>支付宝打赏</p>
         </div>
       
@@ -569,7 +569,7 @@
       <section class="site-overview sidebar-panel ">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
-               src="https://yunsonbai.top/images/avtar.jpg"
+               src="https://yunsonbai.github.io/images/avtar.jpg"
                alt="yunsonbai" />
           <p class="site-author-name" itemprop="name">yunsonbai</p>
           <p class="site-description motion-element" itemprop="description">just do it!</p>

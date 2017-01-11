@@ -89,7 +89,7 @@
 
 
 
-  <link rel="shortcut icon" type="image/x-icon" href="/images/logo_b.png?v=5.0.1" />
+  <link rel="shortcut icon" type="image/x-icon" href="https://yunsonbai.github.io/images/logo_b.png?v=5.0.1" />
 
 
 
@@ -102,7 +102,7 @@
 <meta property="og:url" content="http://yunsonbai.github.io/2016/06/08/django-rsyslog/index.html">
 <meta property="og:site_name" content="雲Son">
 <meta property="og:description" content="引言123日志收集对项目很重要,在前边我写过一篇如何利用sentry收集django程序运行时的日志,我们的项目中一般用sentry来收集error日志，因为打的比较详细，可观性也比较强。但是我们如果把info日志达到sentry上不方便观看，所以不妨使用rsyslog来收集Django中的一些info日志，当然只是打我们想要的东西。">
-<meta property="og:updated_time" content="2016-12-19T09:24:22.122Z">
+<meta property="og:updated_time" content="2017-01-11T10:25:13.800Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="使用rsyslog收集Django的日志">
 <meta name="twitter:description" content="引言123日志收集对项目很重要,在前边我写过一篇如何利用sentry收集django程序运行时的日志,我们的项目中一般用sentry来收集error日志，因为打的比较详细，可观性也比较强。但是我们如果把info日志达到sentry上不方便观看，所以不妨使用rsyslog来收集Django中的一些info日志，当然只是打我们想要的东西。">
@@ -369,7 +369,7 @@
 <h3 id="重启rsyslog"><a href="#重启rsyslog" class="headerlink" title="重启rsyslog"></a>重启rsyslog</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">service rsyslog restart</span><br></pre></td></tr></table></figure>
 <h2 id="在Django中使用"><a href="#在Django中使用" class="headerlink" title="在Django中使用"></a>在Django中使用</h2><h3 id="修改Djangosettings-py"><a href="#修改Djangosettings-py" class="headerlink" title="修改Djangosettings.py"></a>修改Djangosettings.py</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line">   from logging.handlers import SysLogHandler</span><br><span class="line"></span><br><span class="line">LOGGING = &#123;</span><br><span class="line">    <span class="string">'version'</span>: 1,</span><br><span class="line">    <span class="string">'disable_existing_loggers'</span>: False,</span><br><span class="line">    <span class="string">'formatters'</span>: &#123;</span><br><span class="line">        <span class="string">'verbose'</span>: &#123;</span><br><span class="line">            <span class="string">'format'</span>: <span class="string">"iSync|%(levelname)s|%(asctime)s|%(module)s|%(process)d|%(thread)d|%(message)s"</span>,</span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="string">'simple'</span>: &#123;</span><br><span class="line">            <span class="string">'format'</span>: <span class="string">"iSync|%(levelname)s|%(asctime)s|%(message)s"</span>,</span><br><span class="line">        &#125;,</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="string">'handlers'</span>: &#123;</span><br><span class="line">        <span class="string">'null'</span>: &#123;</span><br><span class="line">            <span class="string">'level'</span>: <span class="string">'INFO'</span>,</span><br><span class="line">            <span class="string">'class'</span>: <span class="string">'logging.NullHandler'</span>,</span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="string">'console'</span>: &#123;</span><br><span class="line">            <span class="string">'level'</span>: <span class="string">'DEBUG'</span>,</span><br><span class="line">            <span class="string">'class'</span>: <span class="string">'logging.StreamHandler'</span>,</span><br><span class="line">            <span class="string">'formatter'</span>: <span class="string">'verbose'</span>,</span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="string">'syslog'</span>: &#123;</span><br><span class="line">            <span class="string">'level'</span>: <span class="string">'INFO'</span>,</span><br><span class="line">            <span class="string">'class'</span>: <span class="string">'logging.handlers.SysLogHandler'</span>,</span><br><span class="line">            <span class="string">'formatter'</span>: <span class="string">'simple'</span>,</span><br><span class="line">            <span class="string">'facility'</span>: SysLogHandler.LOG_LOCAL4, <span class="comment">#此处一定要和rsyslog中的local4一致</span></span><br><span class="line">            <span class="string">'address'</span>: <span class="string">'/dev/log'</span>, <span class="comment"># 机器上一定要有该文件（srw-rw-rw-）</span></span><br><span class="line">        &#125;,</span><br><span class="line">    &#125;,</span><br><span class="line"></span><br><span class="line">    <span class="string">'loggers'</span>: &#123;</span><br><span class="line">        <span class="string">'django.request'</span>: &#123;</span><br><span class="line">            <span class="string">'handlers'</span>: [<span class="string">'console'</span>, <span class="string">'null'</span>],</span><br><span class="line">            <span class="string">'level'</span>: <span class="string">'ERROR'</span>,</span><br><span class="line">            <span class="string">'propagate'</span>: True,</span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="string">'rsyslog'</span>: &#123;</span><br><span class="line">            <span class="string">'handlers'</span>: [<span class="string">'syslog'</span>, ],</span><br><span class="line">            <span class="string">'level'</span>: <span class="string">'INFO'</span>,</span><br><span class="line">            <span class="string">'propagate'</span>: True,</span><br><span class="line">        &#125;,</span><br><span class="line">    &#125;,</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h3 id="在view或其他地方调用，将日志打到rsyslog"><a href="#在view或其他地方调用，将日志打到rsyslog" class="headerlink" title="在view或其他地方调用，将日志打到rsyslog"></a>在view或其他地方调用，将日志打到rsyslog</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">   rsysloger = logging.getLogger(<span class="string">'rsyslog'</span>)</span><br><span class="line">   rsysloger.info(<span class="string">'sdsdsdsds'</span>)</span><br><span class="line"><span class="comment"># 之后你可以去/var/log/mylog/forum.log 看结果了</span></span><br></pre></td></tr></table></figure>
-<h2 id="利用sentry收集Django日志"><a href="#利用sentry收集Django日志" class="headerlink" title="利用sentry收集Django日志"></a><a href="http://www.yunsonbai.top/2016/05/30/django-sentry/" target="_blank" rel="external">利用sentry收集Django日志</a></h2>
+<h2 id="利用sentry收集Django日志"><a href="#利用sentry收集Django日志" class="headerlink" title="利用sentry收集Django日志"></a><a href="https://www.yunsonbai.top/2016/05/30/django-sentry/" target="_blank" rel="external">利用sentry收集Django日志</a></h2>
       
     </div>
 
@@ -390,13 +390,13 @@
     <div id="QR" style="display: none;">
       
         <div id="wechat" style="display: inline-block">
-          <img id="wechat_qr" src="/images/wei_pay.jpg" alt="yunsonbai WeChat Pay"/>
+          <img id="wechat_qr" src="https://yunsonbai.github.io/images/wei_pay.jpg" alt="yunsonbai WeChat Pay"/>
           <p>微信打赏</p>
         </div>
       
       
         <div id="alipay" style="display: inline-block">
-          <img id="alipay_qr" src="/images/alipay.jpg" alt="yunsonbai Alipay"/>
+          <img id="alipay_qr" src="https://yunsonbai.github.io/images/alipay.jpg" alt="yunsonbai Alipay"/>
           <p>支付宝打赏</p>
         </div>
       
@@ -517,7 +517,7 @@
       <section class="site-overview sidebar-panel ">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
-               src="https://yunsonbai.top/images/avtar.jpg"
+               src="https://yunsonbai.github.io/images/avtar.jpg"
                alt="yunsonbai" />
           <p class="site-author-name" itemprop="name">yunsonbai</p>
           <p class="site-description motion-element" itemprop="description">just do it!</p>
