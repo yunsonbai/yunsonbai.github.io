@@ -46,7 +46,8 @@
 </ul>
 </li>
 </ul>
-<h2 id="到目前为止拿到了证书，接下来继续配置nginx"><a href="#到目前为止拿到了证书，接下来继续配置nginx" class="headerlink" title="到目前为止拿到了证书，接下来继续配置nginx"></a>到目前为止拿到了证书，接下来继续配置nginx</h2><ul>
+<h2 id="配置nginx"><a href="#配置nginx" class="headerlink" title="配置nginx"></a>配置nginx</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">到目前为止拿到了证书</span><br></pre></td></tr></table></figure>
+<ul>
 <li>把刚才ssl文件移到你认为比较靠谱的目录下(例如 /usr/ssl)</li>
 <li>配置nginx</li>
 </ul>
