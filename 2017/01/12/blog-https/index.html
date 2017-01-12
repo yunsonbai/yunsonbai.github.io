@@ -103,7 +103,7 @@
 <meta property="og:site_name" content="雲Son">
 <meta property="og:description" content="引言1昨天把博客迁到了https下，现在博客支持https访问了。本文适合自己用机器搭建的博客。">
 <meta property="og:image" content="https://yunsonbai.github.io/images/https/lc.jpg">
-<meta property="og:updated_time" content="2017-01-12T09:45:24.704Z">
+<meta property="og:updated_time" content="2017-01-12T09:49:27.422Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="让自己的博客支持https">
 <meta name="twitter:description" content="引言1昨天把博客迁到了https下，现在博客支持https访问了。本文适合自己用机器搭建的博客。">
@@ -398,7 +398,7 @@
 <ul>
 <li>利用Let’s Encrypt官网提供的脚本工具</li>
 <li><p>利用开源项目acme_tiny(我用的这个，不错)<br>  $ wget <a href="https://raw.githubusercontent.com/diafygi/acme-tiny/master/acme_tiny.py" target="_blank" rel="external">https://raw.githubusercontent.com/diafygi/acme-tiny/master/acme_tiny.py</a><br>  $ python acme_tiny.py –account-key ./account.key –csr ./domain.csr –acme-dir /usr/local/nginx/html/.well-known/acme-challenge/ &gt; ./signed.crt</p>
-<h6 id="注："><a href="#注：" class="headerlink" title="注："></a>注：</h6>  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">一切正常的话不会报任何错误，切记/usr/local/nginx/html/.well-known/acme-challenge/路径是你的博客相关路径</span><br></pre></td></tr></table></figure>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">一切正常的话不会报任何错误，切记/usr/local/nginx/html/.well-known/acme-challenge/路径是你的博客相关路径</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
 </li>
@@ -408,7 +408,8 @@
 <li>配置nginx</li>
 </ul>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">server&#123;</span><br><span class="line">	listen <span class="number">443</span> ssl;</span><br><span class="line">	ssl_certificate /usr/ssl/signed.crt;</span><br><span class="line">	ssl_certificate_key /usr/ssl/domain.key;</span><br><span class="line">	location / &#123;</span><br><span class="line">			root   html;</span><br><span class="line">			index  index.html index.htm;</span><br><span class="line">		&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h6 id="也可以参考nginx实现https"><a href="#也可以参考nginx实现https" class="headerlink" title="也可以参考nginx实现https"></a>也可以参考<a href="http://yunsonbai.github.io/2016/06/09/nginx-https%E9%85%8D%E7%BD%AE/">nginx实现https</a></h6><ul>
+<p>也可以参考<a href="http://yunsonbai.github.io/2016/06/09/nginx-https%E9%85%8D%E7%BD%AE/">nginx实现https</a></p>
+<ul>
 <li>将http请求转到https下</li>
 </ul>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">server &#123;</span><br><span class="line">	listen       <span class="number">80</span>;</span><br><span class="line">       server_name  xxx.xx;</span><br><span class="line">	location / &#123;</span><br><span class="line">		rewrite ^/(.*)$ https://xxx.xx/$<span class="number">1</span> permanent;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -644,7 +645,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#引言"><span class="nav-number">1.</span> <span class="nav-text">引言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#起因"><span class="nav-number">2.</span> <span class="nav-text">起因</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#https请求流程"><span class="nav-number">3.</span> <span class="nav-text">https请求流程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实现方案"><span class="nav-number">4.</span> <span class="nav-text">实现方案</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#认证机构"><span class="nav-number">5.</span> <span class="nav-text">认证机构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#具体实现"><span class="nav-number">6.</span> <span class="nav-text">具体实现</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#注："><span class="nav-number">6.0.0.0.1.</span> <span class="nav-text">注：</span></a></li></ol></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#到目前为止拿到了证书，接下来继续配置nginx"><span class="nav-number">7.</span> <span class="nav-text">到目前为止拿到了证书，接下来继续配置nginx</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#也可以参考nginx实现https"><span class="nav-number">7.0.0.0.1.</span> <span class="nav-text">也可以参考nginx实现https</span></a></li></ol></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#需要注意的地方"><span class="nav-number">8.</span> <span class="nav-text">需要注意的地方</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#大功告成"><span class="nav-number">9.</span> <span class="nav-text">大功告成</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#引言"><span class="nav-number">1.</span> <span class="nav-text">引言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#起因"><span class="nav-number">2.</span> <span class="nav-text">起因</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#https请求流程"><span class="nav-number">3.</span> <span class="nav-text">https请求流程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实现方案"><span class="nav-number">4.</span> <span class="nav-text">实现方案</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#认证机构"><span class="nav-number">5.</span> <span class="nav-text">认证机构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#具体实现"><span class="nav-number">6.</span> <span class="nav-text">具体实现</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#到目前为止拿到了证书，接下来继续配置nginx"><span class="nav-number">7.</span> <span class="nav-text">到目前为止拿到了证书，接下来继续配置nginx</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#需要注意的地方"><span class="nav-number">8.</span> <span class="nav-text">需要注意的地方</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#大功告成"><span class="nav-number">9.</span> <span class="nav-text">大功告成</span></a></li></ol></div>
             
           </div>
         </section>
