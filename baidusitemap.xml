@@ -156,4 +156,16 @@
         <changefreq>daily</changefreq>
         <priority>0.8</priority>
     </url>
+    <url>
+        <loc>http://yunsonbai.top/2017/01/12/blog-https/index.html</loc>
+        <lastmod>2017-01-12</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>0.8</priority>
+    </url>
+    <url>
+        <loc>http://yunsonbai.top/2017/03/24/new-sentry/index.html</loc>
+        <lastmod>2017-03-24</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>0.8</priority>
+    </url>
   </urlset>
