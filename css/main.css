@@ -451,6 +451,7 @@ body {
 .container {
   position: relative;
   min-height: 100%;
+  left: -4%;
 }
 .header-inner {
   margin: 0 auto;
@@ -1543,10 +1544,9 @@ pre .javascript .function {
 }
 .ad-sidebar {
   position: fixed;
-  top: 10px;
-  right: 10px;
-  max-width: 13%;
-  min-width: 6%;
+  bottom: 0px;
+  right: auto;
+  max-width: 240px;
   z-index: 1040;
   box-shadow: inset 0 2px 6px #000;
   background: #222;
@@ -1572,8 +1572,8 @@ pre .javascript .function {
 .ad-sidebar-inner {
   position: relative;
   padding: 2px;
-  text-align: center;
-  background: #eee;
+  max-width: 116px;
+  float: left;
 }
 .sidebar-toggle {
   position: fixed;
@@ -1698,7 +1698,7 @@ pre .javascript .function {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: #ff9dd0;
+  background: #ff2aff;
 }
 .links-of-blogroll {
   font-size: 13px;
@@ -2662,9 +2662,4 @@ body {
   .post-body {
     text-align: justify;
   }
-}
-.container {
-  position: relative;
-  min-height: 100%;
-  left: -4%;
 }
