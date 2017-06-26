@@ -96,16 +96,19 @@
 
 
 
-<meta name="description" content="引言123聊一聊__add__,__mul__,__len__,__bool__的作用和自定义,以及__len__和__bool__是怎么影响if/while的条件判断，另外说一说怎么把一个对象以字符串的形式表现。">
+<meta name="description" content="原文连接
+引言123聊一聊__add__,__mul__,__len__,__bool__的作用和自定义,以及__len__和__bool__是怎么影响if/while的条件判断，另外说一说怎么把一个对象以字符串的形式表现。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="python中一些特殊方法的自定义及作用">
 <meta property="og:url" content="http://yunsonbai.github.io/2017/06/17/python中一些特殊方法/index.html">
 <meta property="og:site_name" content="雲Son">
-<meta property="og:description" content="引言123聊一聊__add__,__mul__,__len__,__bool__的作用和自定义,以及__len__和__bool__是怎么影响if/while的条件判断，另外说一说怎么把一个对象以字符串的形式表现。">
-<meta property="og:updated_time" content="2017-06-26T08:07:28.439Z">
+<meta property="og:description" content="原文连接
+引言123聊一聊__add__,__mul__,__len__,__bool__的作用和自定义,以及__len__和__bool__是怎么影响if/while的条件判断，另外说一说怎么把一个对象以字符串的形式表现。">
+<meta property="og:updated_time" content="2017-06-26T08:19:06.249Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="python中一些特殊方法的自定义及作用">
-<meta name="twitter:description" content="引言123聊一聊__add__,__mul__,__len__,__bool__的作用和自定义,以及__len__和__bool__是怎么影响if/while的条件判断，另外说一说怎么把一个对象以字符串的形式表现。">
+<meta name="twitter:description" content="原文连接
+引言123聊一聊__add__,__mul__,__len__,__bool__的作用和自定义,以及__len__和__bool__是怎么影响if/while的条件判断，另外说一说怎么把一个对象以字符串的形式表现。">
 
 
 
@@ -365,7 +368,8 @@
       
 
       
-        <h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">聊一聊__add__,__mul__,__len__,__bool__的作用和自定义,以及__len__和</span><br><span class="line">__bool__是怎么影响<span class="keyword">if</span>/<span class="keyword">while</span>的条件判断，另外说一说怎么把一个对象以字符串的</span><br><span class="line">形式表现。</span><br></pre></td></tr></table></figure>
+        <p><a href="https://yunsonbai.top/2017/06/17/python%E4%B8%AD%E4%B8%80%E4%BA%9B%E7%89%B9%E6%AE%8A%E6%96%B9%E6%B3%95/" target="_blank" rel="external"><strong>原文连接</strong></a></p>
+<h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">聊一聊__add__,__mul__,__len__,__bool__的作用和自定义,以及__len__和</span><br><span class="line">__bool__是怎么影响<span class="keyword">if</span>/<span class="keyword">while</span>的条件判断，另外说一说怎么把一个对象以字符串的</span><br><span class="line">形式表现。</span><br></pre></td></tr></table></figure>
 <a id="more"></a>
 <h2 id="自定义运算符"><a href="#自定义运算符" class="headerlink" title="自定义运算符"></a>自定义运算符</h2><h3 id="使用场景"><a href="#使用场景" class="headerlink" title="使用场景"></a>使用场景</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">自定义一个类, 类中有两个属性分别为x和y, 实现a+b  a*b的功能，要求a+b实现a.x+b.x</span><br><span class="line">a.y+b.y; a*b实现a.x*b.x a.y*b.y</span><br></pre></td></tr></table></figure>
 <h3 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">V</span><span class="params">(object)</span>:</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, x, y)</span>:</span></span><br><span class="line">        self.x = x</span><br><span class="line">        self.y = y</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__add__</span><span class="params">(self, v)</span>:</span></span><br><span class="line">        print(<span class="string">'run __add__'</span>)</span><br><span class="line">        <span class="keyword">return</span> V(x=v.x + self.x, y=v.y + self.y)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__mul__</span><span class="params">(self, v)</span>:</span></span><br><span class="line">        print(<span class="string">'run __mul__'</span>)</span><br><span class="line">        <span class="keyword">return</span> V(x=v.x * self.x, y=v.y * self.y)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">v = V(<span class="number">1</span>, <span class="number">2</span>)</span><br><span class="line">print(<span class="string">'---------------add----------'</span>)</span><br><span class="line">new_v = v + v</span><br><span class="line">print(new_v.x)</span><br><span class="line"></span><br><span class="line">print(<span class="string">'---------------mul----------'</span>)</span><br><span class="line">new_v = v * v</span><br><span class="line">print(new_v.y)</span><br></pre></td></tr></table></figure>
