@@ -4,6 +4,50 @@
   
     
     <entry>
+      <title></title>
+      <url>http://yunsonbai.github.io/2017/08/31/%E5%85%B3%E4%BA%8E%E6%8F%90%E9%AB%98%E7%BD%91%E9%A1%B5%E6%80%A7%E8%83%BD%E7%9A%84%E6%80%BB%E7%BB%93/</url>
+      <content type="html"><![CDATA[<h1 id="关于提高网页性能的总结"><a href="#关于提高网页性能的总结" class="headerlink" title="关于提高网页性能的总结"></a>关于提高网页性能的总结</h1><h5 id="作者-姬如柏-主页"><a href="#作者-姬如柏-主页" class="headerlink" title="作者 姬如柏 主页"></a>作者 姬如柏 <a href="https://toutiao.io/u/382408" target="_blank" rel="external">主页</a></h5><hr>
+<p>title: 关于提高网页性能的总结<br>date: 2016-08-31 17:27:22<br>tags:</p>
+<pre><code>- html
+- 网页性能
+- css
+- js
+- CSSOM
+</code></pre><h2 id="categories-前端"><a href="#categories-前端" class="headerlink" title="categories: 前端"></a>categories: 前端</h2><a id="more"></a>
+<h2 id="熟悉页面生成的步骤"><a href="#熟悉页面生成的步骤" class="headerlink" title="熟悉页面生成的步骤"></a>熟悉页面生成的步骤</h2><ul>
+<li>HTML生成DOM</li>
+<li>CSS生成CSSOM</li>
+<li>结合DOM和CSSOM生成渲染结构树</li>
+<li>页面进行布局（layout），讲渲染结构的节点进行平面合成</li>
+<li>绘制（paint）</li>
+</ul>
+<h2 id="影响页面性能的关键"><a href="#影响页面性能的关键" class="headerlink" title="影响页面性能的关键"></a>影响页面性能的关键</h2><p>layout + paint 即为render，即渲染过程最浪费页面性能。所以应该减少页面重新渲染的操作。<br><strong>影响渲染（render）</strong>的包括： </p>
+<ul>
+<li>修改DOM</li>
+<li>修改样式表</li>
+<li>用户事件<br>##提高性能的操作</li>
+</ul>
+<ul>
+<li>尽量减少对DOM的直接操作。<ul>
+<li>选用虚拟DOM库，例如react。</li>
+<li>对DOM的clone节点进行操作，然后替换原有DOM。</li>
+<li>将要添加的DOM先添加进document.createDocumentFragment()，然后再添加到页面中</li>
+</ul>
+</li>
+<li>尽量减少渲染。<ul>
+<li>对于DOM的读写应该分开，读的写在一起，写的写在一起。不要读写写在一句。</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">// bad</span><br><span class="line">div.style.left = div.offsetLeft + 10 + &quot;px&quot;;</span><br><span class="line">div.style.top = div.offsetTop + 10 + &quot;px&quot;;</span><br><span class="line"></span><br><span class="line">// good</span><br><span class="line">var left = div.offsetLeft;</span><br><span class="line">var top  = div.offsetTop;</span><br><span class="line">div.style.left = left + 10 + &quot;px&quot;;</span><br><span class="line">div.style.top = top + 10 + &quot;px&quot;;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>对于多个样式的修改，应该去控制class的添加或者写cssText。</li>
+<li>将DOM元素隐藏进行操作然后显示。这样只触发一次重绘或者重排，而不是多次渲染。</li>
+</ul>
+]]></content>
+    </entry>
+    
+    <entry>
       <title><![CDATA[我对python装饰器的使用]]></title>
       <url>http://yunsonbai.github.io/2017/06/30/python%E4%B8%AD%E7%9A%84%E8%A3%85%E9%A5%B0%E5%99%A8/</url>
       <content type="html"><![CDATA[<h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">趁着闲暇之际总结了关于装饰器的知识，并结合前人的总结，整理了一篇关于python</span><br><span class="line">装饰器的小文章，接下来分享一下我对python装饰器的理解：简单来说，装饰器是可</span><br><span class="line">调用的对象，它的参数就是一个函数。要么装饰器处理这个函数，然后把它返回，或</span><br><span class="line">者把原来的函数替换成另外的可调用对象。</span><br></pre></td></tr></table></figure>
@@ -489,23 +533,6 @@
     </entry>
     
     <entry>
-      <title><![CDATA[nginx实现https]]></title>
-      <url>http://yunsonbai.github.io/2016/06/09/nginx-https%E9%85%8D%E7%BD%AE/</url>
-      <content type="html"><![CDATA[<h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nginx是一个高性能的HTTP和反向代理服务器，也是一个IMAP/POP3/SMTP服务器，下边说一下nginx关于https的配置</span><br></pre></td></tr></table></figure>
-<a id="more"></a>
-<h2 id="使用ssl生成证书"><a href="#使用ssl生成证书" class="headerlink" title="使用ssl生成证书"></a>使用ssl生成证书</h2><h3 id="生成命令"><a href="#生成命令" class="headerlink" title="生成命令"></a>生成命令</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout </span></span><br><span class="line">   /etc/nginx/ssl/nginx.key -out /etc/nginx/ssl/nginx.crt</span><br></pre></td></tr></table></figure>
-<h3 id="输入完命令后的提示"><a href="#输入完命令后的提示" class="headerlink" title="输入完命令后的提示"></a>输入完命令后的提示</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">提示如下，一步一步完成即可（也可以使用默认，也可随意）：</span><br><span class="line">Country Name (2 letter code) [AU]:China</span><br><span class="line">   State or Province Name (full name) [Some-State]: Beijing</span><br><span class="line">   Locality Name (eg, city) []:Beijing</span><br><span class="line">   Organization Name (eg, company) [Internet Widgits Pty Ltd]:Bouncy Castles, Inc.</span><br><span class="line">   Organizational Unit Name (eg, section) []:Ministry of Water Slides</span><br><span class="line">   Common Name (e.g. server FQDN or YOUR name) []:your_domain.com</span><br><span class="line">   Email Address []:admin@your_domain.com</span><br></pre></td></tr></table></figure>
-<h2 id="配置nginx"><a href="#配置nginx" class="headerlink" title="配置nginx"></a>配置nginx</h2><h3 id="打开-conf文件"><a href="#打开-conf文件" class="headerlink" title="打开.conf文件"></a>打开.conf文件</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> /etc/nginx、nginx.conf文件</span><br><span class="line">   vim nginx.conf</span><br></pre></td></tr></table></figure>
-<h3 id="添加如下配置"><a href="#添加如下配置" class="headerlink" title="添加如下配置"></a>添加如下配置</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">server&#123;</span><br><span class="line">     listen 80;</span><br><span class="line">     server_name www.xxx.xxx;</span><br><span class="line">&#125;</span><br><span class="line">server&#123;</span><br><span class="line">	listen 443 ssl;</span><br><span class="line">    ssl_certificate /etc/nginx/ssl/nginx.crt;</span><br><span class="line">    ssl_certificate_key /etc/nginx/ssl/nginx.key;</span><br><span class="line">    location /static/ &#123;</span><br><span class="line">    	<span class="built_in">alias</span>   /<span class="built_in">test</span>/static/;</span><br><span class="line">        expires 24h;</span><br><span class="line">    &#125; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h2><h3 id="启动nginx"><a href="#启动nginx" class="headerlink" title="启动nginx"></a>启动nginx</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nginx -c /etc/nginx/nginx.conf</span><br></pre></td></tr></table></figure>
-<h3 id="创建静态页"><a href="#创建静态页" class="headerlink" title="创建静态页"></a>创建静态页</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cd /test/static</span><br><span class="line">touch test.html</span><br><span class="line">echo &apos;test https&apos; &gt; test.html</span><br></pre></td></tr></table></figure>
-<h3 id="访问"><a href="#访问" class="headerlink" title="访问"></a>访问</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">在浏览器中访问https:127..0.1/static/test.html</span><br></pre></td></tr></table></figure>
-<h2 id="补充"><a href="#补充" class="headerlink" title="补充"></a>补充</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">最近发现了一个很奇怪的问题，就是使用python在访问https下的链接的时候一切正常</span><br><span class="line">然而在ios9下访问就会时不时的出现1004问题（访问不到）,最后的解决办法是使用最</span><br><span class="line">新的nginx解决</span><br></pre></td></tr></table></figure>
-<p><a href="http://www.yunsonbai.top/2016/06/09/nginx%E5%B8%B8%E7%94%A8%E9%85%8D%E7%BD%AE/" target="_blank" rel="external">nginx常用配置</a></p>
-]]></content>
-    </entry>
-    
-    <entry>
       <title><![CDATA[nginx常用配置]]></title>
       <url>http://yunsonbai.github.io/2016/06/09/nginx%E5%B8%B8%E7%94%A8%E9%85%8D%E7%BD%AE/</url>
       <content type="html"><![CDATA[<h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nginx是一个高性能的HTTP和反向代理服务器，也是一个IMAP/POP3/SMTP服务器，下边说一下这断时间用到的nginx配置</span><br></pre></td></tr></table></figure>
@@ -523,6 +550,23 @@
 <h3 id="if语句"><a href="#if语句" class="headerlink" title="if语句"></a>if语句</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 限制可用的请求方法</span></span><br><span class="line"><span class="keyword">if</span> (<span class="variable">$request_method</span> !~ ^(GET|HEAD|POST)$ ) &#123;</span><br><span class="line">        <span class="built_in">return</span> 403;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h3 id="防止图片盗链"><a href="#防止图片盗链" class="headerlink" title="防止图片盗链"></a>防止图片盗链</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">只有www.example1.com example2.com 能访问</span><br><span class="line">   location /images/ &#123;</span><br><span class="line">        valid_referers none blocked www.example1.com example2.com;</span><br><span class="line">        <span class="keyword">if</span> (<span class="variable">$invalid_referer</span>) &#123;</span><br><span class="line">             <span class="built_in">return</span>   403;</span><br><span class="line">        &#125;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
 <p><a href="http://www.yunsonbai.top/2016/06/09/nginx-https%E9%85%8D%E7%BD%AE/" target="_blank" rel="external">nginx实现https</a></p>
+]]></content>
+    </entry>
+    
+    <entry>
+      <title><![CDATA[nginx实现https]]></title>
+      <url>http://yunsonbai.github.io/2016/06/09/nginx-https%E9%85%8D%E7%BD%AE/</url>
+      <content type="html"><![CDATA[<h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nginx是一个高性能的HTTP和反向代理服务器，也是一个IMAP/POP3/SMTP服务器，下边说一下nginx关于https的配置</span><br></pre></td></tr></table></figure>
+<a id="more"></a>
+<h2 id="使用ssl生成证书"><a href="#使用ssl生成证书" class="headerlink" title="使用ssl生成证书"></a>使用ssl生成证书</h2><h3 id="生成命令"><a href="#生成命令" class="headerlink" title="生成命令"></a>生成命令</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout </span></span><br><span class="line">   /etc/nginx/ssl/nginx.key -out /etc/nginx/ssl/nginx.crt</span><br></pre></td></tr></table></figure>
+<h3 id="输入完命令后的提示"><a href="#输入完命令后的提示" class="headerlink" title="输入完命令后的提示"></a>输入完命令后的提示</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">提示如下，一步一步完成即可（也可以使用默认，也可随意）：</span><br><span class="line">Country Name (2 letter code) [AU]:China</span><br><span class="line">   State or Province Name (full name) [Some-State]: Beijing</span><br><span class="line">   Locality Name (eg, city) []:Beijing</span><br><span class="line">   Organization Name (eg, company) [Internet Widgits Pty Ltd]:Bouncy Castles, Inc.</span><br><span class="line">   Organizational Unit Name (eg, section) []:Ministry of Water Slides</span><br><span class="line">   Common Name (e.g. server FQDN or YOUR name) []:your_domain.com</span><br><span class="line">   Email Address []:admin@your_domain.com</span><br></pre></td></tr></table></figure>
+<h2 id="配置nginx"><a href="#配置nginx" class="headerlink" title="配置nginx"></a>配置nginx</h2><h3 id="打开-conf文件"><a href="#打开-conf文件" class="headerlink" title="打开.conf文件"></a>打开.conf文件</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> /etc/nginx、nginx.conf文件</span><br><span class="line">   vim nginx.conf</span><br></pre></td></tr></table></figure>
+<h3 id="添加如下配置"><a href="#添加如下配置" class="headerlink" title="添加如下配置"></a>添加如下配置</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">server&#123;</span><br><span class="line">     listen 80;</span><br><span class="line">     server_name www.xxx.xxx;</span><br><span class="line">&#125;</span><br><span class="line">server&#123;</span><br><span class="line">	listen 443 ssl;</span><br><span class="line">    ssl_certificate /etc/nginx/ssl/nginx.crt;</span><br><span class="line">    ssl_certificate_key /etc/nginx/ssl/nginx.key;</span><br><span class="line">    location /static/ &#123;</span><br><span class="line">    	<span class="built_in">alias</span>   /<span class="built_in">test</span>/static/;</span><br><span class="line">        expires 24h;</span><br><span class="line">    &#125; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h2><h3 id="启动nginx"><a href="#启动nginx" class="headerlink" title="启动nginx"></a>启动nginx</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nginx -c /etc/nginx/nginx.conf</span><br></pre></td></tr></table></figure>
+<h3 id="创建静态页"><a href="#创建静态页" class="headerlink" title="创建静态页"></a>创建静态页</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cd /test/static</span><br><span class="line">touch test.html</span><br><span class="line">echo &apos;test https&apos; &gt; test.html</span><br></pre></td></tr></table></figure>
+<h3 id="访问"><a href="#访问" class="headerlink" title="访问"></a>访问</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">在浏览器中访问https:127..0.1/static/test.html</span><br></pre></td></tr></table></figure>
+<h2 id="补充"><a href="#补充" class="headerlink" title="补充"></a>补充</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">最近发现了一个很奇怪的问题，就是使用python在访问https下的链接的时候一切正常</span><br><span class="line">然而在ios9下访问就会时不时的出现1004问题（访问不到）,最后的解决办法是使用最</span><br><span class="line">新的nginx解决</span><br></pre></td></tr></table></figure>
+<p><a href="http://www.yunsonbai.top/2016/06/09/nginx%E5%B8%B8%E7%94%A8%E9%85%8D%E7%BD%AE/" target="_blank" rel="external">nginx常用配置</a></p>
 ]]></content>
     </entry>
     
@@ -676,6 +720,21 @@
     </entry>
     
     <entry>
+      <title><![CDATA[fiddler代理利器]]></title>
+      <url>http://yunsonbai.github.io/2016/05/12/fiddler/</url>
+      <content type="html"><![CDATA[<h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">fiddler在前端开发工程师那可以说是利器,同样后端工程师也可能用到尤其是在利用app调试api的时候，</span><br><span class="line">也许你就会用到fiddler</span><br></pre></td></tr></table></figure>
+<a id="more"></a>
+<h3 id="只代理某个url"><a href="#只代理某个url" class="headerlink" title="只代理某个url"></a>只代理某个url</h3><h4 id="应用"><a href="#应用" class="headerlink" title="应用"></a>应用</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">比如把线上某个url代理到本地/或者调试某个接口,便于调试</span><br></pre></td></tr></table></figure>
+<h4 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">点击AotuResponder,之后把三个复选框全选上,然后点击add ruler</span><br><span class="line">加入:</span><br><span class="line">    regex:.*yunsonbai.com /activity/(.*)</span><br><span class="line">    http://127.0.0.1:8000/activity/<span class="variable">$1</span></span><br></pre></td></tr></table></figure>
+<h3 id="设置host"><a href="#设置host" class="headerlink" title="设置host"></a>设置host</h3><h4 id="应用-1"><a href="#应用-1" class="headerlink" title="应用"></a>应用</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">把某个域全部代理到本地</span><br></pre></td></tr></table></figure>
+<h4 id="配置-1"><a href="#配置-1" class="headerlink" title="配置"></a>配置</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">点击Tools-&gt;HOSTS-&gt;选上复选框</span><br><span class="line">加入:</span><br><span class="line">    127.0.0.1:8000 yunsonbai.com</span><br></pre></td></tr></table></figure>
+<h3 id="如何让手机也走设置好的代理"><a href="#如何让手机也走设置好的代理" class="headerlink" title="如何让手机也走设置好的代理"></a>如何让手机也走设置好的代理</h3><h4 id="应用-2"><a href="#应用-2" class="headerlink" title="应用"></a>应用</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">调试移动端应用</span><br></pre></td></tr></table></figure>
+<h4 id="配置-2"><a href="#配置-2" class="headerlink" title="配置"></a>配置</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">设置wifi代理为手动；</span><br><span class="line">servername: 你电脑的ip/或域名</span><br><span class="line">port: 8888（fiddler默认是启动8888端口）</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="http://www.telerik.com/fiddler" target="_blank" rel="external">Generating</a></p>
+]]></content>
+    </entry>
+    
+    <entry>
       <title><![CDATA[hexo命令]]></title>
       <url>http://yunsonbai.github.io/2016/05/12/hexo%E5%91%BD%E4%BB%A4/</url>
       <content type="html"><![CDATA[<h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">记录了一下hexo常用的命令, 在维护个人博客的时候经常会用到</span><br></pre></td></tr></table></figure>
@@ -689,21 +748,6 @@
 <h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
 <h3 id="Insert-image"><a href="#Insert-image" class="headerlink" title="Insert image"></a>Insert image</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;% img [class names] /path/to/image [width] [height] [title text [alt text]] %&#125;</span><br></pre></td></tr></table></figure>
 <p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
-]]></content>
-    </entry>
-    
-    <entry>
-      <title><![CDATA[fiddler代理利器]]></title>
-      <url>http://yunsonbai.github.io/2016/05/12/fiddler/</url>
-      <content type="html"><![CDATA[<h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">fiddler在前端开发工程师那可以说是利器,同样后端工程师也可能用到尤其是在利用app调试api的时候，</span><br><span class="line">也许你就会用到fiddler</span><br></pre></td></tr></table></figure>
-<a id="more"></a>
-<h3 id="只代理某个url"><a href="#只代理某个url" class="headerlink" title="只代理某个url"></a>只代理某个url</h3><h4 id="应用"><a href="#应用" class="headerlink" title="应用"></a>应用</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">比如把线上某个url代理到本地/或者调试某个接口,便于调试</span><br></pre></td></tr></table></figure>
-<h4 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">点击AotuResponder,之后把三个复选框全选上,然后点击add ruler</span><br><span class="line">加入:</span><br><span class="line">    regex:.*yunsonbai.com /activity/(.*)</span><br><span class="line">    http://127.0.0.1:8000/activity/<span class="variable">$1</span></span><br></pre></td></tr></table></figure>
-<h3 id="设置host"><a href="#设置host" class="headerlink" title="设置host"></a>设置host</h3><h4 id="应用-1"><a href="#应用-1" class="headerlink" title="应用"></a>应用</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">把某个域全部代理到本地</span><br></pre></td></tr></table></figure>
-<h4 id="配置-1"><a href="#配置-1" class="headerlink" title="配置"></a>配置</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">点击Tools-&gt;HOSTS-&gt;选上复选框</span><br><span class="line">加入:</span><br><span class="line">    127.0.0.1:8000 yunsonbai.com</span><br></pre></td></tr></table></figure>
-<h3 id="如何让手机也走设置好的代理"><a href="#如何让手机也走设置好的代理" class="headerlink" title="如何让手机也走设置好的代理"></a>如何让手机也走设置好的代理</h3><h4 id="应用-2"><a href="#应用-2" class="headerlink" title="应用"></a>应用</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">调试移动端应用</span><br></pre></td></tr></table></figure>
-<h4 id="配置-2"><a href="#配置-2" class="headerlink" title="配置"></a>配置</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">设置wifi代理为手动；</span><br><span class="line">servername: 你电脑的ip/或域名</span><br><span class="line">port: 8888（fiddler默认是启动8888端口）</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="http://www.telerik.com/fiddler" target="_blank" rel="external">Generating</a></p>
 ]]></content>
     </entry>
     
