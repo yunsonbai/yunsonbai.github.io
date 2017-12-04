@@ -109,7 +109,7 @@
 <meta property="og:image" content="https://yunsonbai.github.io/images/redis_mysql/cache_mysql1.png">
 <meta property="og:image" content="https://yunsonbai.github.io/images/redis_mysql/cache_redis1.png">
 <meta property="og:image" content="https://yunsonbai.github.io/images/redis_mysql/cache_redis2.png">
-<meta property="og:updated_time" content="2017-12-04T08:10:45.226Z">
+<meta property="og:updated_time" content="2017-12-04T08:29:32.660Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="redis与mysql搭配使用">
 <meta name="twitter:description" content="引言1234距离上一篇文章已经有好长一段时间的时间没有共享过新的文章了，这段时间一直忙于处理工作和生活上的事儿，在这里分享一篇工作以来在MySQL和redis(当然缓存还有其他很多个产品，我们本次以redis为例)使用过程中总结的经验，希望对于刚刚开始工作的同学能有一定的帮助作用。这篇文章以MySQL和redis为例。">
@@ -406,7 +406,7 @@
 <li><p>解决缓存被击穿的问题<br><img src="https://yunsonbai.github.io/images/redis_mysql/cache_redis2.png" alt="mysql_redis1"></p>
 </li>
 <li><p>解释说明</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">该逻辑其实就是比上边的逻辑多了一层”特殊值的判断“，我们利用这样的特殊值来解决缓存击穿的问题，但是需要添</span><br><span class="line">加另外的维护成本：特殊值要绝对特殊，不能喝有用数据重合；存放特殊值的key不能永久不变(尽量给一个较短的过</span><br><span class="line">期时间，因为有可能这个key之前不存在后来存在了，如果给的过期时间太长会造成数据的长时间不一致)；当查到这</span><br><span class="line">种不存在的特殊key时尽量加上报警日志，也许有人在恶意攻击，我们要采取响应的措施去防范。</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">该逻辑其实就是比上边的逻辑多了一层”特殊值的判断“，我们利用这样的特殊值来解决缓存击穿的问题，但是需要添</span><br><span class="line">加另外的维护成本：特殊值要绝对特殊，不能和有用数据重合；存放特殊值的key不能永久不变(尽量给一个较短的过</span><br><span class="line">期时间，因为有可能这个key之前不存在后来存在了，如果给的过期时间太长会造成数据的长时间不一致)；当查到这</span><br><span class="line">种不存在的特殊key时尽量加上报警日志，也许有人在恶意攻击，我们要采取响应的措施去防范。</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
 <h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">介于时间问题先写到这吧，这是我在工作中总结的一些经验，希望能对那些刚接触缓存的同学有一定的帮助作用。当然</span><br><span class="line">缓存不一定就非要用redis，还有很多类似的产品，另外还可以用本机内存去实现，有兴趣的话可以自己玩一玩。以上</span><br><span class="line">我整理的内容如果有不足的地方还请大家指出，相互交流。</span><br></pre></td></tr></table></figure>
