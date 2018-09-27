@@ -1,4 +1,10 @@
 $(document).ready(function () {
+    meta = document.getElementsByClassName("post-meta")
+
+    if (meta.length > 1) {
+        return
+    }
+
     ad = document.createElement("div");
     ad_a = document.createElement("a");
     // ad_a2 = document.createElement("a");
@@ -15,6 +21,5 @@ $(document).ready(function () {
     ad_a.append(ad_a_img)
     // ad_a.append(ad_a_img2)
     ad.append(ad_a)
-    meta = document.getElementsByClassName("post-meta")
     meta[0].append(ad)
 })
