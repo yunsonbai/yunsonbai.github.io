@@ -362,7 +362,7 @@
 
       
         
-          <h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">最近需要测试一个服务的性能，要求是重放线上真实请求(请求参数不一致)。比较常用的就是Apache的ab压测工具，有点出入的是</span><br><span class="line">如果想发送不同的get请求需要用脚本去写<span class="keyword">for</span>循环去压。最后基于此用golang实现了一个类似于ab的工具ysab，支持一次压测发送</span><br><span class="line">不同url、不同参数的功能。</span><br></pre></td></tr></table></figure>
+          <h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><p>最近需要测试一个服务的性能，要求是<strong>重放线上真实请求(请求参数不一致)</strong>。比较常用的就是Apache的ab压测工具，有点出入的是如果想发送不同的get请求需要用脚本去写for循环去压。最后基于此用Golang实现了一个类似于ab的工具ysab，支持一次压测发送不同url、不同参数的功能。欢迎大家使用。</p>
 <h2 id="项目地址"><a href="#项目地址" class="headerlink" title="项目地址"></a>项目地址</h2><p><a href="https://github.com/yunsonbai/ysab">Ysab</a></p>
           <div class="post-more-link text-center">
             <a class="btn" href="/2019/02/24/ysab/#more" rel="contents">

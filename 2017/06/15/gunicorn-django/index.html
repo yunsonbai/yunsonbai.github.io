@@ -107,7 +107,7 @@
 <meta property="og:image" content="https://yunsonbai.github.io/images/django/lc.png">
 <meta property="og:image" content="https://yunsonbai.github.io/images/django/db_c.png">
 <meta property="og:image" content="https://yunsonbai.github.io/images/django/nf.png">
-<meta property="og:updated_time" content="2018-12-26T07:16:44.702Z">
+<meta property="og:updated_time" content="2019-03-06T01:32:38.488Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="如何提高django的并发能力">
 <meta name="twitter:description" content="原文连接
@@ -380,7 +380,7 @@
 </ul>
 </li>
 <li>压测环境<ul>
-<li>siege</li>
+<li>siege/<a href="https://yunsonbai.top/2019/02/24/ysab/" target="_blank" rel="external"><font color="#7B68EE">ysab</font></a></li>
 <li>4核centos测试机</li>
 </ul>
 </li>
@@ -396,7 +396,12 @@
 </ul>
 <h2 id="压测方式及命令"><a href="#压测方式及命令" class="headerlink" title="压测方式及命令"></a>压测方式及命令</h2><ul>
 <li>压测方式：<img src="https://yunsonbai.github.io/images/django/lc.png" alt="lc"></li>
-<li>压测命令：siege -c255 -t200S -v -b ‘<a href="http://B_ip:8080/test" target="_blank" rel="external">http://B_ip:8080/test</a> POST appid=111’</li>
+<li>压测命令：<ul>
+<li>siege: siege -c255 -t200S -v -b ‘<a href="http://B_ip:8080/test" target="_blank" rel="external">http://B_ip:8080/test</a> POST appid=111’</li>
+<li>ysab: ysab -n 900 -m POST -u <a href="http://B_ip:8080/test" target="_blank" rel="external">http://B_ip:8080/test</a> -d ‘{“appid”: “111”, “other”: “other”}’</li>
+<li>备注: 欢迎使用ysab, <a href="https://yunsonbai.top/2019/02/24/ysab" target="_blank" rel="external"><font color="#7B68EE">ysab文档</font></a></li>
+</ul>
+</li>
 </ul>
 <h2 id="本次实验业务场景"><a href="#本次实验业务场景" class="headerlink" title="本次实验业务场景"></a>本次实验业务场景</h2><p><img src="https://yunsonbai.github.io/images/django/db_c.png" alt="lc"></p>
 <h2 id="代码展示"><a href="#代码展示" class="headerlink" title="代码展示"></a>代码展示</h2><h3 id="settings部分"><a href="#settings部分" class="headerlink" title="settings部分"></a>settings部分</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 这里我们用mysql，其他配置都是默认</span></span><br><span class="line">DATABASES = &#123;</span><br><span class="line">    <span class="string">'default'</span>: &#123;</span><br><span class="line">        <span class="string">'ENGINE'</span>: <span class="string">'django.db.backends.mysql'</span>,</span><br><span class="line">        <span class="string">'NAME'</span>: <span class="string">'ce'</span>,</span><br><span class="line">        <span class="string">'USER'</span>: <span class="string">'root'</span>,</span><br><span class="line">        <span class="string">'PASSWORD'</span>: <span class="string">''</span>,</span><br><span class="line">        <span class="string">'HOST'</span>: <span class="string">'192.168.96.95'</span>,</span><br><span class="line">        <span class="string">'PORT'</span>: <span class="string">'3306'</span>,</span><br><span class="line">        <span class="comment"># 'CONN_MAX_AGE': 600,</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
