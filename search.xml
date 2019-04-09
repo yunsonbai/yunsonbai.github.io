@@ -814,6 +814,16 @@
     </entry>
     
     <entry>
+      <title><![CDATA[当eth0没有ipv4地址的解决办法]]></title>
+      <url>http://yunsonbai.github.io/2016/06/09/eth0-no-ipv4/</url>
+      <content type="html"><![CDATA[<h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">有时候我们在Linux使用ifconfig后发现没有ipv4地址，下边说一下解决办法</span><br></pre></td></tr></table></figure>
+<a id="more"></a>
+<h2 id="打开ubuntu的-etc-network-interfaces"><a href="#打开ubuntu的-etc-network-interfaces" class="headerlink" title="打开ubuntu的/etc/network/interfaces"></a>打开ubuntu的/etc/network/interfaces</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">删除已经有的，后根据喜好选择添加如下</span><br><span class="line">自动：</span><br><span class="line">         auto eth0</span><br><span class="line">         iface eth0 inet dhcp</span><br><span class="line">    静态分配的配置方法：</span><br><span class="line">         auto eth0</span><br><span class="line">         iface eth0 inet static</span><br><span class="line">         address 192.168.205.139</span><br><span class="line">         netmask  255.255.255.0</span><br><span class="line">         gateway  192.168.205.1</span><br></pre></td></tr></table></figure>
+<h2 id="添加域名服务器"><a href="#添加域名服务器" class="headerlink" title="添加域名服务器"></a>添加域名服务器</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">打开/etc/resolv.conf文件</span><br><span class="line">   添加这行:nameserver 127.0.0.1</span><br></pre></td></tr></table></figure>
+<h2 id="重启eth0"><a href="#重启eth0" class="headerlink" title="重启eth0"></a>重启eth0</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$/etc/init.d/networking restart(这条命令是重启网卡)</span><br><span class="line"> 或者</span><br><span class="line"><span class="variable">$ifdown</span> eth0</span><br><span class="line"><span class="variable">$ifup</span>   eth0（这两条命令是有针对性的重启某个网络接口，因为一个系统可能有多个网络接口）</span><br></pre></td></tr></table></figure>]]></content>
+    </entry>
+    
+    <entry>
       <title><![CDATA[nginx常用配置]]></title>
       <url>http://yunsonbai.github.io/2016/06/09/nginx%E5%B8%B8%E7%94%A8%E9%85%8D%E7%BD%AE/</url>
       <content type="html"><![CDATA[<h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nginx是一个高性能的HTTP和反向代理服务器，也是一个IMAP/POP3/SMTP服务器，下边说一下这断时间用到的nginx配置</span><br></pre></td></tr></table></figure>
@@ -832,16 +842,6 @@
 <h3 id="防止图片盗链"><a href="#防止图片盗链" class="headerlink" title="防止图片盗链"></a>防止图片盗链</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">只有www.example1.com example2.com 能访问</span><br><span class="line">   location /images/ &#123;</span><br><span class="line">        valid_referers none blocked www.example1.com example2.com;</span><br><span class="line">        <span class="keyword">if</span> (<span class="variable">$invalid_referer</span>) &#123;</span><br><span class="line">             <span class="built_in">return</span>   403;</span><br><span class="line">        &#125;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
 <p><a href="http://www.yunsonbai.top/2016/06/09/nginx-https%E9%85%8D%E7%BD%AE/" target="_blank" rel="external">nginx实现https</a></p>
 ]]></content>
-    </entry>
-    
-    <entry>
-      <title><![CDATA[当eth0没有ipv4地址的解决办法]]></title>
-      <url>http://yunsonbai.github.io/2016/06/09/eth0-no-ipv4/</url>
-      <content type="html"><![CDATA[<h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">有时候我们在Linux使用ifconfig后发现没有ipv4地址，下边说一下解决办法</span><br></pre></td></tr></table></figure>
-<a id="more"></a>
-<h2 id="打开ubuntu的-etc-network-interfaces"><a href="#打开ubuntu的-etc-network-interfaces" class="headerlink" title="打开ubuntu的/etc/network/interfaces"></a>打开ubuntu的/etc/network/interfaces</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">删除已经有的，后根据喜好选择添加如下</span><br><span class="line">自动：</span><br><span class="line">         auto eth0</span><br><span class="line">         iface eth0 inet dhcp</span><br><span class="line">    静态分配的配置方法：</span><br><span class="line">         auto eth0</span><br><span class="line">         iface eth0 inet static</span><br><span class="line">         address 192.168.205.139</span><br><span class="line">         netmask  255.255.255.0</span><br><span class="line">         gateway  192.168.205.1</span><br></pre></td></tr></table></figure>
-<h2 id="添加域名服务器"><a href="#添加域名服务器" class="headerlink" title="添加域名服务器"></a>添加域名服务器</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">打开/etc/resolv.conf文件</span><br><span class="line">   添加这行:nameserver 127.0.0.1</span><br></pre></td></tr></table></figure>
-<h2 id="重启eth0"><a href="#重启eth0" class="headerlink" title="重启eth0"></a>重启eth0</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$/etc/init.d/networking restart(这条命令是重启网卡)</span><br><span class="line"> 或者</span><br><span class="line"><span class="variable">$ifdown</span> eth0</span><br><span class="line"><span class="variable">$ifup</span>   eth0（这两条命令是有针对性的重启某个网络接口，因为一个系统可能有多个网络接口）</span><br></pre></td></tr></table></figure>]]></content>
     </entry>
     
     <entry>
@@ -1001,6 +1001,21 @@
     </entry>
     
     <entry>
+      <title><![CDATA[fiddler代理利器]]></title>
+      <url>http://yunsonbai.github.io/2016/05/12/fiddler/</url>
+      <content type="html"><![CDATA[<h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">fiddler在前端开发工程师那可以说是利器,同样后端工程师也可能用到尤其是在利用app调试api的时候，</span><br><span class="line">也许你就会用到fiddler</span><br></pre></td></tr></table></figure>
+<a id="more"></a>
+<h3 id="只代理某个url"><a href="#只代理某个url" class="headerlink" title="只代理某个url"></a>只代理某个url</h3><h4 id="应用"><a href="#应用" class="headerlink" title="应用"></a>应用</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">比如把线上某个url代理到本地/或者调试某个接口,便于调试</span><br></pre></td></tr></table></figure>
+<h4 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">点击AotuResponder,之后把三个复选框全选上,然后点击add ruler</span><br><span class="line">加入:</span><br><span class="line">    regex:.*yunsonbai.com /activity/(.*)</span><br><span class="line">    http://127.0.0.1:8000/activity/<span class="variable">$1</span></span><br></pre></td></tr></table></figure>
+<h3 id="设置host"><a href="#设置host" class="headerlink" title="设置host"></a>设置host</h3><h4 id="应用-1"><a href="#应用-1" class="headerlink" title="应用"></a>应用</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">把某个域全部代理到本地</span><br></pre></td></tr></table></figure>
+<h4 id="配置-1"><a href="#配置-1" class="headerlink" title="配置"></a>配置</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">点击Tools-&gt;HOSTS-&gt;选上复选框</span><br><span class="line">加入:</span><br><span class="line">    127.0.0.1:8000 yunsonbai.com</span><br></pre></td></tr></table></figure>
+<h3 id="如何让手机也走设置好的代理"><a href="#如何让手机也走设置好的代理" class="headerlink" title="如何让手机也走设置好的代理"></a>如何让手机也走设置好的代理</h3><h4 id="应用-2"><a href="#应用-2" class="headerlink" title="应用"></a>应用</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">调试移动端应用</span><br></pre></td></tr></table></figure>
+<h4 id="配置-2"><a href="#配置-2" class="headerlink" title="配置"></a>配置</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">设置wifi代理为手动；</span><br><span class="line">servername: 你电脑的ip/或域名</span><br><span class="line">port: 8888（fiddler默认是启动8888端口）</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="http://www.telerik.com/fiddler" target="_blank" rel="external">Generating</a></p>
+]]></content>
+    </entry>
+    
+    <entry>
       <title><![CDATA[hexo命令]]></title>
       <url>http://yunsonbai.github.io/2016/05/12/hexo%E5%91%BD%E4%BB%A4/</url>
       <content type="html"><![CDATA[<h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">记录了一下hexo常用的命令, 在维护个人博客的时候经常会用到</span><br></pre></td></tr></table></figure>
@@ -1014,21 +1029,6 @@
 <h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
 <h3 id="Insert-image"><a href="#Insert-image" class="headerlink" title="Insert image"></a>Insert image</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;% img [class names] /path/to/image [width] [height] [title text [alt text]] %&#125;</span><br></pre></td></tr></table></figure>
 <p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
-]]></content>
-    </entry>
-    
-    <entry>
-      <title><![CDATA[fiddler代理利器]]></title>
-      <url>http://yunsonbai.github.io/2016/05/12/fiddler/</url>
-      <content type="html"><![CDATA[<h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">fiddler在前端开发工程师那可以说是利器,同样后端工程师也可能用到尤其是在利用app调试api的时候，</span><br><span class="line">也许你就会用到fiddler</span><br></pre></td></tr></table></figure>
-<a id="more"></a>
-<h3 id="只代理某个url"><a href="#只代理某个url" class="headerlink" title="只代理某个url"></a>只代理某个url</h3><h4 id="应用"><a href="#应用" class="headerlink" title="应用"></a>应用</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">比如把线上某个url代理到本地/或者调试某个接口,便于调试</span><br></pre></td></tr></table></figure>
-<h4 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">点击AotuResponder,之后把三个复选框全选上,然后点击add ruler</span><br><span class="line">加入:</span><br><span class="line">    regex:.*yunsonbai.com /activity/(.*)</span><br><span class="line">    http://127.0.0.1:8000/activity/<span class="variable">$1</span></span><br></pre></td></tr></table></figure>
-<h3 id="设置host"><a href="#设置host" class="headerlink" title="设置host"></a>设置host</h3><h4 id="应用-1"><a href="#应用-1" class="headerlink" title="应用"></a>应用</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">把某个域全部代理到本地</span><br></pre></td></tr></table></figure>
-<h4 id="配置-1"><a href="#配置-1" class="headerlink" title="配置"></a>配置</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">点击Tools-&gt;HOSTS-&gt;选上复选框</span><br><span class="line">加入:</span><br><span class="line">    127.0.0.1:8000 yunsonbai.com</span><br></pre></td></tr></table></figure>
-<h3 id="如何让手机也走设置好的代理"><a href="#如何让手机也走设置好的代理" class="headerlink" title="如何让手机也走设置好的代理"></a>如何让手机也走设置好的代理</h3><h4 id="应用-2"><a href="#应用-2" class="headerlink" title="应用"></a>应用</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">调试移动端应用</span><br></pre></td></tr></table></figure>
-<h4 id="配置-2"><a href="#配置-2" class="headerlink" title="配置"></a>配置</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">设置wifi代理为手动；</span><br><span class="line">servername: 你电脑的ip/或域名</span><br><span class="line">port: 8888（fiddler默认是启动8888端口）</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="http://www.telerik.com/fiddler" target="_blank" rel="external">Generating</a></p>
 ]]></content>
     </entry>
     
