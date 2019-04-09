@@ -1,0 +1,888 @@
+<!doctype html>
+
+<!--  -->
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Monda:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|Lobster Two:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="gunicorn worker调度,gevent,gunicorn," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="https://yunsonbai.github.io/images/logo_b.png?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="引言前段时间分享了一篇如何提高django的并发能力的文章，由此引发了我对gunicorn的进一步研究，利用业余的时间看了一下gunicorn关于worker那部分的主要代码，下边以gevent为例子聊一聊它的工作流程(好吧目前主要看了看gevent这块儿的代码)。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="关于gunicorn worker的调度">
+<meta property="og:url" content="http://yunsonbai.github.io/2017/06/20/gunicorn_worker的调度/index.html">
+<meta property="og:site_name" content="雲Son">
+<meta property="og:description" content="引言前段时间分享了一篇如何提高django的并发能力的文章，由此引发了我对gunicorn的进一步研究，利用业余的时间看了一下gunicorn关于worker那部分的主要代码，下边以gevent为例子聊一聊它的工作流程(好吧目前主要看了看gevent这块儿的代码)。">
+<meta property="og:updated_time" content="2019-04-09T00:57:48.282Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="关于gunicorn worker的调度">
+<meta name="twitter:description" content="引言前段时间分享了一篇如何提高django的并发能力的文章，由此引发了我对gunicorn的进一步研究，利用业余的时间看了一下gunicorn关于worker那部分的主要代码，下边以gevent为例子聊一聊它的工作流程(好吧目前主要看了看gevent这块儿的代码)。">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: undefined,
+      author: '博主'
+    }
+  };
+</script>
+
+  <title> 关于gunicorn worker的调度 | 雲Son </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans,en,default">
+
+  
+
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-80721121-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?11f968f1dccff5bc4f6ed78778a799da";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="headband"></div>
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    
+
+
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">雲Son</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="#" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup">
+ <span class="search-icon fa fa-search"></span>
+ <input type="text" id="local-search-input">
+ <div id="local-search-result"></div>
+ <span class="popup-btn-close">close</span>
+</div>
+
+
+    </div>
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                关于gunicorn worker的调度
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2017-06-20T17:44:40+08:00" content="2017-06-20">
+              2017-06-20
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/python/" itemprop="url" rel="index">
+                    <span itemprop="name">python</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><p>前段时间分享了一篇<a href="https://yunsonbai.top/2017/06/15/gunicorn-django/" target="_blank" rel="external">如何提高django的并发能力</a>的文章，由此引发了我对gunicorn的进一步研究，利用业余的时间看了一下gunicorn关于worker那部分的主要代码，下边以gevent为例子聊一聊它的工作流程(好吧目前主要看了看gevent这块儿的代码)。</p>
+<a id="more"></a>
+<h2 id="归纳流程"><a href="#归纳流程" class="headerlink" title="归纳流程"></a>归纳流程</h2><ul>
+<li>gunicorn采用了n+1个进程，n就是真劳动worker数，即通过-w指定。1则是主worker，它负责管理这些干活的worker，它主要的工作就是对工作worker进行增与杀，另外他会监听一个端口，依次对外提供服务。</li>
+<li>主worker在监听端口会注册一个文件描述符fd</li>
+<li>从worker注册的文件描述符不断的接受请求。</li>
+</ul>
+<h2 id="部分细节分析"><a href="#部分细节分析" class="headerlink" title="部分细节分析"></a>部分细节分析</h2><h3 id="说明"><a href="#说明" class="headerlink" title="说明"></a>说明</h3><p>如果对部分细节有兴趣的话可以继续看一下，当然默认你已经找到了gunicorn的代码位置，一般在Python(安装路径)/lib/python3.5/site-packages/gunicorn</p>
+<h3 id="worker的创建"><a href="#worker的创建" class="headerlink" title="worker的创建"></a>worker的创建</h3><ul>
+<li>启动最先调用app/wsgiapp.py的run函数</li>
+<li>通过WSGIApplication(“%(prog)s [OPTIONS] [APP_MODULE]”).run()调用后边的核心代码</li>
+<li>根据执行的函数追踪，最终会调用到arbiter.py的run函数，这才开始了漫长的创建过程，看一下核心代码(篇幅原因，部分粘贴)<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">run</span><span class="params">(self)</span>:</span></span><br><span class="line">    <span class="string">"Main master loop."</span></span><br><span class="line">    <span class="comment"># 这里启动主进程，并监听端口，注册文件描述符</span></span><br><span class="line">    self.start()</span><br><span class="line">    util._setproctitle(<span class="string">"master [%s]"</span> % self.proc_name)</span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        <span class="comment"># 这里负责启动所有的从worker，也就是劳动worker</span></span><br><span class="line">        self.manage_workers()</span><br><span class="line">        <span class="keyword">while</span> <span class="keyword">True</span>:</span><br><span class="line">            self.maybe_promote_master()</span><br><span class="line">            sig = self.SIG_QUEUE.pop(<span class="number">0</span>) <span class="keyword">if</span> self.SIG_QUEUE <span class="keyword">else</span> <span class="keyword">None</span></span><br><span class="line">            <span class="keyword">if</span> sig <span class="keyword">is</span> <span class="keyword">None</span>:</span><br><span class="line">                self.sleep()</span><br><span class="line">                <span class="comment"># 则是kill掉那些unused/idle workers</span></span><br><span class="line">                self.murder_workers()</span><br><span class="line">                self.manage_workers()</span><br><span class="line"></span><br><span class="line"><span class="comment"># 补充一下，所有的劳动worker，都放在self.WORKERS里，</span></span><br><span class="line"><span class="comment"># 包含每个worker的pid等信息，主worker根据劳动者的运行时间等来决定是否将其杀死，</span></span><br><span class="line"><span class="comment"># 可以看一下murder_workers函数的实现</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="劳动者与文件描述符绑定"><a href="#劳动者与文件描述符绑定" class="headerlink" title="劳动者与文件描述符绑定"></a>劳动者与文件描述符绑定</h3><ul>
+<li><p>上边提到的self.manage_workers()先会调用spawn_worker函数，部分代码如下</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">worker.pid = os.getpid()</span><br><span class="line"><span class="keyword">try</span>:</span><br><span class="line">    util._setproctitle(<span class="string">"worker [%s]"</span> % self.proc_name)</span><br><span class="line">    self.log.info(<span class="string">"Booting worker with pid: %s"</span>, worker.pid)</span><br><span class="line">    self.cfg.post_fork(self, worker)</span><br><span class="line">    <span class="comment"># 通过这里来调用你指定的worker的run函数，这里我指定的是gevent</span></span><br><span class="line">    worker.init_process()</span><br><span class="line">    sys.exit(<span class="number">0</span>)</span><br><span class="line"><span class="keyword">except</span> SystemExit:</span><br><span class="line">    <span class="keyword">raise</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>ggevent.py的run函数</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 为什么看ggevent，可以看一下works/__init__.py文件</span></span><br><span class="line"><span class="keyword">if</span> self.server_class <span class="keyword">is</span> <span class="keyword">not</span> <span class="keyword">None</span>:</span><br><span class="line">    environ = base_environ(self.cfg)</span><br><span class="line">    environ.update(&#123;</span><br><span class="line">        <span class="string">"wsgi.multithread"</span>: <span class="keyword">True</span>,</span><br><span class="line">        <span class="string">"SERVER_SOFTWARE"</span>: VERSION,</span><br><span class="line">    &#125;)</span><br><span class="line">    server = self.server_class(</span><br><span class="line">        s, application=self.wsgi, spawn=pool, log=self.log,</span><br><span class="line">        handler_class=self.wsgi_handler, environ=environ,</span><br><span class="line">        **ssl_args)</span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">    <span class="comment"># s其实就是监听端口得到的那个socket</span></span><br><span class="line">    hfun = partial(self.handle, s)</span><br><span class="line">    <span class="comment"># 这里就是绑定文件描述符的关键</span></span><br><span class="line">    server = StreamServer(s, handle=hfun, spawn=pool, **ssl_args)</span><br><span class="line"></span><br><span class="line">server.start()</span><br><span class="line">servers.append(server)</span><br><span class="line"></span><br><span class="line"><span class="comment"># StreamServer是gevent提供的一个类，继承了BaseServer</span></span><br><span class="line"><span class="comment"># 在BaseServer完成处理方法的绑定(If given, the request handler)</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>虽然没有看其他的工作方式流程，但大概应该差不多都是最前的三步过程，可能会有一些函数的不同，其实去看gunicorn的源码无非就是想了解其工作流程，前边的文章<a href="https://yunsonbai.top/2017/06/15/gunicorn-django/" target="_blank" rel="external">如何提高django的并发能力</a>，遇到了当采用gevent方法启动时会导致数据库连接不能复用，后边会继续研究，希望能找到具体的原因。</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="https://yunsonbai.github.io/images/wei_pay.jpg" alt="yunsonbai WeChat Pay"/>
+          <p>微信打赏</p>
+        </div>
+      
+      
+        <div id="alipay" style="display: inline-block">
+          <img id="alipay_qr" src="https://yunsonbai.github.io/images/alipay.jpg" alt="yunsonbai Alipay"/>
+          <p>支付宝打赏</p>
+        </div>
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/gunicorn-worker调度/" rel="tag">#gunicorn worker调度</a>
+          
+            <a href="/tags/gevent/" rel="tag">#gevent</a>
+          
+            <a href="/tags/gunicorn/" rel="tag">#gunicorn</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/06/17/python中一些特殊方法/" rel="next" title="python中一些特殊方法的自定义及作用">
+                <i class="fa fa-chevron-left"></i> python中一些特殊方法的自定义及作用
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/06/30/python中的装饰器/" rel="prev" title="我对python装饰器的使用">
+                我对python装饰器的使用 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+  <a class="jiathis_button_tsina"></a>
+  <a class="jiathis_button_tqq"></a>
+  <a class="jiathis_button_weixin"></a>
+  <a class="jiathis_button_cqq"></a>
+  <a class="jiathis_button_douban"></a>
+  <a class="jiathis_button_renren"></a>
+  <a class="jiathis_button_qzone"></a>
+  <a class="jiathis_button_kaixin001"></a>
+  <a class="jiathis_button_copy"></a>
+  <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank"></a>
+  <a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" >
+  var jiathis_config={
+    hideMore:false
+  }
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+<div class='ad-sidebar'>
+    <div class="ad-sidebar-inner">
+    </div>
+    <div class="ad-sidebar-inner">
+    </div>
+    <link href="/css/ad.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+    <script type="text/javascript" src="/js/src/ad.js"></script>
+</div>
+
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="https://yunsonbai.github.io/images/avtar.jpg"
+               alt="yunsonbai" />
+          <p class="site-author-name" itemprop="name">yunsonbai</p>
+          <p class="site-description motion-element" itemprop="description">just do it!</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">38</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">18</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">108</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/yunsonbai" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              友情链接
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://yunsonbai.blog.163.com/" title="峻岭云松" target="_blank">峻岭云松</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://zhaojames0707.github.io/" title="zhaojames" target="_blank">zhaojames</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://fangchichen.github.io/" title="fangchichen" target="_blank">fangchichen</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#引言"><span class="nav-number">1.</span> <span class="nav-text">引言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#归纳流程"><span class="nav-number">2.</span> <span class="nav-text">归纳流程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#部分细节分析"><span class="nav-number">3.</span> <span class="nav-text">部分细节分析</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#说明"><span class="nav-number">3.1.</span> <span class="nav-text">说明</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#worker的创建"><span class="nav-number">3.2.</span> <span class="nav-text">worker的创建</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#劳动者与文件描述符绑定"><span class="nav-number">3.3.</span> <span class="nav-text">劳动者与文件描述符绑定</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#总结"><span class="nav-number">3.4.</span> <span class="nav-text">总结</span></a></li></ol></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2015 - 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">yunsonbai</span>
+</div>
+<div class="powered-by">
+</div>
+
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.0.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+  
+  
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length == 0) {
+       search_path = "search.xml";
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    function proceedsearch() {
+      $("body").append('<div class="popoverlay">').css('overflow', 'hidden');
+      $('.popup').toggle();
+
+    }
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+    'use strict';
+    $.ajax({
+        url: path,
+        dataType: "xml",
+        async: true,
+        success: function( xmlResponse ) {
+            // get the contents from search data
+            isfetched = true;
+            $('.popup').detach().appendTo('.header-inner');
+            var datas = $( "entry", xmlResponse ).map(function() {
+                return {
+                    title: $( "title", this ).text(),
+                    content: $("content",this).text(),
+                    url: $( "url" , this).text()
+                };
+            }).get();
+            var $input = document.getElementById(search_id);
+            var $resultContent = document.getElementById(content_id);
+            $input.addEventListener('input', function(){
+                var matchcounts = 0;
+                var str='<ul class=\"search-result-list\">';                
+                var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                $resultContent.innerHTML = "";
+                if (this.value.trim().length > 1) {
+                // perform local searching
+                datas.forEach(function(data) {
+                    var isMatch = true;
+                    var content_index = [];
+                    var data_title = data.title.trim().toLowerCase();
+                    var data_content = data.content.trim().replace(/<[^>]+>/g,"").toLowerCase();
+                    var data_url = data.url;
+                    var index_title = -1;
+                    var index_content = -1;
+                    var first_occur = -1;
+                    // only match artiles with not empty titles and contents
+                    if(data_title != '' && data_content != '') {
+                        keywords.forEach(function(keyword, i) {
+                            index_title = data_title.indexOf(keyword);
+                            index_content = data_content.indexOf(keyword);
+                            if( index_title < 0 && index_content < 0 ){
+                                isMatch = false;
+                            } else {
+                                if (index_content < 0) {
+                                    index_content = 0;
+                                }
+                                if (i == 0) {
+                                    first_occur = index_content;
+                                }
+                            }
+                        });
+                    }
+                    // show search results
+                    if (isMatch) {
+                        matchcounts += 1;
+                        str += "<li><a href='"+ data_url +"' class='search-result-title'>"+ data_title +"</a>";
+                        var content = data.content.trim().replace(/<[^>]+>/g,"");
+                        if (first_occur >= 0) {
+                            // cut out 100 characters
+                            var start = first_occur - 20;
+                            var end = first_occur + 80;
+                            if(start < 0){
+                                start = 0;
+                            }
+                            if(start == 0){
+                                end = 50;
+                            }
+                            if(end > content.length){
+                                end = content.length;
+                            }
+                            var match_content = content.substring(start, end);
+                            // highlight all keywords
+                            keywords.forEach(function(keyword){
+                                var regS = new RegExp(keyword, "gi");
+                                match_content = match_content.replace(regS, "<b class=\"search-keyword\">"+keyword+"</b>");
+                            });
+                            
+                            str += "<p class=\"search-result\">" + match_content +"...</p>"
+                        }
+                        str += "</li>";
+                    }
+                })};
+                str += "</ul>";
+                if (matchcounts == 0) { str = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>' }
+                if (keywords == "") { str = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>' }
+                $resultContent.innerHTML = str;
+            });
+            proceedsearch();
+        }
+    });}
+
+    // handle and trigger popup window;
+    $('.popup-trigger').mousedown(function(e) {
+      e.stopPropagation();
+      if (isfetched == false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+
+    });
+
+    $('.popup-btn-close').click(function(e){
+      $('.popup').hide();
+      $(".popoverlay").remove();
+      $('body').css('overflow', '');
+    });
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+  </script>
+
+  
+
+  
+
+  
+<script type="text/javascript" async src="//push.zhanzhang.baidu.com/push.js">
+</script>
+
+
+</body>
+</html>
