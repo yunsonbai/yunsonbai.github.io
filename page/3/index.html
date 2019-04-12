@@ -331,7 +331,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yunsonbai.github.io/2017/06/17/python中一些特殊方法/">
+    <link itemprop="mainEntityOfPage" href="http://yunsonbai.github.io/2016/07/12/celery/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="yunsonbai">
@@ -350,7 +350,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2017/06/17/python中一些特殊方法/" itemprop="url">python中一些特殊方法的自定义及作用</a></h1>
+                <a class="post-title-link" href="/2016/07/12/celery/" itemprop="url">celery 异步任务</a></h1>
         
 
         <div class="post-meta">
@@ -362,7 +362,7 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-06-17T14:27:22+08:00">2017-06-17</time>
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-07-12T14:27:22+08:00">2016-07-12</time>
             
 
             
@@ -418,11 +418,10 @@
 
       
         
-          <p><a href="https://yunsonbai.top/2017/06/17/python%E4%B8%AD%E4%B8%80%E4%BA%9B%E7%89%B9%E6%AE%8A%E6%96%B9%E6%B3%95/"><strong>原文连接</strong></a></p>
-<h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">聊一聊__add__,__mul__,__len__,__bool__的作用和自定义,以及__len__和</span><br><span class="line">__bool__是怎么影响<span class="keyword">if</span>/<span class="keyword">while</span>的条件判断，另外说一说怎么把一个对象以字符串的</span><br><span class="line">形式表现。</span><br></pre></td></tr></table></figure>
+          <h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">在开发的过程中，总会遇到异步完成某个操作的需求，选择会很多，说一下在python编程过程中如何实现异步任务，让你优雅的完成</span><br><span class="line">任务，优化自己的应用。</span><br></pre></td></tr></table></figure>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2017/06/17/python中一些特殊方法/#more" rel="contents">
+            <a class="btn" href="/2016/07/12/celery/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -478,7 +477,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yunsonbai.github.io/2017/06/15/gunicorn-django/">
+    <link itemprop="mainEntityOfPage" href="http://yunsonbai.github.io/2016/07/11/rest_framework_authtoken定制/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="yunsonbai">
@@ -497,7 +496,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2017/06/15/gunicorn-django/" itemprop="url">如何提高django的并发能力</a></h1>
+                <a class="post-title-link" href="/2016/07/11/rest_framework_authtoken定制/" itemprop="url">rest_framework.authtoken 定制</a></h1>
         
 
         <div class="post-meta">
@@ -509,7 +508,7 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-06-15T18:43:54+08:00">2017-06-15</time>
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-07-11T14:27:22+08:00">2016-07-11</time>
             
 
             
@@ -530,7 +529,7 @@
                 <span class="post-meta-item-text">In</span>
               
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/python/" itemprop="url" rel="index"><span itemprop="name">python</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/django/" itemprop="url" rel="index"><span itemprop="name">django</span></a></span>
 
                 
                 
@@ -565,11 +564,10 @@
 
       
         
-          <p><a href="https://yunsonbai.top/2017/06/15/gunicorn-django/">原文连接</a></p>
-<h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><p>手头上的项目有一些采用django框架编写, 如果说并发量比较小的时候简单的runserver是可以应对的.<br>那么当并发达到一两千的时候，该怎么提高django的并发能力呢？</p>
+          <h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">前段时间研究了一下rest_framework.authtoken，它可以实现对用户的token鉴权除了可以使用默认的配置以外，可以</span><br><span class="line">实现定制。想快速实现一套用户系统的可以看看</span><br></pre></td></tr></table></figure>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2017/06/15/gunicorn-django/#more" rel="contents">
+            <a class="btn" href="/2016/07/11/rest_framework_authtoken定制/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -625,7 +623,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yunsonbai.github.io/2017/03/24/new-sentry/">
+    <link itemprop="mainEntityOfPage" href="http://yunsonbai.github.io/2016/07/02/多方位监控webServer/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="yunsonbai">
@@ -644,7 +642,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2017/03/24/new-sentry/" itemprop="url">新版sentry安装配置</a></h1>
+                <a class="post-title-link" href="/2016/07/02/多方位监控webServer/" itemprop="url">多方位监控webServer</a></h1>
         
 
         <div class="post-meta">
@@ -656,7 +654,7 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-03-24T14:48:15+08:00">2017-03-24</time>
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-07-02T14:27:22+08:00">2016-07-02</time>
             
 
             
@@ -677,7 +675,7 @@
                 <span class="post-meta-item-text">In</span>
               
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/python/" itemprop="url" rel="index"><span itemprop="name">python</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/api或系统监控/" itemprop="url" rel="index"><span itemprop="name">api或系统监控</span></a></span>
 
                 
                 
@@ -712,10 +710,10 @@
 
       
         
-          <h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">前段时间搭建了sentry 7.x版本,运行了有一段时间了，现在日志来量有点大</span><br><span class="line">遇到了一个突出的问题：清理历史数据十分缓慢。最近在浏览sentry官方文档</span><br><span class="line">发现都已经更新到8.14.1了, 而且不在支持mysql, 官方给的解释:<span class="string">"Due to </span><br><span class="line">numerous issues over the years and recent discoveries that</span><br><span class="line">nearly all schema migration was broken in MySQL (due to some</span><br><span class="line">behavior in our migration tool), we've made the decision to</span><br><span class="line">no longer support MySQL. It is possible to bring the schema</span><br><span class="line">up to date on a MySQL machine, but Sentry's automated migrations</span><br><span class="line">will likely not work and require DBA assistance.</span><br><span class="line">Postgres is now the only supported production database."</span></span><br><span class="line">而且现在之前搭建的7.x版本清理数据慢的出奇，故花了些时间来搭建新的sentry,</span><br><span class="line">搭建过程分享一下</span><br></pre></td></tr></table></figure>
+          <h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">最近趁着开发需求较少，着手整理了一段时间关于系统监控的东西，系统监控的目的就是为了快速的发现系统问题、找到问题所在、并</span><br><span class="line">解决它。下边分享一下</span><br></pre></td></tr></table></figure>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2017/03/24/new-sentry/#more" rel="contents">
+            <a class="btn" href="/2016/07/02/多方位监控webServer/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -771,7 +769,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yunsonbai.github.io/2017/01/12/blog-https/">
+    <link itemprop="mainEntityOfPage" href="http://yunsonbai.github.io/2016/07/01/ELK实时日志平台搭建/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="yunsonbai">
@@ -790,7 +788,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2017/01/12/blog-https/" itemprop="url">让自己的博客支持https</a></h1>
+                <a class="post-title-link" href="/2016/07/01/ELK实时日志平台搭建/" itemprop="url">ELK日志平台搭建</a></h1>
         
 
         <div class="post-meta">
@@ -802,7 +800,7 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-01-12T10:23:14+08:00">2017-01-12</time>
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-07-01T14:27:22+08:00">2016-07-01</time>
             
 
             
@@ -823,7 +821,7 @@
                 <span class="post-meta-item-text">In</span>
               
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/https/" itemprop="url" rel="index"><span itemprop="name">https</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/api或系统监控/" itemprop="url" rel="index"><span itemprop="name">api或系统监控</span></a></span>
 
                 
                 
@@ -858,10 +856,10 @@
 
       
         
-          <h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">昨天把博客迁到了https下，现在博客支持https访问了。本文适合自己用机器搭建的博客。</span><br></pre></td></tr></table></figure>
+          <h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">在系统问题排查时，尤其是在第三方接口出问题的时候，貌似是自己写的服务异常，其实不然，这样很是浪费自己时间，错误在第三方</span><br><span class="line">接口。所以日志收集整理，很重要，能帮助我们排错。</span><br></pre></td></tr></table></figure>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2017/01/12/blog-https/#more" rel="contents">
+            <a class="btn" href="/2016/07/01/ELK实时日志平台搭建/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -917,7 +915,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yunsonbai.github.io/2016/12/18/利用websocket实现聊天小应用/">
+    <link itemprop="mainEntityOfPage" href="http://yunsonbai.github.io/2016/06/13/python-diamond/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="yunsonbai">
@@ -936,7 +934,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2016/12/18/利用websocket实现聊天小应用/" itemprop="url">利用websocket实现聊天小应用</a></h1>
+                <a class="post-title-link" href="/2016/06/13/python-diamond/" itemprop="url">使用diamond监控系统或api</a></h1>
         
 
         <div class="post-meta">
@@ -948,7 +946,7 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-12-18T14:48:15+08:00">2016-12-18</time>
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-06-13T18:25:23+08:00">2016-06-13</time>
             
 
             
@@ -969,7 +967,7 @@
                 <span class="post-meta-item-text">In</span>
               
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/python/" itemprop="url" rel="index"><span itemprop="name">python</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/api或系统监控/" itemprop="url" rel="index"><span itemprop="name">api或系统监控</span></a></span>
 
                 
                 
@@ -1004,10 +1002,740 @@
 
       
         
-          <h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">趁着清闲研究了一下websocket，并利用python和html简单的实现了简单的聊天系统，</span><br><span class="line">希望对想要了解的有所帮助，有什么好的意见还请大家提出。</span><br></pre></td></tr></table></figure>
+          <h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">如何保证系统或api在出问题的时候及时发现并解决呢？这就需要用到监控系统，监控系统可以是实时监控，也可以是</span><br><span class="line">非实时的（需要定时去检查系统），这里说一下用diamond实现非实时监控</span><br></pre></td></tr></table></figure>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2016/12/18/利用websocket实现聊天小应用/#more" rel="contents">
+            <a class="btn" href="/2016/06/13/python-diamond/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yunsonbai.github.io/2016/06/09/nginx常用配置/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="yunsonbai">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://yunsonbai.github.io/images/logo_b_1.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="雲Son">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2016/06/09/nginx常用配置/" itemprop="url">nginx常用配置</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-06-09T22:27:22+08:00">2016-06-09</time>
+            
+
+            
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/nginx/" itemprop="url" rel="index"><span itemprop="name">nginx</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nginx是一个高性能的HTTP和反向代理服务器，也是一个IMAP/POP3/SMTP服务器，下边说一下这断时间用到的nginx配置</span><br></pre></td></tr></table></figure>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2016/06/09/nginx常用配置/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yunsonbai.github.io/2016/06/09/nginx-https配置/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="yunsonbai">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://yunsonbai.github.io/images/logo_b_1.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="雲Son">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2016/06/09/nginx-https配置/" itemprop="url">nginx实现https</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-06-09T22:27:22+08:00">2016-06-09</time>
+            
+
+            
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/nginx/" itemprop="url" rel="index"><span itemprop="name">nginx</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nginx是一个高性能的HTTP和反向代理服务器，也是一个IMAP/POP3/SMTP服务器，下边说一下nginx关于https的配置</span><br></pre></td></tr></table></figure>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2016/06/09/nginx-https配置/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yunsonbai.github.io/2016/06/09/eth0-no-ipv4/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="yunsonbai">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://yunsonbai.github.io/images/logo_b_1.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="雲Son">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2016/06/09/eth0-no-ipv4/" itemprop="url">当eth0没有ipv4地址的解决办法</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-06-09T22:27:22+08:00">2016-06-09</time>
+            
+
+            
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Linux/" itemprop="url" rel="index"><span itemprop="name">Linux</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">有时候我们在Linux使用ifconfig后发现没有ipv4地址，下边说一下解决办法</span><br></pre></td></tr></table></figure>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2016/06/09/eth0-no-ipv4/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yunsonbai.github.io/2016/06/08/django-rsyslog/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="yunsonbai">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://yunsonbai.github.io/images/logo_b_1.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="雲Son">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2016/06/08/django-rsyslog/" itemprop="url">使用rsyslog收集Django的日志</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-06-08T22:53:20+08:00">2016-06-08</time>
+            
+
+            
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/django/" itemprop="url" rel="index"><span itemprop="name">django</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">日志收集对项目很重要,在前边我写过一篇如何利用sentry收集django程序运行时的日志,我们的项目中一般用sentry</span><br><span class="line">来收集error日志，因为打的比较详细，可观性也比较强。但是我们如果把info日志达到sentry上不方便观看，所以不</span><br><span class="line">妨使用rsyslog来收集Django中的一些info日志，当然只是打我们想要的东西。</span><br></pre></td></tr></table></figure>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2016/06/08/django-rsyslog/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yunsonbai.github.io/2016/06/08/summernote/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="yunsonbai">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://yunsonbai.github.io/images/logo_b_1.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="雲Son">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2016/06/08/summernote/" itemprop="url">富文本实践</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-06-08T13:50:05+08:00">2016-06-08</time>
+            
+
+            
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/html/" itemprop="url" rel="index"><span itemprop="name">html</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">前段时间趁着项目不忙自己玩了一下富文本，在html页实现富文本。</span><br></pre></td></tr></table></figure>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2016/06/08/summernote/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -1052,7 +1780,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/2/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/8/">8</a><a class="extend next" rel="next" href="/page/4/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
+    <a class="extend prev" rel="prev" href="/page/2/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/4/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
   </nav>
 
 
