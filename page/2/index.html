@@ -711,7 +711,7 @@
 
       
         
-          <p><a href="https://yunsonbai.top/2017/06/15/gunicorn-django/">原文连接</a></p>
+          <p><a href="http://yunsonbai.top/2017/07/02/gunicorn-gevent-django/">原文连接</a></p>
 <h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><p>前段时间分享了一篇<a href="https://yunsonbai.top/2017/06/15/gunicorn-django/">如何提高django的并发能力</a>文章，文章的最后结论是采用gunicorn+gthread+django的方式来提高并发能力，该方法简单的说是利用的多线程。<br>文章也抛出了一个问题：gunicorn+gevent+django+CONN_MAX_AGE会导致数据库连接数飙升，直至占满。如果一定要利用协程的方式启动，该怎么解决这个问题呢？看了一下django源码，找到了问题的根源，写了一下解决办法，下边分享一下。</p>
           <!--noindex-->
           <div class="post-button text-center">

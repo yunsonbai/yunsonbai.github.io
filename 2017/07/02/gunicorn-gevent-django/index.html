@@ -111,7 +111,7 @@
 <meta property="og:image" content="https://yunsonbai.github.io/images/django/tree.png">
 <meta property="og:image" content="https://yunsonbai.github.io/images/django/mysql_c2.png">
 <meta property="og:image" content="https://yunsonbai.github.io/images/django/qps2.png">
-<meta property="og:updated_time" content="2019-04-12T10:04:10.563Z">
+<meta property="og:updated_time" content="2019-04-12T10:05:59.799Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="解决gunicorn+gevent+django数据库高连接数问题">
 <meta name="twitter:description" content="原文连接
@@ -435,7 +435,7 @@
       
 
       
-        <p><a href="https://yunsonbai.top/2017/06/15/gunicorn-django/" target="_blank" rel="external">原文连接</a></p>
+        <p><a href="http://yunsonbai.top/2017/07/02/gunicorn-gevent-django/" target="_blank" rel="external">原文连接</a></p>
 <h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><p>前段时间分享了一篇<a href="https://yunsonbai.top/2017/06/15/gunicorn-django/" target="_blank" rel="external">如何提高django的并发能力</a>文章，文章的最后结论是采用gunicorn+gthread+django的方式来提高并发能力，该方法简单的说是利用的多线程。<br>文章也抛出了一个问题：gunicorn+gevent+django+CONN_MAX_AGE会导致数据库连接数飙升，直至占满。如果一定要利用协程的方式启动，该怎么解决这个问题呢？看了一下django源码，找到了问题的根源，写了一下解决办法，下边分享一下。</p>
 <a id="more"></a>
 <h2 id="说明"><a href="#说明" class="headerlink" title="说明"></a>说明</h2><p>还是利用上一篇文章<a href="https://yunsonbai.top/2017/06/15/gunicorn-django/" target="_blank" rel="external">如何提高django的并发能力</a>的数据模型，<strong>这次以get一条数据为例</strong>，由于某些原因(好吧手里没有资源)，采用了配置稍低的机器：</p>
