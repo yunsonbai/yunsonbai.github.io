@@ -99,13 +99,13 @@
 
   <meta name="description" content="引言前段时间分享了一篇如何提高django的并发能力的文章，由此引发了我对gunicorn的进一步研究，利用业余的时间看了一下gunicorn关于worker那部分的主要代码，下边以gevent为例子聊一聊它的工作流程(好吧目前主要看了看gevent这块儿的代码)。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="关于gunicorn worker的调度">
+<meta property="og:title" content="关于gunicorn的worker调度">
 <meta property="og:url" content="http://yunsonbai.github.io/2017/06/20/gunicorn_worker的调度/index.html">
 <meta property="og:site_name" content="雲Son">
 <meta property="og:description" content="引言前段时间分享了一篇如何提高django的并发能力的文章，由此引发了我对gunicorn的进一步研究，利用业余的时间看了一下gunicorn关于worker那部分的主要代码，下边以gevent为例子聊一聊它的工作流程(好吧目前主要看了看gevent这块儿的代码)。">
-<meta property="og:updated_time" content="2019-04-09T01:08:32.183Z">
+<meta property="og:updated_time" content="2019-04-12T07:25:41.496Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="关于gunicorn worker的调度">
+<meta name="twitter:title" content="关于gunicorn的worker调度">
 <meta name="twitter:description" content="引言前段时间分享了一篇如何提高django的并发能力的文章，由此引发了我对gunicorn的进一步研究，利用业余的时间看了一下gunicorn关于worker那部分的主要代码，下边以gevent为例子聊一聊它的工作流程(好吧目前主要看了看gevent这块儿的代码)。">
 
 
@@ -123,7 +123,7 @@
   };
 </script>
 
-  <title>关于gunicorn worker的调度 | 雲Son</title>
+  <title>关于gunicorn的worker调度 | 雲Son</title>
   
 
 
@@ -348,7 +348,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">关于gunicorn worker的调度</h1>
+          <h1 class="post-title" itemprop="name headline">关于gunicorn的worker调度</h1>
         
 
         <div class="post-meta">
