@@ -97,25 +97,22 @@
 
 
 
-  <meta name="description" content="原文连接
-引言前段时间分享了一篇如何提高django的并发能力文章，文章的最后结论是采用gunicorn+gthread+django的方式来提高并发能力，该方法简单的说是利用的多线程。文章也抛出了一个问题：gunicorn+gevent+django+CONN_MAX_AGE会导致数据库连接数飙升，直至占满。如果一定要利用协程的方式启动，该怎么解决这个问题呢？看了一下django源码，找到了问题">
+  <meta name="description" content="解决gunicorn+gevent+django数据库高连接数问题">
 <meta property="og:type" content="article">
 <meta property="og:title" content="django数据库连接池">
 <meta property="og:url" content="http://yunsonbai.github.io/2017/07/02/gunicorn-gevent-django/index.html">
 <meta property="og:site_name" content="雲Son">
-<meta property="og:description" content="原文连接
-引言前段时间分享了一篇如何提高django的并发能力文章，文章的最后结论是采用gunicorn+gthread+django的方式来提高并发能力，该方法简单的说是利用的多线程。文章也抛出了一个问题：gunicorn+gevent+django+CONN_MAX_AGE会导致数据库连接数飙升，直至占满。如果一定要利用协程的方式启动，该怎么解决这个问题呢？看了一下django源码，找到了问题">
+<meta property="og:description" content="解决gunicorn+gevent+django数据库高连接数问题">
 <meta property="og:image" content="https://yunsonbai.github.io/images/django/lc.png">
 <meta property="og:image" content="https://yunsonbai.github.io/images/django/mysql_c1.png">
 <meta property="og:image" content="https://yunsonbai.github.io/images/django/qps1.png">
 <meta property="og:image" content="https://yunsonbai.github.io/images/django/tree.png">
 <meta property="og:image" content="https://yunsonbai.github.io/images/django/mysql_c2.png">
 <meta property="og:image" content="https://yunsonbai.github.io/images/django/qps2.png">
-<meta property="og:updated_time" content="2019-04-15T00:45:58.149Z">
+<meta property="og:updated_time" content="2019-04-15T01:01:29.388Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="django数据库连接池">
-<meta name="twitter:description" content="原文连接
-引言前段时间分享了一篇如何提高django的并发能力文章，文章的最后结论是采用gunicorn+gthread+django的方式来提高并发能力，该方法简单的说是利用的多线程。文章也抛出了一个问题：gunicorn+gevent+django+CONN_MAX_AGE会导致数据库连接数飙升，直至占满。如果一定要利用协程的方式启动，该怎么解决这个问题呢？看了一下django源码，找到了问题">
+<meta name="twitter:description" content="解决gunicorn+gevent+django数据库高连接数问题">
 <meta name="twitter:image" content="https://yunsonbai.github.io/images/django/lc.png">
 
 
@@ -420,6 +417,8 @@
 
           
 
+          
+              <div class="post-description">解决gunicorn+gevent+django数据库高连接数问题</div>
           
 
         </div>
