@@ -100,7 +100,7 @@
   <meta name="description" content="原文连接
 引言前段时间分享了一篇如何提高django的并发能力文章，文章的最后结论是采用gunicorn+gthread+django的方式来提高并发能力，该方法简单的说是利用的多线程。文章也抛出了一个问题：gunicorn+gevent+django+CONN_MAX_AGE会导致数据库连接数飙升，直至占满。如果一定要利用协程的方式启动，该怎么解决这个问题呢？看了一下django源码，找到了问题">
 <meta property="og:type" content="article">
-<meta property="og:title" content="解决gunicorn+gevent+django数据库高连接数问题">
+<meta property="og:title" content="django数据库连接池">
 <meta property="og:url" content="http://yunsonbai.github.io/2017/07/02/gunicorn-gevent-django/index.html">
 <meta property="og:site_name" content="雲Son">
 <meta property="og:description" content="原文连接
@@ -111,9 +111,9 @@
 <meta property="og:image" content="https://yunsonbai.github.io/images/django/tree.png">
 <meta property="og:image" content="https://yunsonbai.github.io/images/django/mysql_c2.png">
 <meta property="og:image" content="https://yunsonbai.github.io/images/django/qps2.png">
-<meta property="og:updated_time" content="2019-04-12T10:36:21.559Z">
+<meta property="og:updated_time" content="2019-04-15T00:45:58.149Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="解决gunicorn+gevent+django数据库高连接数问题">
+<meta name="twitter:title" content="django数据库连接池">
 <meta name="twitter:description" content="原文连接
 引言前段时间分享了一篇如何提高django的并发能力文章，文章的最后结论是采用gunicorn+gthread+django的方式来提高并发能力，该方法简单的说是利用的多线程。文章也抛出了一个问题：gunicorn+gevent+django+CONN_MAX_AGE会导致数据库连接数飙升，直至占满。如果一定要利用协程的方式启动，该怎么解决这个问题呢？看了一下django源码，找到了问题">
 <meta name="twitter:image" content="https://yunsonbai.github.io/images/django/lc.png">
@@ -133,7 +133,7 @@
   };
 </script>
 
-  <title>解决gunicorn+gevent+django数据库高连接数问题 | 雲Son</title>
+  <title>django数据库连接池 | 雲Son</title>
   
 
 
@@ -358,7 +358,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">解决gunicorn+gevent+django数据库高连接数问题</h1>
+          <h1 class="post-title" itemprop="name headline">django数据库连接池</h1>
         
 
         <div class="post-meta">
@@ -468,7 +468,7 @@
 <p><strong>经过上边的代码，django关于mysql的部分没有使用连接池，导致每次数据库操作都要新建新的连接。更让我有些蒙的是，按照django的文档CONN_MAX_AGE是为了复用连接，但是为什么每次都要新建连接呢？。而且最难受的是一旦我们设置了CONN_MAX_AGE，连接并不会被close掉，而是一直在那占着。</strong><br><strong>也许是我使用的问题，出现了这个问题。不管如何，最后想了解决办法，请往下看</strong></p>
 <h3 id="问题的解决"><a href="#问题的解决" class="headerlink" title="问题的解决"></a>问题的解决</h3><h4 id="代码部分"><a href="#代码部分" class="headerlink" title="代码部分"></a>代码部分</h4><ul>
 <li><p>settings代码</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">DATABASES = &#123;</span><br><span class="line">    <span class="string">'default'</span>: &#123;</span><br><span class="line">        <span class="string">'ENGINE'</span>: <span class="string">'test_dj21.db.backends.mysql'</span>,  <span class="comment"># 好吧核心都在这</span></span><br><span class="line">        <span class="string">'NAME'</span>: <span class="string">'ce'</span>,</span><br><span class="line">        <span class="string">'USER'</span>: <span class="string">'root'</span>,</span><br><span class="line">        <span class="string">'PASSWORD'</span>: <span class="string">'LKFfdsdfsd#'</span>,</span><br><span class="line">        <span class="string">'HOST'</span>: <span class="string">'10.49.116.210'</span>,</span><br><span class="line">        <span class="string">'PORT'</span>: <span class="string">'3306'</span>,</span><br><span class="line">        <span class="string">'CONN_MAX_AGE'</span>: <span class="number">600</span>,</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">DATABASES = &#123;</span><br><span class="line">    <span class="string">'default'</span>: &#123;</span><br><span class="line">        <span class="string">'ENGINE'</span>: <span class="string">'test_dj21.db.backends.mysql'</span>,  <span class="comment"># 好吧核心都在这</span></span><br><span class="line">        <span class="string">'NAME'</span>: <span class="string">'ce'</span>,</span><br><span class="line">        <span class="string">'USER'</span>: <span class="string">'root'</span>,</span><br><span class="line">        <span class="string">'PASSWORD'</span>: <span class="string">''</span>,</span><br><span class="line">        <span class="string">'HOST'</span>: <span class="string">'192.168.96.95'</span>,</span><br><span class="line">        <span class="string">'PORT'</span>: <span class="string">'3306'</span>,</span><br><span class="line">        <span class="string">'CONN_MAX_AGE'</span>: <span class="number">600</span>,</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>test_dj21.db.backends.mysql所在位置<br><img src="https://yunsonbai.github.io/images/django/tree.png" alt="tree"></p>
 </li>
