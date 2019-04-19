@@ -4,95 +4,6 @@
   
     
     <entry>
-      <title><![CDATA[Golang高性能web框架gin]]></title>
-      <url>http://yunsonbai.github.io/2019/04/16/golang-gin/</url>
-      <content type="html"><![CDATA[<p><a href="http://yunsonbai.top/2019/04/16/golang-gin/" target="_blank" rel="external">原文连接</a></p>
-<h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><p>前段时间分享了一篇<a href="http://yunsonbai.top/2017/06/15/gunicorn-django/" target="_blank" rel="external">如何提高django的并发能力</a>文章，在文章的最后分享了进一步提升qps的方法，其中讲到了gin，下边在同样的业务场景分享一下压测数据。</p>
-<a id="more"></a>
-<h2 id="说明"><a href="#说明" class="headerlink" title="说明"></a>说明</h2><ul>
-<li>服务器: 4核+4G (docker)</li>
-<li>压测机: 4核+2G (docker)</li>
-<li>Go: 1.11.4</li>
-<li>msyql: 4核+4G(docker) max_connections:1000  max_user_connections:1000</li>
-</ul>
-<h2 id="压测方式及命令"><a href="#压测方式及命令" class="headerlink" title="压测方式及命令"></a>压测方式及命令</h2><ul>
-<li>压测方式：<img src="https://yunsonbai.github.io/images/django/lc.png" alt="lc"></li>
-<li>压测命令：<ul>
-<li>ysab: ysab -n 500 -r 200 -u <a href="http://B_ip:8080/test" target="_blank" rel="external">http://B_ip:8080/test</a>‘</li>
-<li>备注: 欢迎使用ysab, <a href="https://yunsonbai.top/2019/02/24/ysab" target="_blank" rel="external"><font color="#7B68EE">ysab文档</font></a></li>
-</ul>
-</li>
-</ul>
-<h2 id="数据表说明"><a href="#数据表说明" class="headerlink" title="数据表说明"></a>数据表说明</h2><table>
-<thead>
-<tr>
-<th style="text-align:center">字段名</th>
-<th style="text-align:center">类型</th>
-<th style="text-align:center">索引类型</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center">id</td>
-<td style="text-align:center">int(11)</td>
-<td style="text-align:center">PRI</td>
-</tr>
-<tr>
-<td style="text-align:center">name</td>
-<td style="text-align:center">varchar(40)</td>
-<td style="text-align:center">MUL</td>
-</tr>
-<tr>
-<td style="text-align:center">url</td>
-<td style="text-align:center">varchar(150)</td>
-<td style="text-align:center"></td>
-</tr>
-<tr>
-<td style="text-align:center">descp</td>
-<td style="text-align:center">varchar(50)</td>
-<td style="text-align:center"></td>
-</tr>
-<tr>
-<td style="text-align:center">zan_num</td>
-<td style="text-align:center">int(11)</td>
-<td style="text-align:center"></td>
-</tr>
-<tr>
-<td style="text-align:center">like_num</td>
-<td style="text-align:center">int(11)</td>
-<td style="text-align:center"></td>
-</tr>
-<tr>
-<td style="text-align:center">create_time</td>
-<td style="text-align:center">datetime(6)</td>
-<td style="text-align:center">MUL</td>
-</tr>
-</tbody>
-</table>
-<h2 id="写压测"><a href="#写压测" class="headerlink" title="写压测"></a>写压测</h2><h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><p>随机写一条数据<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">view.go:</span><br><span class="line">    func FeedGet(c *gin.Context) &#123;</span><br><span class="line">        // nt := time.Now().Nanosecond()</span><br><span class="line">	    // id, _ := models.FeedZanGet(nt % <span class="number">200000</span>)</span><br><span class="line">        res, _ := uuid.NewV4()</span><br><span class="line">        t := time.Now().Unix()</span><br><span class="line">        st := strconv.FormatInt(t, <span class="number">10</span>)</span><br><span class="line">        name := res.String()</span><br><span class="line">        id, _ := models.FeedAdd(</span><br><span class="line">            name, stringAdd(<span class="string">"http://"</span>, name),</span><br><span class="line">            stringAdd(name, st), int(t/<span class="number">10000</span>), int(t/<span class="number">13000</span>))</span><br><span class="line"></span><br><span class="line">        c.JSON(<span class="number">200</span>, gin.H&#123;</span><br><span class="line">            <span class="string">"code"</span>: <span class="number">200</span>,</span><br><span class="line">            <span class="string">"id"</span>:   id,</span><br><span class="line">        &#125;)</span><br><span class="line">    &#125;</span><br><span class="line">util.go:</span><br><span class="line">    func FeedAdd(name, url, desc string, like_num, zan_num int) (id int64, err error) &#123;</span><br><span class="line">        stm, err := db.MySQLCon.Prepare(</span><br><span class="line">            <span class="string">"insert into feed(name, url, descp, zan_num, like_num,create_time) values(?, ?, ?, ?, ?, ?)"</span>)</span><br><span class="line">        <span class="keyword">if</span> err != nil &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span>, err</span><br><span class="line">        &#125;</span><br><span class="line">        defer stm.Close()</span><br><span class="line">        res, err := stm.Exec(name, url, desc, zan_num, like_num, time.Now())</span><br><span class="line">        <span class="keyword">if</span> err != nil &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span>, err</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res.LastInsertId()</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></p>
-<h3 id="压测数据"><a href="#压测数据" class="headerlink" title="压测数据"></a>压测数据</h3><ul>
-<li><p>机器负载(几乎没什么负载)<br><img src="https://yunsonbai.github.io/images/golang/fz.png" alt="机器负载"></p>
-</li>
-<li><p>数据库连接数<br><img src="https://yunsonbai.github.io/images/golang/mysqlc1.png" alt="数据库连接数"></p>
-</li>
-<li><p>qps<br><img src="https://yunsonbai.github.io/images/golang/wqps.png" alt="qps"></p>
-</li>
-</ul>
-<h2 id="读压测"><a href="#读压测" class="headerlink" title="读压测"></a>读压测</h2><h3 id="场景说明"><a href="#场景说明" class="headerlink" title="场景说明"></a>场景说明</h3><p>数据库表中大概有50万条数据, 随机取出一条数据，上边的代码里已有</p>
-<h3 id="压测数据-1"><a href="#压测数据-1" class="headerlink" title="压测数据"></a>压测数据</h3><ul>
-<li><p>机器负载(几乎没什么负载)<br><img src="https://yunsonbai.github.io/images/golang/fz2.png" alt="机器负载"></p>
-</li>
-<li><p>数据库连接数<br><img src="https://yunsonbai.github.io/images/golang/mysqlc2.png" alt="数据库连接数"></p>
-</li>
-<li><p>qps<br><img src="https://yunsonbai.github.io/images/golang/rqps.png" alt="qps"></p>
-</li>
-</ul>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>Golang为什么会有这么好的性能，得益于goroutine以最低的耗损，充分利用多核，这里有一篇关于<a href="https://www.zhihu.com/question/20862617" target="_blank" rel="external">goroutine的说明</a>。<br>当然不管选择python的Django还是Golang的gin，关键看业务场景，如果本身没有这么高的并发量，Django还是很合适的，尤其是在试探型项目，从0到1的开发，不得不说利用Django能非常快速的完成。当然量(io密集型)比较大了，由于CPython的GIL的制约，这时候需要考量一种编译语言了，Golang还是个不错的选择。</p>
-<h2 id="文章推荐"><a href="#文章推荐" class="headerlink" title="文章推荐"></a>文章推荐</h2><p><strong><a href="http://yunsonbai.top/2019/02/24/ysab/" target="_blank" rel="external">ysab基于golang的压测工具</a></strong><br><strong><a href="http://yunsonbai.top/2019/03/21/yunorm/" target="_blank" rel="external">yunorm轻量接orm</a></strong></p>
-]]></content>
-    </entry>
-    
-    <entry>
       <title><![CDATA[yunorm]]></title>
       <url>http://yunsonbai.github.io/2019/03/21/yunorm/</url>
       <content type="html"><![CDATA[<p>Yunorm is a small ORM. </p>
@@ -209,6 +120,145 @@
 <li>被压测的服务使用gin写的一个简单的hello world接口</li>
 <li>推荐尝试使用 “-urlsfile” 命令，这样你可以发送不同url在同一压测中。<br>欢迎大家在github上讨论</li>
 </ul>
+]]></content>
+    </entry>
+    
+    <entry>
+      <title><![CDATA[Golang高性能web框架gin]]></title>
+      <url>http://yunsonbai.github.io/2018/12/10/golang-gin/</url>
+      <content type="html"><![CDATA[<p><a href="http://yunsonbai.top/2019/04/16/golang-gin/" target="_blank" rel="external">原文连接</a></p>
+<h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><p>之前分享了一篇<a href="http://yunsonbai.top/2017/06/15/gunicorn-django/" target="_blank" rel="external">如何提高django的并发能力</a>文章，在文章的最后分享了进一步提升qps的方法，其中讲到了gin，下边在同样的业务场景分享一下压测数据。</p>
+<a id="more"></a>
+<h2 id="说明"><a href="#说明" class="headerlink" title="说明"></a>说明</h2><ul>
+<li>服务器: 4核+4G (docker)</li>
+<li>压测机: 4核+2G (docker)</li>
+<li>Go: 1.11.4</li>
+<li>msyql: 4核+4G(docker) max_connections:1000  max_user_connections:1000</li>
+</ul>
+<h2 id="压测方式及命令"><a href="#压测方式及命令" class="headerlink" title="压测方式及命令"></a>压测方式及命令</h2><ul>
+<li>压测方式：<img src="https://yunsonbai.github.io/images/django/lc.png" alt="lc"></li>
+<li>压测命令：<ul>
+<li>ysab: ysab -n 500 -r 200 -u <a href="http://B_ip:8080/test" target="_blank" rel="external">http://B_ip:8080/test</a>‘</li>
+<li>备注: 欢迎使用ysab, <a href="https://yunsonbai.top/2019/02/24/ysab" target="_blank" rel="external"><font color="#7B68EE">ysab文档</font></a></li>
+</ul>
+</li>
+</ul>
+<h2 id="数据表说明"><a href="#数据表说明" class="headerlink" title="数据表说明"></a>数据表说明</h2><table>
+<thead>
+<tr>
+<th style="text-align:center">字段名</th>
+<th style="text-align:center">类型</th>
+<th style="text-align:center">索引类型</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">id</td>
+<td style="text-align:center">int(11)</td>
+<td style="text-align:center">PRI</td>
+</tr>
+<tr>
+<td style="text-align:center">name</td>
+<td style="text-align:center">varchar(40)</td>
+<td style="text-align:center">MUL</td>
+</tr>
+<tr>
+<td style="text-align:center">url</td>
+<td style="text-align:center">varchar(150)</td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">descp</td>
+<td style="text-align:center">varchar(50)</td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">zan_num</td>
+<td style="text-align:center">int(11)</td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">like_num</td>
+<td style="text-align:center">int(11)</td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">create_time</td>
+<td style="text-align:center">datetime(6)</td>
+<td style="text-align:center">MUL</td>
+</tr>
+</tbody>
+</table>
+<h2 id="写压测"><a href="#写压测" class="headerlink" title="写压测"></a>写压测</h2><h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><p>随机写一条数据<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">view.go:</span><br><span class="line">    func FeedGet(c *gin.Context) &#123;</span><br><span class="line">        // nt := time.Now().Nanosecond()</span><br><span class="line">	    // id, _ := models.FeedZanGet(nt % <span class="number">200000</span>)</span><br><span class="line">        res, _ := uuid.NewV4()</span><br><span class="line">        t := time.Now().Unix()</span><br><span class="line">        st := strconv.FormatInt(t, <span class="number">10</span>)</span><br><span class="line">        name := res.String()</span><br><span class="line">        id, _ := models.FeedAdd(</span><br><span class="line">            name, stringAdd(<span class="string">"http://"</span>, name),</span><br><span class="line">            stringAdd(name, st), int(t/<span class="number">10000</span>), int(t/<span class="number">13000</span>))</span><br><span class="line"></span><br><span class="line">        c.JSON(<span class="number">200</span>, gin.H&#123;</span><br><span class="line">            <span class="string">"code"</span>: <span class="number">200</span>,</span><br><span class="line">            <span class="string">"id"</span>:   id,</span><br><span class="line">        &#125;)</span><br><span class="line">    &#125;</span><br><span class="line">util.go:</span><br><span class="line">    func FeedAdd(name, url, desc string, like_num, zan_num int) (id int64, err error) &#123;</span><br><span class="line">        stm, err := db.MySQLCon.Prepare(</span><br><span class="line">            <span class="string">"insert into feed(name, url, descp, zan_num, like_num,create_time) values(?, ?, ?, ?, ?, ?)"</span>)</span><br><span class="line">        <span class="keyword">if</span> err != nil &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span>, err</span><br><span class="line">        &#125;</span><br><span class="line">        defer stm.Close()</span><br><span class="line">        res, err := stm.Exec(name, url, desc, zan_num, like_num, time.Now())</span><br><span class="line">        <span class="keyword">if</span> err != nil &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span>, err</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res.LastInsertId()</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="压测数据"><a href="#压测数据" class="headerlink" title="压测数据"></a>压测数据</h3><ul>
+<li><p>机器负载(几乎没什么负载)<br><img src="https://yunsonbai.github.io/images/golang/fz.png" alt="机器负载"></p>
+</li>
+<li><p>数据库连接数<br><img src="https://yunsonbai.github.io/images/golang/mysqlc1.png" alt="数据库连接数"></p>
+</li>
+<li><p>qps<br><img src="https://yunsonbai.github.io/images/golang/wqps.png" alt="qps"></p>
+</li>
+</ul>
+<h2 id="读压测"><a href="#读压测" class="headerlink" title="读压测"></a>读压测</h2><h3 id="场景说明"><a href="#场景说明" class="headerlink" title="场景说明"></a>场景说明</h3><p>数据库表中大概有50万条数据, 随机取出一条数据，上边的代码里已有</p>
+<h3 id="压测数据-1"><a href="#压测数据-1" class="headerlink" title="压测数据"></a>压测数据</h3><ul>
+<li><p>机器负载(几乎没什么负载)<br><img src="https://yunsonbai.github.io/images/golang/fz2.png" alt="机器负载"></p>
+</li>
+<li><p>数据库连接数<br><img src="https://yunsonbai.github.io/images/golang/mysqlc2.png" alt="数据库连接数"></p>
+</li>
+<li><p>qps<br><img src="https://yunsonbai.github.io/images/golang/rqps.png" alt="qps"></p>
+</li>
+</ul>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>Golang为什么会有这么好的性能，得益于goroutine以最低的耗损，充分利用多核，这里有一篇关于<a href="https://www.zhihu.com/question/20862617" target="_blank" rel="external">goroutine的说明</a>。<br>当然不管选择python的Django还是Golang的gin，关键看业务场景，如果本身没有这么高的并发量，Django还是很合适的，尤其是在试探型项目，从0到1的开发，不得不说利用Django能非常快速的完成。当然量(io密集型)比较大了，由于CPython的GIL的制约，这时候需要考量一种编译语言了，Golang还是个不错的选择。</p>
+<h2 id="文章推荐"><a href="#文章推荐" class="headerlink" title="文章推荐"></a>文章推荐</h2><p><strong><a href="http://yunsonbai.top/2019/02/24/ysab/" target="_blank" rel="external">ysab基于golang的压测工具</a></strong><br><strong><a href="http://yunsonbai.top/2019/03/21/yunorm/" target="_blank" rel="external">yunorm轻量接orm</a></strong></p>
+]]></content>
+    </entry>
+    
+    <entry>
+      <title><![CDATA[nginx+tornado折腾笔记]]></title>
+      <url>http://yunsonbai.github.io/2018/12/05/nginx-tornado/</url>
+      <content type="html"><![CDATA[<p><a href="http://yunsonbai.top/2017/07/02/gunicorn-gevent-django/" target="_blank" rel="external">原文连接</a></p>
+<h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><p>之前分享了一篇<a href="http://yunsonbai.top/2017/06/15/gunicorn-django/" target="_blank" rel="external">如何提高django的并发能力</a>文章，在文章的最后分享了进一步提升qps的方法，其中讲到了tornado，于是利用业余时间，折腾了一下nginx+tornado，当然和<a href="http://yunsonbai.top/2017/06/15/gunicorn-django/" target="_blank" rel="external">如何提高django的并发能力</a>的业务模式一致。<br>为什么现在才分享: 其实之前就写完了，有一段时间没有在维护博客了，然后自己重新测试了一下，下边分享。</p>
+<a id="more"></a>
+<h2 id="说明"><a href="#说明" class="headerlink" title="说明"></a>说明</h2><p>还是利用上一篇文章<a href="https://yunsonbai.top/2017/06/15/gunicorn-django/" target="_blank" rel="external">如何提高django的并发能力</a>的数据模型，<strong>这次以get一条数据为例</strong>。</p>
+<ul>
+<li>服务器: 4核+4G (docker)</li>
+<li>压测机: 4核+2G (docker)</li>
+<li>tornado: 5.1</li>
+<li>orm: yunorm (轻量级orm, 欢迎使用<strong><a href="https://github.com/yunsonbai/yunorm" target="_blank" rel="external">yumorm</a></strong>)</li>
+<li>msyql: 4核+4G(docker) max_connections:1000  max_user_connections:1000</li>
+<li>数据库数据量: 50万条左右<br>不在介绍tornado的优势，直接说我折腾的过程</li>
+</ul>
+<h2 id="其他说明"><a href="#其他说明" class="headerlink" title="其他说明"></a>其他说明</h2><p>架构:<br><img src="https://yunsonbai.github.io/images/django/nf.png" alt="架构"></p>
+<p>样例代码:<br><strong><a href="https://github.com/yunsonbai/yunorm/tree/master/example/project/ce" target="_blank" rel="external">代码</a></strong></p>
+<p>orm: 采用了数据库连接池, 每个tornado 数据库 pool_size 为20</p>
+<h2 id="压测方式及命令"><a href="#压测方式及命令" class="headerlink" title="压测方式及命令"></a>压测方式及命令</h2><ul>
+<li>压测方式：<img src="https://yunsonbai.github.io/images/django/lc.png" alt="lc"></li>
+<li>压测命令：<ul>
+<li>ysab: ysab -n 500 -r 100 -u <a href="http://B_ip:8080/test" target="_blank" rel="external">http://B_ip:8080/test</a>‘</li>
+<li>备注: 欢迎使用ysab, <a href="https://yunsonbai.top/2019/02/24/ysab" target="_blank" rel="external"><font color="#7B68EE">ysab文档</font></a></li>
+</ul>
+</li>
+</ul>
+<h2 id="nginx优化前"><a href="#nginx优化前" class="headerlink" title="nginx优化前"></a>nginx优化前</h2><p>本次server起4个(个数和核心数一致)tornado进程</p>
+<h3 id="压测结果"><a href="#压测结果" class="headerlink" title="压测结果"></a>压测结果</h3><h4 id="qps"><a href="#qps" class="headerlink" title="qps"></a>qps</h4><p><img src="https://yunsonbai.github.io/images/tornado/qps1.png" alt="qps1"></p>
+<h4 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h4><p>不经意看，qps能提升这么多，仔细一看不是这么回事，注意看一下失败数将近38000条，有点蒙，为什么会有这么高的失败数，如果直接压测tornado server而不经过nginx，则不会出现这个问题。而且返回code如下所示：<br>Response Time histogram (code: requests):<br>  200:        12023<br>  502:        37977</p>
+<p>全是502，看了(netstat -nptal|grep TIME_WAIT|wc -l)一下TIME_WAIT数，破两万，为什么会有这么多的WAIT数？</p>
+<ul>
+<li><p>tornado数据库操作太慢？<br>去掉数据库操作代码，直接返回hello，先压测单个tornado server，qps有1200左右，没有502。<br>nginx+tornado(2个)，又开始大片出现502，一坨TIME_WAIT。到这很明显了，不是tornado的问题。</p>
+</li>
+<li><p>sysctl需要优化？<br><a href="https://www.cnblogs.com/gandefeng/p/9836087.html" target="_blank" rel="external">sysctl参数优化</a>，这篇文章写的是真不错，其实目前是nginx配置问题导致，后边会说，即便nginx配置没有问题，sysctl优化也是有利于提升服务能力的。<br>优化完后没有太大改进，因为本身这些参数之前优化过和文章说的差不多。</p>
+</li>
+<li><p>nginx优化<br>现在应该很明显了，就是nginx配置问题，这里边涉及到一个<strong>长连接</strong>的问题。<br>之前的配置：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">upstream webapp &#123;</span><br><span class="line">    server 127.0.0.1:8000;</span><br><span class="line">    server 127.0.0.1:8001;</span><br><span class="line">    server 127.0.0.1:8002;</span><br><span class="line">    server 127.0.0.1:8003;</span><br><span class="line">&#125;</span><br><span class="line">server &#123;</span><br><span class="line">    listen       80;</span><br><span class="line">    location / &#123;</span><br><span class="line">        proxy_pass    http://webapp/;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>从nginx到server的连接不是长连接，导致每次请求nginx到server之间都会建立新的tcp连接，即便我们优化了net.ipv4.tcp_tw_reuse = 1<br>net.ipv4.tcp_tw_recycle = 1<br>高并发下照样会出现一坨的TIME_WAIT，导致502的问题。<br>到这优化了，可以参考文章<a href="https://skyao.gitbooks.io/learning-nginx/content/documentation/keep_alive.html" target="_blank" rel="external">nginx长连接</a>, 配置优化如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">upstream webapp &#123;</span><br><span class="line">    keepalive 300;</span><br><span class="line">    server 127.0.0.1:8000;</span><br><span class="line">    server 127.0.0.1:8001;</span><br><span class="line">    server 127.0.0.1:8002;</span><br><span class="line">    server 127.0.0.1:8003;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">server &#123;</span><br><span class="line">    listen       80;</span><br><span class="line">    location / &#123;</span><br><span class="line">        proxy_pass    http://webapp/;</span><br><span class="line">        proxy_http_version 1.1;</span><br><span class="line">        proxy_set_header Connection &quot;&quot;;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="nginx优化后"><a href="#nginx优化后" class="headerlink" title="nginx优化后"></a>nginx优化后</h2><h3 id="后端4个tornado进程"><a href="#后端4个tornado进程" class="headerlink" title="后端4个tornado进程"></a>后端4个tornado进程</h3><ul>
+<li>qps<br><img src="https://yunsonbai.github.io/images/tornado/qps2.png" alt="qps2"><br>还是比较理想的，比之前的gunicorn+gevent+djangot有了700的提升</li>
+</ul>
+<h3 id="后端8个tornado进程"><a href="#后端8个tornado进程" class="headerlink" title="后端8个tornado进程"></a>后端8个tornado进程</h3><p><img src="https://yunsonbai.github.io/images/tornado/qps3.png" alt="qps3"><br>还是比较理想的，比后端4个tornado进程有了700的提升</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>io密集型服务器的，相对于dajango tornado还是有很大的优势的，如果说基于Python开发，tornado还是一个非常好的选择。<br>关于tornado进程数个数，这里建议是2n(n为cpu核心数)个，当然这是一般情况，具体情况还需要具体分析压测一下。</p>
+<h2 id="文章推荐"><a href="#文章推荐" class="headerlink" title="文章推荐"></a>文章推荐</h2><p><strong><a href="http://yunsonbai.top/2019/02/24/ysab/" target="_blank" rel="external">ysab基于golang的压测工具</a></strong><br><strong><a href="http://yunsonbai.top/2019/03/21/yunorm/" target="_blank" rel="external">yunorm轻量接orm</a></strong><br><strong><a href="https://yunsonbai.top/2019/04/16/golang-gin/" target="_blank" rel="external">Golang高性能web框架gin</a></strong></p>
 ]]></content>
     </entry>
     
@@ -386,13 +436,13 @@
       <title><![CDATA[django数据库连接池]]></title>
       <url>http://yunsonbai.github.io/2017/07/02/gunicorn-gevent-django/</url>
       <content type="html"><![CDATA[<p><a href="http://yunsonbai.top/2017/07/02/gunicorn-gevent-django/" target="_blank" rel="external">原文连接</a></p>
-<h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><p>前段时间分享了一篇<a href="https://yunsonbai.top/2017/06/15/gunicorn-django/" target="_blank" rel="external">如何提高django的并发能力</a>文章，文章的最后结论是采用gunicorn+gthread+django的方式来提高并发能力，该方法简单的说是利用的多线程。<br>文章也抛出了一个问题：gunicorn+gevent+django+CONN_MAX_AGE会导致数据库连接数飙升，直至占满。如果一定要利用协程的方式启动，该怎么解决这个问题呢？看了一下django源码，找到了问题的根源，写了一下解决办法，下边分享一下。</p>
+<h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><p>之前分享了一篇<a href="https://yunsonbai.top/2017/06/15/gunicorn-django/" target="_blank" rel="external">如何提高django的并发能力</a>文章，文章的最后结论是采用gunicorn+gthread+django的方式来提高并发能力，该方法简单的说是利用的多线程。<br>文章也抛出了一个问题：gunicorn+gevent+django+CONN_MAX_AGE会导致数据库连接数飙升，直至占满。如果一定要利用协程的方式启动，该怎么解决这个问题呢？看了一下django源码，找到了问题的根源，写了一下解决办法，下边分享一下。</p>
 <a id="more"></a>
 <h2 id="说明"><a href="#说明" class="headerlink" title="说明"></a>说明</h2><p>还是利用上一篇文章<a href="https://yunsonbai.top/2017/06/15/gunicorn-django/" target="_blank" rel="external">如何提高django的并发能力</a>的数据模型，<strong>这次以get一条数据为例</strong>，由于某些原因(好吧手里没有资源)，采用了配置稍低的机器：</p>
 <ul>
 <li>服务器: 4核+4G (docker)</li>
 <li>压测机: 4核+2G (docker)</li>
-<li>django: 2.0.8</li>
+<li>django: 1.8.2</li>
 <li>msyql: 4核+4G(docker) max_connections:1000  max_user_connections:1000</li>
 </ul>
 <h2 id="压测方式及命令"><a href="#压测方式及命令" class="headerlink" title="压测方式及命令"></a>压测方式及命令</h2><ul>
@@ -433,7 +483,7 @@
 </li>
 </ul>
 <h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>利用连接池+假关闭的方式解决过高连接数的问题，如果有更好的建议，可以讨论。</p>
-<h2 id="文章推荐"><a href="#文章推荐" class="headerlink" title="文章推荐"></a>文章推荐</h2><p><strong><a href="http://yunsonbai.top/2019/02/24/ysab/" target="_blank" rel="external">ysab基于golang的压测工具</a></strong><br><strong><a href="http://yunsonbai.top/2019/03/21/yunorm/" target="_blank" rel="external">yunorm轻量接orm</a></strong></p>
+<h2 id="文章推荐"><a href="#文章推荐" class="headerlink" title="文章推荐"></a>文章推荐</h2><p><strong><a href="http://yunsonbai.top/2019/02/24/ysab/" target="_blank" rel="external">ysab基于golang的压测工具</a></strong><br><strong><a href="http://yunsonbai.top/2019/03/21/yunorm/" target="_blank" rel="external">yunorm轻量接orm</a></strong><br><strong><a href="http://yunsonbai.top/2018/12/05/nginx-tornado/" target="_blank" rel="external">nginx+tornado折腾笔记</a></strong></p>
 ]]></content>
     </entry>
     
@@ -495,6 +545,7 @@
 </li>
 </ul>
 <h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>虽然没有看其他的工作方式流程，但大概应该差不多都是最前的三步过程，可能会有一些函数的不同，其实去看gunicorn的源码无非就是想了解其工作流程，前边的文章<strong><a href="https://yunsonbai.top/2017/06/15/gunicorn-django/" target="_blank" rel="external">如何提高django的并发能力</a></strong>，遇到了当采用gevent方法启动时会导致数据库连接不能复用，后边会继续研究，希望能找到具体的原因。</p>
+<h2 id="文章推荐"><a href="#文章推荐" class="headerlink" title="文章推荐"></a>文章推荐</h2><p><strong><a href="http://yunsonbai.top/2017/07/02/gunicorn-gevent-django/" target="_blank" rel="external">gunicorn+gevent+django解决mysql高连接数并提高性能</a></strong></p>
 ]]></content>
     </entry>
     
@@ -574,7 +625,7 @@
 <h3 id="去掉自增主键"><a href="#去掉自增主键" class="headerlink" title="去掉自增主键"></a>去掉自增主键</h3><p>原因很简单,因为自增主键的存在写库存在抢锁, 可以利用全局id生成器提前生成id直接写入数据库</p>
 <h3 id="换成异步任务去写库"><a href="#换成异步任务去写库" class="headerlink" title="换成异步任务去写库"></a>换成异步任务去写库</h3><p>如果数据只是存在mysql中做备份，建议使用异步的方式写入库，先把数据写到缓存下发给用户，之后在<br>利用后台异步任务一点点的写入，例如聊天系统可以这样干</p>
 <h3 id="换成更高效的框架或者语言"><a href="#换成更高效的框架或者语言" class="headerlink" title="换成更高效的框架或者语言"></a>换成更高效的框架或者语言</h3><p>可以试试tornado, 如果tornado依然无法满足，可以尝试使用golango，毕竟golang是以高并发著称,<br>而且是编译语言，而且基于它的web框架也很容易上手，性能很可观，例如Gin<br><a href="https://github.com/gin-gonic/gin" target="_blank" rel="external">Gin</a></p>
-<h2 id="文章推荐"><a href="#文章推荐" class="headerlink" title="文章推荐"></a>文章推荐</h2><p><strong><a href="http://yunsonbai.top/2017/06/20/gunicorn_worker%E7%9A%84%E8%B0%83%E5%BA%A6/" target="_blank" rel="external">关于gunicorn的worker调度</a></strong><br><strong><a href="http://yunsonbai.top/2017/07/02/gunicorn-gevent-django/" target="_blank" rel="external">gunicorn+gevent+django解决mysql高连接数并提高性能</a></strong><br><strong><a href="http://yunsonbai.top/2019/04/16/golang-gin/" target="_blank" rel="external">Golang高性能框架gin</a></strong></p>
+<h2 id="文章推荐"><a href="#文章推荐" class="headerlink" title="文章推荐"></a>文章推荐</h2><p><strong><a href="http://yunsonbai.top/2017/06/20/gunicorn_worker%E7%9A%84%E8%B0%83%E5%BA%A6/" target="_blank" rel="external">关于gunicorn的worker调度</a></strong><br><strong><a href="http://yunsonbai.top/2017/07/02/gunicorn-gevent-django/" target="_blank" rel="external">gunicorn+gevent+django解决mysql高连接数并提高性能</a></strong><br><strong><a href="http://yunsonbai.top/2018/12/05/nginx-tornado/" target="_blank" rel="external">nginx+tornado折腾笔记</a></strong>(较gunicorn+django进一步提升服务并发量)<br><strong><a href="http://yunsonbai.top/2019/04/16/golang-gin/" target="_blank" rel="external">Golang高性能框架gin</a></strong>(更高qps解决办法)</p>
 ]]></content>
     </entry>
     
@@ -957,6 +1008,23 @@
     </entry>
     
     <entry>
+      <title><![CDATA[nginx实现https]]></title>
+      <url>http://yunsonbai.github.io/2016/06/09/nginx-https%E9%85%8D%E7%BD%AE/</url>
+      <content type="html"><![CDATA[<h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nginx是一个高性能的HTTP和反向代理服务器，也是一个IMAP/POP3/SMTP服务器，下边说一下nginx关于https的配置</span><br></pre></td></tr></table></figure>
+<a id="more"></a>
+<h2 id="使用ssl生成证书"><a href="#使用ssl生成证书" class="headerlink" title="使用ssl生成证书"></a>使用ssl生成证书</h2><h3 id="生成命令"><a href="#生成命令" class="headerlink" title="生成命令"></a>生成命令</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout </span></span><br><span class="line">   /etc/nginx/ssl/nginx.key -out /etc/nginx/ssl/nginx.crt</span><br></pre></td></tr></table></figure>
+<h3 id="输入完命令后的提示"><a href="#输入完命令后的提示" class="headerlink" title="输入完命令后的提示"></a>输入完命令后的提示</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">提示如下，一步一步完成即可（也可以使用默认，也可随意）：</span><br><span class="line">Country Name (2 letter code) [AU]:China</span><br><span class="line">   State or Province Name (full name) [Some-State]: Beijing</span><br><span class="line">   Locality Name (eg, city) []:Beijing</span><br><span class="line">   Organization Name (eg, company) [Internet Widgits Pty Ltd]:Bouncy Castles, Inc.</span><br><span class="line">   Organizational Unit Name (eg, section) []:Ministry of Water Slides</span><br><span class="line">   Common Name (e.g. server FQDN or YOUR name) []:your_domain.com</span><br><span class="line">   Email Address []:admin@your_domain.com</span><br></pre></td></tr></table></figure>
+<h2 id="配置nginx"><a href="#配置nginx" class="headerlink" title="配置nginx"></a>配置nginx</h2><h3 id="打开-conf文件"><a href="#打开-conf文件" class="headerlink" title="打开.conf文件"></a>打开.conf文件</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> /etc/nginx、nginx.conf文件</span><br><span class="line">   vim nginx.conf</span><br></pre></td></tr></table></figure>
+<h3 id="添加如下配置"><a href="#添加如下配置" class="headerlink" title="添加如下配置"></a>添加如下配置</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">server&#123;</span><br><span class="line">     listen 80;</span><br><span class="line">     server_name www.xxx.xxx;</span><br><span class="line">&#125;</span><br><span class="line">server&#123;</span><br><span class="line">	listen 443 ssl;</span><br><span class="line">    ssl_certificate /etc/nginx/ssl/nginx.crt;</span><br><span class="line">    ssl_certificate_key /etc/nginx/ssl/nginx.key;</span><br><span class="line">    location /static/ &#123;</span><br><span class="line">    	<span class="built_in">alias</span>   /<span class="built_in">test</span>/static/;</span><br><span class="line">        expires 24h;</span><br><span class="line">    &#125; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h2><h3 id="启动nginx"><a href="#启动nginx" class="headerlink" title="启动nginx"></a>启动nginx</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nginx -c /etc/nginx/nginx.conf</span><br></pre></td></tr></table></figure>
+<h3 id="创建静态页"><a href="#创建静态页" class="headerlink" title="创建静态页"></a>创建静态页</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cd /test/static</span><br><span class="line">touch test.html</span><br><span class="line">echo &apos;test https&apos; &gt; test.html</span><br></pre></td></tr></table></figure>
+<h3 id="访问"><a href="#访问" class="headerlink" title="访问"></a>访问</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">在浏览器中访问https:127..0.1/static/test.html</span><br></pre></td></tr></table></figure>
+<h2 id="补充"><a href="#补充" class="headerlink" title="补充"></a>补充</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">最近发现了一个很奇怪的问题，就是使用python在访问https下的链接的时候一切正常</span><br><span class="line">然而在ios9下访问就会时不时的出现1004问题（访问不到）,最后的解决办法是使用最</span><br><span class="line">新的nginx解决</span><br></pre></td></tr></table></figure>
+<p><a href="http://www.yunsonbai.top/2016/06/09/nginx%E5%B8%B8%E7%94%A8%E9%85%8D%E7%BD%AE/" target="_blank" rel="external">nginx常用配置</a></p>
+]]></content>
+    </entry>
+    
+    <entry>
       <title><![CDATA[当eth0没有ipv4地址的解决办法]]></title>
       <url>http://yunsonbai.github.io/2016/06/09/eth0-no-ipv4/</url>
       <content type="html"><![CDATA[<h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">有时候我们在Linux使用ifconfig后发现没有ipv4地址，下边说一下解决办法</span><br></pre></td></tr></table></figure>
@@ -984,23 +1052,6 @@
 <h3 id="if语句"><a href="#if语句" class="headerlink" title="if语句"></a>if语句</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 限制可用的请求方法</span></span><br><span class="line"><span class="keyword">if</span> (<span class="variable">$request_method</span> !~ ^(GET|HEAD|POST)$ ) &#123;</span><br><span class="line">        <span class="built_in">return</span> 403;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h3 id="防止图片盗链"><a href="#防止图片盗链" class="headerlink" title="防止图片盗链"></a>防止图片盗链</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">只有www.example1.com example2.com 能访问</span><br><span class="line">   location /images/ &#123;</span><br><span class="line">        valid_referers none blocked www.example1.com example2.com;</span><br><span class="line">        <span class="keyword">if</span> (<span class="variable">$invalid_referer</span>) &#123;</span><br><span class="line">             <span class="built_in">return</span>   403;</span><br><span class="line">        &#125;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
 <p><a href="http://www.yunsonbai.top/2016/06/09/nginx-https%E9%85%8D%E7%BD%AE/" target="_blank" rel="external">nginx实现https</a></p>
-]]></content>
-    </entry>
-    
-    <entry>
-      <title><![CDATA[nginx实现https]]></title>
-      <url>http://yunsonbai.github.io/2016/06/09/nginx-https%E9%85%8D%E7%BD%AE/</url>
-      <content type="html"><![CDATA[<h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nginx是一个高性能的HTTP和反向代理服务器，也是一个IMAP/POP3/SMTP服务器，下边说一下nginx关于https的配置</span><br></pre></td></tr></table></figure>
-<a id="more"></a>
-<h2 id="使用ssl生成证书"><a href="#使用ssl生成证书" class="headerlink" title="使用ssl生成证书"></a>使用ssl生成证书</h2><h3 id="生成命令"><a href="#生成命令" class="headerlink" title="生成命令"></a>生成命令</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout </span></span><br><span class="line">   /etc/nginx/ssl/nginx.key -out /etc/nginx/ssl/nginx.crt</span><br></pre></td></tr></table></figure>
-<h3 id="输入完命令后的提示"><a href="#输入完命令后的提示" class="headerlink" title="输入完命令后的提示"></a>输入完命令后的提示</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">提示如下，一步一步完成即可（也可以使用默认，也可随意）：</span><br><span class="line">Country Name (2 letter code) [AU]:China</span><br><span class="line">   State or Province Name (full name) [Some-State]: Beijing</span><br><span class="line">   Locality Name (eg, city) []:Beijing</span><br><span class="line">   Organization Name (eg, company) [Internet Widgits Pty Ltd]:Bouncy Castles, Inc.</span><br><span class="line">   Organizational Unit Name (eg, section) []:Ministry of Water Slides</span><br><span class="line">   Common Name (e.g. server FQDN or YOUR name) []:your_domain.com</span><br><span class="line">   Email Address []:admin@your_domain.com</span><br></pre></td></tr></table></figure>
-<h2 id="配置nginx"><a href="#配置nginx" class="headerlink" title="配置nginx"></a>配置nginx</h2><h3 id="打开-conf文件"><a href="#打开-conf文件" class="headerlink" title="打开.conf文件"></a>打开.conf文件</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> /etc/nginx、nginx.conf文件</span><br><span class="line">   vim nginx.conf</span><br></pre></td></tr></table></figure>
-<h3 id="添加如下配置"><a href="#添加如下配置" class="headerlink" title="添加如下配置"></a>添加如下配置</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">server&#123;</span><br><span class="line">     listen 80;</span><br><span class="line">     server_name www.xxx.xxx;</span><br><span class="line">&#125;</span><br><span class="line">server&#123;</span><br><span class="line">	listen 443 ssl;</span><br><span class="line">    ssl_certificate /etc/nginx/ssl/nginx.crt;</span><br><span class="line">    ssl_certificate_key /etc/nginx/ssl/nginx.key;</span><br><span class="line">    location /static/ &#123;</span><br><span class="line">    	<span class="built_in">alias</span>   /<span class="built_in">test</span>/static/;</span><br><span class="line">        expires 24h;</span><br><span class="line">    &#125; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h2><h3 id="启动nginx"><a href="#启动nginx" class="headerlink" title="启动nginx"></a>启动nginx</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nginx -c /etc/nginx/nginx.conf</span><br></pre></td></tr></table></figure>
-<h3 id="创建静态页"><a href="#创建静态页" class="headerlink" title="创建静态页"></a>创建静态页</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cd /test/static</span><br><span class="line">touch test.html</span><br><span class="line">echo &apos;test https&apos; &gt; test.html</span><br></pre></td></tr></table></figure>
-<h3 id="访问"><a href="#访问" class="headerlink" title="访问"></a>访问</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">在浏览器中访问https:127..0.1/static/test.html</span><br></pre></td></tr></table></figure>
-<h2 id="补充"><a href="#补充" class="headerlink" title="补充"></a>补充</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">最近发现了一个很奇怪的问题，就是使用python在访问https下的链接的时候一切正常</span><br><span class="line">然而在ios9下访问就会时不时的出现1004问题（访问不到）,最后的解决办法是使用最</span><br><span class="line">新的nginx解决</span><br></pre></td></tr></table></figure>
-<p><a href="http://www.yunsonbai.top/2016/06/09/nginx%E5%B8%B8%E7%94%A8%E9%85%8D%E7%BD%AE/" target="_blank" rel="external">nginx常用配置</a></p>
 ]]></content>
     </entry>
     
@@ -1144,6 +1195,21 @@
     </entry>
     
     <entry>
+      <title><![CDATA[fiddler代理利器]]></title>
+      <url>http://yunsonbai.github.io/2016/05/12/fiddler/</url>
+      <content type="html"><![CDATA[<h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">fiddler在前端开发工程师那可以说是利器,同样后端工程师也可能用到尤其是在利用app调试api的时候，</span><br><span class="line">也许你就会用到fiddler</span><br></pre></td></tr></table></figure>
+<a id="more"></a>
+<h3 id="只代理某个url"><a href="#只代理某个url" class="headerlink" title="只代理某个url"></a>只代理某个url</h3><h4 id="应用"><a href="#应用" class="headerlink" title="应用"></a>应用</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">比如把线上某个url代理到本地/或者调试某个接口,便于调试</span><br></pre></td></tr></table></figure>
+<h4 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">点击AotuResponder,之后把三个复选框全选上,然后点击add ruler</span><br><span class="line">加入:</span><br><span class="line">    regex:.*yunsonbai.com /activity/(.*)</span><br><span class="line">    http://127.0.0.1:8000/activity/<span class="variable">$1</span></span><br></pre></td></tr></table></figure>
+<h3 id="设置host"><a href="#设置host" class="headerlink" title="设置host"></a>设置host</h3><h4 id="应用-1"><a href="#应用-1" class="headerlink" title="应用"></a>应用</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">把某个域全部代理到本地</span><br></pre></td></tr></table></figure>
+<h4 id="配置-1"><a href="#配置-1" class="headerlink" title="配置"></a>配置</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">点击Tools-&gt;HOSTS-&gt;选上复选框</span><br><span class="line">加入:</span><br><span class="line">    127.0.0.1:8000 yunsonbai.com</span><br></pre></td></tr></table></figure>
+<h3 id="如何让手机也走设置好的代理"><a href="#如何让手机也走设置好的代理" class="headerlink" title="如何让手机也走设置好的代理"></a>如何让手机也走设置好的代理</h3><h4 id="应用-2"><a href="#应用-2" class="headerlink" title="应用"></a>应用</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">调试移动端应用</span><br></pre></td></tr></table></figure>
+<h4 id="配置-2"><a href="#配置-2" class="headerlink" title="配置"></a>配置</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">设置wifi代理为手动；</span><br><span class="line">servername: 你电脑的ip/或域名</span><br><span class="line">port: 8888（fiddler默认是启动8888端口）</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="http://www.telerik.com/fiddler" target="_blank" rel="external">Generating</a></p>
+]]></content>
+    </entry>
+    
+    <entry>
       <title><![CDATA[hexo命令]]></title>
       <url>http://yunsonbai.github.io/2016/05/12/hexo%E5%91%BD%E4%BB%A4/</url>
       <content type="html"><![CDATA[<h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">记录了一下hexo常用的命令, 在维护个人博客的时候经常会用到</span><br></pre></td></tr></table></figure>
@@ -1157,21 +1223,6 @@
 <h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
 <h3 id="Insert-image"><a href="#Insert-image" class="headerlink" title="Insert image"></a>Insert image</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;% img [class names] /path/to/image [width] [height] [title text [alt text]] %&#125;</span><br></pre></td></tr></table></figure>
 <p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
-]]></content>
-    </entry>
-    
-    <entry>
-      <title><![CDATA[fiddler代理利器]]></title>
-      <url>http://yunsonbai.github.io/2016/05/12/fiddler/</url>
-      <content type="html"><![CDATA[<h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">fiddler在前端开发工程师那可以说是利器,同样后端工程师也可能用到尤其是在利用app调试api的时候，</span><br><span class="line">也许你就会用到fiddler</span><br></pre></td></tr></table></figure>
-<a id="more"></a>
-<h3 id="只代理某个url"><a href="#只代理某个url" class="headerlink" title="只代理某个url"></a>只代理某个url</h3><h4 id="应用"><a href="#应用" class="headerlink" title="应用"></a>应用</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">比如把线上某个url代理到本地/或者调试某个接口,便于调试</span><br></pre></td></tr></table></figure>
-<h4 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">点击AotuResponder,之后把三个复选框全选上,然后点击add ruler</span><br><span class="line">加入:</span><br><span class="line">    regex:.*yunsonbai.com /activity/(.*)</span><br><span class="line">    http://127.0.0.1:8000/activity/<span class="variable">$1</span></span><br></pre></td></tr></table></figure>
-<h3 id="设置host"><a href="#设置host" class="headerlink" title="设置host"></a>设置host</h3><h4 id="应用-1"><a href="#应用-1" class="headerlink" title="应用"></a>应用</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">把某个域全部代理到本地</span><br></pre></td></tr></table></figure>
-<h4 id="配置-1"><a href="#配置-1" class="headerlink" title="配置"></a>配置</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">点击Tools-&gt;HOSTS-&gt;选上复选框</span><br><span class="line">加入:</span><br><span class="line">    127.0.0.1:8000 yunsonbai.com</span><br></pre></td></tr></table></figure>
-<h3 id="如何让手机也走设置好的代理"><a href="#如何让手机也走设置好的代理" class="headerlink" title="如何让手机也走设置好的代理"></a>如何让手机也走设置好的代理</h3><h4 id="应用-2"><a href="#应用-2" class="headerlink" title="应用"></a>应用</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">调试移动端应用</span><br></pre></td></tr></table></figure>
-<h4 id="配置-2"><a href="#配置-2" class="headerlink" title="配置"></a>配置</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">设置wifi代理为手动；</span><br><span class="line">servername: 你电脑的ip/或域名</span><br><span class="line">port: 8888（fiddler默认是启动8888端口）</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="http://www.telerik.com/fiddler" target="_blank" rel="external">Generating</a></p>
 ]]></content>
     </entry>
     
