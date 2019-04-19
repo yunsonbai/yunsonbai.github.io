@@ -108,7 +108,7 @@
 <meta property="og:image" content="https://yunsonbai.github.io/images/tornado/qps1.png">
 <meta property="og:image" content="https://yunsonbai.github.io/images/tornado/qps2.png">
 <meta property="og:image" content="https://yunsonbai.github.io/images/tornado/qps3.png">
-<meta property="og:updated_time" content="2019-04-19T02:22:06.242Z">
+<meta property="og:updated_time" content="2019-04-19T02:30:32.014Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="nginx+tornado折腾笔记">
 <meta name="twitter:description" content="相对于gunicorn+gevent+django(数据库连接池)，继续提升性能">
@@ -444,8 +444,8 @@
       
 
       
-        <p><a href="http://yunsonbai.top/2017/07/02/gunicorn-gevent-django/" target="_blank" rel="external">原文连接</a></p>
-<h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><p>之前分享了一篇<a href="http://yunsonbai.top/2017/06/15/gunicorn-django/" target="_blank" rel="external">如何提高django的并发能力</a>文章，在文章的最后分享了进一步提升qps的方法，其中讲到了tornado，于是利用业余时间，折腾了一下nginx+tornado，当然和<a href="http://yunsonbai.top/2017/06/15/gunicorn-django/" target="_blank" rel="external">如何提高django的并发能力</a>的业务模式一致。<br>为什么现在才分享: 其实之前就写完了，有一段时间没有在维护博客了，然后自己重新测试了一下，下边分享。</p>
+        <p><a href="https://yunsonbai.top/2017/07/02/gunicorn-gevent-django/" target="_blank" rel="external">原文连接</a></p>
+<h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><p>之前分享了一篇<a href="https://yunsonbai.top/2017/06/15/gunicorn-django/" target="_blank" rel="external">如何提高django的并发能力</a>文章，在文章的最后分享了进一步提升qps的方法，其中讲到了tornado，于是利用业余时间，折腾了一下nginx+tornado，当然和<a href="https://yunsonbai.top/2017/06/15/gunicorn-django/" target="_blank" rel="external">如何提高django的并发能力</a>的业务模式一致。<br>为什么现在才分享: 其实之前就写完了，有一段时间没有在维护博客了，然后自己重新测试了一下，下边分享。</p>
 <a id="more"></a>
 <h2 id="说明"><a href="#说明" class="headerlink" title="说明"></a>说明</h2><p>还是利用上一篇文章<a href="https://yunsonbai.top/2017/06/15/gunicorn-django/" target="_blank" rel="external">如何提高django的并发能力</a>的数据模型，<strong>这次以get一条数据为例</strong>。</p>
 <ul>
@@ -487,7 +487,7 @@
 </ul>
 <h3 id="后端8个tornado进程"><a href="#后端8个tornado进程" class="headerlink" title="后端8个tornado进程"></a>后端8个tornado进程</h3><p><img src="https://yunsonbai.github.io/images/tornado/qps3.png" alt="qps3"><br>还是比较理想的，比后端4个tornado进程有了700的提升</p>
 <h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>io密集型服务器的，相对于dajango tornado还是有很大的优势的，如果说基于Python开发，tornado还是一个非常好的选择。<br>关于tornado进程数个数，这里建议是2n(n为cpu核心数)个，当然这是一般情况，具体情况还需要具体分析压测一下。</p>
-<h2 id="文章推荐"><a href="#文章推荐" class="headerlink" title="文章推荐"></a>文章推荐</h2><p><strong><a href="http://yunsonbai.top/2019/02/24/ysab/" target="_blank" rel="external">ysab基于golang的压测工具</a></strong><br><strong><a href="http://yunsonbai.top/2019/03/21/yunorm/" target="_blank" rel="external">yunorm轻量接orm</a></strong><br><strong><a href="https://yunsonbai.top/2019/04/16/golang-gin/" target="_blank" rel="external">Golang高性能web框架gin</a></strong></p>
+<h2 id="文章推荐"><a href="#文章推荐" class="headerlink" title="文章推荐"></a>文章推荐</h2><p><strong><a href="https://yunsonbai.top/2019/02/24/ysab/" target="_blank" rel="external">ysab基于golang的压测工具</a></strong><br><strong><a href="https://yunsonbai.top/2019/03/21/yunorm/" target="_blank" rel="external">yunorm轻量接orm</a></strong><br><strong><a href="https://yunsonbai.top/2019/04/16/golang-gin/" target="_blank" rel="external">Golang高性能web框架gin</a></strong></p>
 
       
     </div>

@@ -103,7 +103,7 @@
 <meta property="og:url" content="http://yunsonbai.github.io/2017/06/20/gunicorn-worker的调度/index.html">
 <meta property="og:site_name" content="雲Son">
 <meta property="og:description" content="引言前段时间分享了一篇如何提高django的并发能力的文章，由此引发了我对gunicorn的进一步研究，利用业余的时间看了一下gunicorn关于worker那部分的主要代码，下边以gevent为例子聊一聊它的工作流程(好吧目前主要看了看gevent这块儿的代码)。">
-<meta property="og:updated_time" content="2019-04-19T02:18:32.766Z">
+<meta property="og:updated_time" content="2019-04-19T02:30:17.702Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="关于gunicorn的worker调度">
 <meta name="twitter:description" content="引言前段时间分享了一篇如何提高django的并发能力的文章，由此引发了我对gunicorn的进一步研究，利用业余的时间看了一下gunicorn关于worker那部分的主要代码，下边以gevent为例子聊一聊它的工作流程(好吧目前主要看了看gevent这块儿的代码)。">
@@ -459,7 +459,7 @@
 </li>
 </ul>
 <h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>虽然没有看其他的工作方式流程，但大概应该差不多都是最前的三步过程，可能会有一些函数的不同，其实去看gunicorn的源码无非就是想了解其工作流程，前边的文章<strong><a href="https://yunsonbai.top/2017/06/15/gunicorn-django/" target="_blank" rel="external">如何提高django的并发能力</a></strong>，遇到了当采用gevent方法启动时会导致数据库连接不能复用，后边会继续研究，希望能找到具体的原因。</p>
-<h2 id="文章推荐"><a href="#文章推荐" class="headerlink" title="文章推荐"></a>文章推荐</h2><p><strong><a href="http://yunsonbai.top/2017/07/02/gunicorn-gevent-django/" target="_blank" rel="external">gunicorn+gevent+django解决mysql高连接数并提高性能</a></strong></p>
+<h2 id="文章推荐"><a href="#文章推荐" class="headerlink" title="文章推荐"></a>文章推荐</h2><p><strong><a href="https://yunsonbai.top/2017/07/02/gunicorn-gevent-django/" target="_blank" rel="external">gunicorn+gevent+django解决mysql高连接数并提高性能</a></strong></p>
 
       
     </div>
