@@ -99,13 +99,13 @@
 
   <meta name="description" content="引言前段时间分享了一篇如何提高django的并发能力的文章，由此引发了我对gunicorn的进一步研究，利用业余的时间看了一下gunicorn关于worker那部分的主要代码，下边以gevent为例子聊一聊它的工作流程(好吧目前主要看了看gevent这块儿的代码)。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="关于gunicorn的worker调度">
+<meta property="og:title" content="gunicorn的worker调度">
 <meta property="og:url" content="http://yunsonbai.github.io/2017/06/20/gunicorn-worker的调度/index.html">
 <meta property="og:site_name" content="雲Son">
 <meta property="og:description" content="引言前段时间分享了一篇如何提高django的并发能力的文章，由此引发了我对gunicorn的进一步研究，利用业余的时间看了一下gunicorn关于worker那部分的主要代码，下边以gevent为例子聊一聊它的工作流程(好吧目前主要看了看gevent这块儿的代码)。">
-<meta property="og:updated_time" content="2019-04-22T10:54:37.307Z">
+<meta property="og:updated_time" content="2019-04-24T08:13:52.199Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="关于gunicorn的worker调度">
+<meta name="twitter:title" content="gunicorn的worker调度">
 <meta name="twitter:description" content="引言前段时间分享了一篇如何提高django的并发能力的文章，由此引发了我对gunicorn的进一步研究，利用业余的时间看了一下gunicorn关于worker那部分的主要代码，下边以gevent为例子聊一聊它的工作流程(好吧目前主要看了看gevent这块儿的代码)。">
 
 
@@ -123,7 +123,7 @@
   };
 </script>
 
-  <title>关于gunicorn的worker调度 | 雲Son</title>
+  <title>gunicorn的worker调度 | 雲Son</title>
   
 
 
@@ -359,7 +359,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">关于gunicorn的worker调度</h1>
+          <h1 class="post-title" itemprop="name headline">gunicorn的worker调度</h1>
         
 
         <div class="post-meta">
@@ -488,9 +488,11 @@
       
         <div class="post-tags">
           
-            <a href="/tags/gevent/" rel="tag"># gevent</a>
+            <a href="/tags/gunicorn-worker/" rel="tag"># gunicorn worker</a>
           
-            <a href="/tags/gunicorn-worker调度/" rel="tag"># gunicorn worker调度</a>
+            <a href="/tags/gunicorn-worker-调度/" rel="tag"># gunicorn worker 调度</a>
+          
+            <a href="/tags/gunicorn-worker-dispatch/" rel="tag"># gunicorn worker dispatch</a>
           
             <a href="/tags/gunicorn-分析/" rel="tag"># gunicorn 分析</a>
           
@@ -941,7 +943,35 @@ var jiathis_config={
                     
                       
                     
-                    <span class="site-state-item-count">124</span>
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">138</span>
                     <span class="site-state-item-name">tags</span>
                   </a>
                 </div>
