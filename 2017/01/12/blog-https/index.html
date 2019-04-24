@@ -4,10 +4,10 @@
 
 
 <html class="theme-next gemini" lang="zh-Hans,en,default">
-<head>
-  <meta charset="UTF-8"/>
-<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
 
 
@@ -21,8 +21,8 @@
 
 
 
-<meta http-equiv="Cache-Control" content="no-transform" />
-<meta http-equiv="Cache-Control" content="no-siteapp" />
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
 
 
 
@@ -45,9 +45,9 @@
 
 
 
-<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
 
-<link href="/css/main.css?v=6.0.6" rel="stylesheet" type="text/css" />
+<link href="/css/main.css?v=6.0.6" rel="stylesheet" type="text/css">
 
 
   <link rel="apple-touch-icon" sizes="180x180" href="/images/system/logo_v3.png?v=6.0.6">
@@ -97,17 +97,20 @@
 
 
 
-  <meta name="description" content="引言1昨天把博客迁到了https下，现在博客支持https访问了。本文适合自己用机器搭建的博客。">
+
+  <meta name="description" content="使用Let&apos;s Encrypt, 使自己的网站支持htps">
+<meta name="keywords" content="博客,支持https,免费https">
 <meta property="og:type" content="article">
-<meta property="og:title" content="让自己的博客支持https">
+<meta property="og:title" content="博客支持https">
 <meta property="og:url" content="http://yunsonbai.github.io/2017/01/12/blog-https/index.html">
 <meta property="og:site_name" content="雲Son">
-<meta property="og:description" content="引言1昨天把博客迁到了https下，现在博客支持https访问了。本文适合自己用机器搭建的博客。">
+<meta property="og:description" content="使用Let&apos;s Encrypt, 使自己的网站支持htps">
+<meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://yunsonbai.github.io/images/https/lc.jpg">
-<meta property="og:updated_time" content="2018-01-05T06:17:55.879Z">
+<meta property="og:updated_time" content="2019-04-24T09:47:47.068Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="让自己的博客支持https">
-<meta name="twitter:description" content="引言1昨天把博客迁到了https下，现在博客支持https访问了。本文适合自己用机器搭建的博客。">
+<meta name="twitter:title" content="博客支持https">
+<meta name="twitter:description" content="使用Let&apos;s Encrypt, 使自己的网站支持htps">
 <meta name="twitter:image" content="https://yunsonbai.github.io/images/https/lc.jpg">
 
 
@@ -115,7 +118,7 @@
 
 
 
-  <link rel="canonical" href="http://yunsonbai.github.io/2017/01/12/blog-https/"/>
+  <link rel="canonical" href="http://yunsonbai.github.io/2017/01/12/blog-https/">
 
 
 
@@ -125,7 +128,7 @@
   };
 </script>
 
-  <title>让自己的博客支持https | 雲Son</title>
+  <title>博客支持https | 雲Son</title>
   
 
 
@@ -233,7 +236,7 @@
           
   <li class="menu-item menu-item-home">
     <a href="/" rel="section">
-      <i class="menu-item-icon fa fa-fw fa-home"></i> <br />Home</a>
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br>Home</a>
 </li>
 
       
@@ -242,7 +245,7 @@
           
   <li class="menu-item menu-item-tags">
     <a href="/tags/" rel="section">
-      <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />Tags</a>
+      <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags</a>
 </li>
 
       
@@ -251,7 +254,7 @@
           
   <li class="menu-item menu-item-categories">
     <a href="/categories/" rel="section">
-      <i class="menu-item-icon fa fa-fw fa-th"></i> <br />Categories</a>
+      <i class="menu-item-icon fa fa-fw fa-th"></i> <br>Categories</a>
 </li>
 
       
@@ -262,7 +265,7 @@
             <a href="javascript:;" class="popup-trigger">
           
             
-              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />Search</a>
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>Search</a>
         </li>
       
     </ul>
@@ -282,9 +285,7 @@
       <i class="fa fa-times-circle"></i>
     </span>
     <div class="local-search-input-wrapper">
-      <input autocomplete="off"
-             placeholder="Searching..." spellcheck="false"
-             type="text" id="local-search-input">
+      <input autocomplete="off" placeholder="Searching..." spellcheck="false" type="text" id="local-search-input">
     </div>
   </div>
   <div id="local-search-result"></div>
@@ -311,7 +312,7 @@
     
       
     
-    <a href="https://github.com/yunsonbai" class="github-corner" target="_blank" title="Follow me on GitHub" aria-label="Follow me on GitHub"><svg width="80" height="80" viewBox="0 0 250 250" style="fill:#222; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg>
+    <a href="https://github.com/yunsonbai" class="github-corner" target="_blank" title="Follow me on GitHub" aria-label="Follow me on GitHub"><svg width="80" height="80" viewbox="0 0 250 250" style="fill:#222; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"/><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"/><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"/></svg>
     
       </a>
     
@@ -348,8 +349,8 @@
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="yunsonbai">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://yunsonbai.github.io/images/system/logo_v3.png"">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="https://yunsonbai.github.io/images/system/logo_v3.png" ">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -361,7 +362,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">让自己的博客支持https</h1>
+          <h1 class="post-title" itemprop="name headline">博客支持https</h1>
         
 
         <div class="post-meta">
@@ -383,7 +384,7 @@
           </span>
 
           
-            <span class="post-category" >
+            <span class="post-category">
             
               <span class="post-meta-divider">|</span>
             
@@ -424,6 +425,8 @@
           
 
           
+              <div class="post-description">使用Let's Encrypt, 使自己的网站支持htps</div>
+          
 
         </div>
       </header>
@@ -444,7 +447,7 @@
 <h2 id="https请求流程"><a href="#https请求流程" class="headerlink" title="https请求流程"></a>https请求流程</h2><p><img src="https://yunsonbai.github.io/images/https/lc.jpg" alt="Catch8D7B"></p>
 <h2 id="实现方案"><a href="#实现方案" class="headerlink" title="实现方案"></a>实现方案</h2><ul>
 <li>简单方式： 把博客部署在github上，直接就能https访问<br>  例如<a href="https://yunsonbai.github.io/">yunsonbai_github</a></li>
-<li>稍微麻烦点的方式： 自己购买服务器部署上博客后，找认证机构办法签证（我采用的这个方式）<br>  例如<a href="https://yunsonbai.top" target="_blank" rel="external">yunsonbai</a><h2 id="认证机构"><a href="#认证机构" class="headerlink" title="认证机构"></a>认证机构</h2></li>
+<li>稍微麻烦点的方式： 自己购买服务器部署上博客后，找认证机构办法签证（我采用的这个方式）<br>  例如<a href="https://yunsonbai.top" target="_blank" rel="noopener">yunsonbai</a><h2 id="认证机构"><a href="#认证机构" class="headerlink" title="认证机构"></a>认证机构</h2></li>
 <li>收费的<ul>
 <li>geotrust</li>
 </ul>
@@ -472,7 +475,7 @@
 <li><p>获取网站证书</p>
 <ul>
 <li>利用Let’s Encrypt官网提供的脚本工具</li>
-<li><p>利用开源项目acme_tiny(我用的这个，不错)<br>  $ wget <a href="https://raw.githubusercontent.com/diafygi/acme-tiny/master/acme_tiny.py" target="_blank" rel="external">https://raw.githubusercontent.com/diafygi/acme-tiny/master/acme_tiny.py</a><br>  $ python acme_tiny.py –account-key ./account.key –csr ./domain.csr –acme-dir /usr/local/nginx/html/.well-known/acme-challenge/ &gt; ./signed.crt</p>
+<li><p>利用开源项目acme_tiny(我用的这个，不错)<br>  $ wget <a href="https://raw.githubusercontent.com/diafygi/acme-tiny/master/acme_tiny.py" target="_blank" rel="noopener">https://raw.githubusercontent.com/diafygi/acme-tiny/master/acme_tiny.py</a><br>  $ python acme_tiny.py –account-key ./account.key –csr ./domain.csr –acme-dir /usr/local/nginx/html/.well-known/acme-challenge/ &gt; ./signed.crt</p>
   <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">一切正常的话不会报任何错误，切记/usr/local/nginx/html/.well-known/acme-challenge/路径是你的博客相关路径</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
@@ -503,7 +506,7 @@
     
       <div>
         <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
-    <img id="wechat_subscriber_qcode" src="https://yunsonbai.top/images/wechat_qrcode.bmp" alt="yunsonbai wechat" style="width: 200px; max-width: 100%;"/>
+    <img id="wechat_subscriber_qcode" src="https://yunsonbai.top/images/wechat_qrcode.bmp" alt="yunsonbai wechat" style="width: 200px; max-width: 100%;">
     <div>微信公众号</div>
 </div>
 
@@ -535,8 +538,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/12/18/利用websocket实现聊天小应用/" rel="next" title="利用websocket实现聊天小应用">
-                <i class="fa fa-chevron-left"></i> 利用websocket实现聊天小应用
+              <a href="/2016/12/18/利用websocket实现聊天小应用/" rel="next" title="websocket聊天应用">
+                <i class="fa fa-chevron-left"></i> websocket聊天应用
               </a>
             
           </div>
@@ -581,7 +584,7 @@
 <a href="http://www.jiathis.com/share?uid=2140465" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
 <a class="jiathis_counter_style"></a>
 </div>
-<script type="text/javascript" >
+<script type="text/javascript">
 var jiathis_config={
   data_track_clickback:true,
   summary:"",
@@ -644,9 +647,7 @@ var jiathis_config={
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
-              <img class="site-author-image" itemprop="image"
-                src="https://yunsonbai.github.io/images/system/logo_v3.png""
-                alt="yunsonbai" />
+              <img class="site-author-image" itemprop="image" src="https://yunsonbai.github.io/images/system/logo_v3.png" " alt="yunsonbai">
             
               <p class="site-author-name" itemprop="name">yunsonbai</p>
               <p class="site-description motion-element" itemprop="description">just do it!</p>
@@ -722,6 +723,12 @@ var jiathis_config={
                 <div class="site-state-item site-state-tags">
                   <a href="/tags/index.html">
                     
+                    
+                      
+                    
+                      
+                    
+                      
                     
                       
                     

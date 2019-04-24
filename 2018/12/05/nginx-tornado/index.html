@@ -4,10 +4,10 @@
 
 
 <html class="theme-next gemini" lang="zh-Hans,en,default">
-<head>
-  <meta charset="UTF-8"/>
-<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
 
 
@@ -21,8 +21,8 @@
 
 
 
-<meta http-equiv="Cache-Control" content="no-transform" />
-<meta http-equiv="Cache-Control" content="no-siteapp" />
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
 
 
 
@@ -45,9 +45,9 @@
 
 
 
-<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
 
-<link href="/css/main.css?v=6.0.6" rel="stylesheet" type="text/css" />
+<link href="/css/main.css?v=6.0.6" rel="stylesheet" type="text/css">
 
 
   <link rel="apple-touch-icon" sizes="180x180" href="/images/system/logo_v3.png?v=6.0.6">
@@ -97,21 +97,24 @@
 
 
 
-  <meta name="description" content="相对于gunicorn+gevent+django(数据库连接池)，继续提升性能">
+
+  <meta name="description" content="利用tornado异步特性实现高并发, 并调优">
+<meta name="keywords" content="nginx,tornado,502,高并发,TIME_WAIT,epoll">
 <meta property="og:type" content="article">
 <meta property="og:title" content="nginx+tornado折腾笔记">
 <meta property="og:url" content="http://yunsonbai.github.io/2018/12/05/nginx-tornado/index.html">
 <meta property="og:site_name" content="雲Son">
-<meta property="og:description" content="相对于gunicorn+gevent+django(数据库连接池)，继续提升性能">
+<meta property="og:description" content="利用tornado异步特性实现高并发, 并调优">
+<meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://yunsonbai.github.io/images/django/nf.png">
 <meta property="og:image" content="https://yunsonbai.github.io/images/django/lc.png">
 <meta property="og:image" content="https://yunsonbai.github.io/images/tornado/qps1.png">
 <meta property="og:image" content="https://yunsonbai.github.io/images/tornado/qps2.png">
 <meta property="og:image" content="https://yunsonbai.github.io/images/tornado/qps3.png">
-<meta property="og:updated_time" content="2019-04-24T08:15:03.705Z">
+<meta property="og:updated_time" content="2019-04-24T09:55:29.868Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="nginx+tornado折腾笔记">
-<meta name="twitter:description" content="相对于gunicorn+gevent+django(数据库连接池)，继续提升性能">
+<meta name="twitter:description" content="利用tornado异步特性实现高并发, 并调优">
 <meta name="twitter:image" content="https://yunsonbai.github.io/images/django/nf.png">
 
 
@@ -119,7 +122,7 @@
 
 
 
-  <link rel="canonical" href="http://yunsonbai.github.io/2018/12/05/nginx-tornado/"/>
+  <link rel="canonical" href="http://yunsonbai.github.io/2018/12/05/nginx-tornado/">
 
 
 
@@ -237,7 +240,7 @@
           
   <li class="menu-item menu-item-home">
     <a href="/" rel="section">
-      <i class="menu-item-icon fa fa-fw fa-home"></i> <br />Home</a>
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br>Home</a>
 </li>
 
       
@@ -246,7 +249,7 @@
           
   <li class="menu-item menu-item-tags">
     <a href="/tags/" rel="section">
-      <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />Tags</a>
+      <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags</a>
 </li>
 
       
@@ -255,7 +258,7 @@
           
   <li class="menu-item menu-item-categories">
     <a href="/categories/" rel="section">
-      <i class="menu-item-icon fa fa-fw fa-th"></i> <br />Categories</a>
+      <i class="menu-item-icon fa fa-fw fa-th"></i> <br>Categories</a>
 </li>
 
       
@@ -266,7 +269,7 @@
             <a href="javascript:;" class="popup-trigger">
           
             
-              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />Search</a>
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>Search</a>
         </li>
       
     </ul>
@@ -286,9 +289,7 @@
       <i class="fa fa-times-circle"></i>
     </span>
     <div class="local-search-input-wrapper">
-      <input autocomplete="off"
-             placeholder="Searching..." spellcheck="false"
-             type="text" id="local-search-input">
+      <input autocomplete="off" placeholder="Searching..." spellcheck="false" type="text" id="local-search-input">
     </div>
   </div>
   <div id="local-search-result"></div>
@@ -315,7 +316,7 @@
     
       
     
-    <a href="https://github.com/yunsonbai" class="github-corner" target="_blank" title="Follow me on GitHub" aria-label="Follow me on GitHub"><svg width="80" height="80" viewBox="0 0 250 250" style="fill:#222; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg>
+    <a href="https://github.com/yunsonbai" class="github-corner" target="_blank" title="Follow me on GitHub" aria-label="Follow me on GitHub"><svg width="80" height="80" viewbox="0 0 250 250" style="fill:#222; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"/><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"/><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"/></svg>
     
       </a>
     
@@ -352,8 +353,8 @@
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="yunsonbai">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://yunsonbai.github.io/images/system/logo_v3.png"">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="https://yunsonbai.github.io/images/system/logo_v3.png" ">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -387,7 +388,7 @@
           </span>
 
           
-            <span class="post-category" >
+            <span class="post-category">
             
               <span class="post-meta-divider">|</span>
             
@@ -428,7 +429,7 @@
           
 
           
-              <div class="post-description">相对于gunicorn+gevent+django(数据库连接池)，继续提升性能</div>
+              <div class="post-description">利用tornado异步特性实现高并发, 并调优</div>
           
 
         </div>
@@ -444,26 +445,26 @@
       
 
       
-        <p><a href="https://yunsonbai.top/2017/07/02/gunicorn-gevent-django/" target="_blank" rel="external">原文连接</a></p>
-<h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><p>之前分享了一篇<a href="https://yunsonbai.top/2017/06/15/gunicorn-django/" target="_blank" rel="external">如何提高django的并发能力</a>文章，在文章的最后分享了进一步提升qps的方法，其中讲到了tornado，于是利用业余时间，折腾了一下nginx+tornado，当然和<a href="https://yunsonbai.top/2017/06/15/gunicorn-django/" target="_blank" rel="external">如何提高django的并发能力</a>的业务模式一致。<br>为什么现在才分享: 其实之前就写完了，有一段时间没有在维护博客了，然后自己重新测试了一下，下边分享。</p>
+        <p><a href="https://yunsonbai.top/2017/07/02/gunicorn-gevent-django/" target="_blank" rel="noopener">原文连接</a></p>
+<h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><p>之前分享了一篇<a href="https://yunsonbai.top/2017/06/15/gunicorn-django/" target="_blank" rel="noopener">如何提高django的并发能力</a>文章，在文章的最后分享了进一步提升qps的方法，其中讲到了tornado，于是利用业余时间，折腾了一下nginx+tornado，当然和<a href="https://yunsonbai.top/2017/06/15/gunicorn-django/" target="_blank" rel="noopener">如何提高django的并发能力</a>的业务模式一致。<br>为什么现在才分享: 其实之前就写完了，有一段时间没有在维护博客了，然后自己重新测试了一下，下边分享。</p>
 <a id="more"></a>
-<h2 id="说明"><a href="#说明" class="headerlink" title="说明"></a>说明</h2><p>还是利用上一篇文章<a href="https://yunsonbai.top/2017/06/15/gunicorn-django/" target="_blank" rel="external">如何提高django的并发能力</a>的数据模型，<strong>这次以get一条数据为例</strong>。</p>
+<h2 id="说明"><a href="#说明" class="headerlink" title="说明"></a>说明</h2><p>还是利用上一篇文章<a href="https://yunsonbai.top/2017/06/15/gunicorn-django/" target="_blank" rel="noopener">如何提高django的并发能力</a>的数据模型，<strong>这次以get一条数据为例</strong>。</p>
 <ul>
 <li>服务器: 4核+4G (docker)</li>
 <li>压测机: 4核+2G (docker)</li>
 <li>tornado: 5.1</li>
-<li>orm: yunorm (轻量级orm, 欢迎使用<strong><a href="https://github.com/yunsonbai/yunorm" target="_blank" rel="external">yumorm</a></strong>)</li>
+<li>orm: yunorm (轻量级orm, 欢迎使用<strong><a href="https://github.com/yunsonbai/yunorm" target="_blank" rel="noopener">yumorm</a></strong>)</li>
 <li>msyql: 4核+4G(docker) max_connections:1000  max_user_connections:1000</li>
 <li>数据库数据量: 50万条左右<br>不在介绍tornado的优势，直接说我折腾的过程</li>
 </ul>
 <h2 id="其他说明"><a href="#其他说明" class="headerlink" title="其他说明"></a>其他说明</h2><p>架构:<br><img src="https://yunsonbai.github.io/images/django/nf.png" alt="架构"></p>
-<p>样例代码:<br><strong><a href="https://github.com/yunsonbai/yunorm/tree/master/example/project/ce" target="_blank" rel="external">代码</a></strong></p>
+<p>样例代码:<br><strong><a href="https://github.com/yunsonbai/yunorm/tree/master/example/project/ce" target="_blank" rel="noopener">代码</a></strong></p>
 <p>orm: 采用了数据库连接池, 每个tornado 数据库 pool_size 为20</p>
 <h2 id="压测方式及命令"><a href="#压测方式及命令" class="headerlink" title="压测方式及命令"></a>压测方式及命令</h2><ul>
 <li>压测方式：<img src="https://yunsonbai.github.io/images/django/lc.png" alt="lc"></li>
 <li>压测命令：<ul>
-<li>ysab: ysab -n 500 -r 100 -u <a href="http://B_ip:8080/test" target="_blank" rel="external">http://B_ip:8080/test</a>‘</li>
-<li>备注: 欢迎使用ysab, <a href="https://yunsonbai.top/2019/02/24/ysab" target="_blank" rel="external"><font color="#7B68EE">ysab文档</font></a></li>
+<li>ysab: ysab -n 500 -r 100 -u <a href="http://B_ip:8080/test&#39;" target="_blank" rel="noopener">http://B_ip:8080/test&#39;</a></li>
+<li>备注: 欢迎使用ysab, <a href="https://yunsonbai.top/2019/02/24/ysab" target="_blank" rel="noopener"><font color="#7B68EE">ysab文档</font></a></li>
 </ul>
 </li>
 </ul>
@@ -474,20 +475,20 @@
 <ul>
 <li><p>tornado数据库操作太慢？<br>去掉数据库操作代码，直接返回hello，先压测单个tornado server，qps有1200左右，没有502。<br>nginx+tornado(2个)，又开始大片出现502，一坨TIME_WAIT。到这很明显了，不是tornado的问题。</p>
 </li>
-<li><p>sysctl需要优化？<br><a href="https://www.cnblogs.com/gandefeng/p/9836087.html" target="_blank" rel="external">sysctl参数优化</a>，这篇文章写的是真不错，其实目前是nginx配置问题导致，后边会说，即便nginx配置没有问题，sysctl优化也是有利于提升服务能力的。<br>优化完后没有太大改进，因为本身这些参数之前优化过和文章说的差不多。</p>
+<li><p>sysctl需要优化？<br><a href="https://www.cnblogs.com/gandefeng/p/9836087.html" target="_blank" rel="noopener">sysctl参数优化</a>，这篇文章写的是真不错，其实目前是nginx配置问题导致，后边会说，即便nginx配置没有问题，sysctl优化也是有利于提升服务能力的。<br>优化完后没有太大改进，因为本身这些参数之前优化过和文章说的差不多。</p>
 </li>
 <li><p>nginx优化<br>现在应该很明显了，就是nginx配置问题，这里边涉及到一个<strong>长连接</strong>的问题。<br>之前的配置：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">upstream webapp &#123;</span><br><span class="line">    server 127.0.0.1:8000;</span><br><span class="line">    server 127.0.0.1:8001;</span><br><span class="line">    server 127.0.0.1:8002;</span><br><span class="line">    server 127.0.0.1:8003;</span><br><span class="line">&#125;</span><br><span class="line">server &#123;</span><br><span class="line">    listen       80;</span><br><span class="line">    location / &#123;</span><br><span class="line">        proxy_pass    http://webapp/;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
-<p>从nginx到server的连接不是长连接，导致每次请求nginx到server之间都会建立新的tcp连接，即便我们优化了net.ipv4.tcp_tw_reuse = 1<br>net.ipv4.tcp_tw_recycle = 1<br>高并发下照样会出现一坨的TIME_WAIT，导致502的问题。<br>到这优化了，可以参考文章<a href="https://skyao.gitbooks.io/learning-nginx/content/documentation/keep_alive.html" target="_blank" rel="external">nginx长连接</a>, 配置优化如下：</p>
+<p>从nginx到server的连接不是长连接，导致每次请求nginx到server之间都会建立新的tcp连接，即便我们优化了net.ipv4.tcp_tw_reuse = 1<br>net.ipv4.tcp_tw_recycle = 1<br>高并发下照样会出现一坨的TIME_WAIT，导致502的问题。<br>到这优化了，可以参考文章<a href="https://skyao.gitbooks.io/learning-nginx/content/documentation/keep_alive.html" target="_blank" rel="noopener">nginx长连接</a>, 配置优化如下：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">upstream webapp &#123;</span><br><span class="line">    keepalive 300;</span><br><span class="line">    server 127.0.0.1:8000;</span><br><span class="line">    server 127.0.0.1:8001;</span><br><span class="line">    server 127.0.0.1:8002;</span><br><span class="line">    server 127.0.0.1:8003;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">server &#123;</span><br><span class="line">    listen       80;</span><br><span class="line">    location / &#123;</span><br><span class="line">        proxy_pass    http://webapp/;</span><br><span class="line">        proxy_http_version 1.1;</span><br><span class="line">        proxy_set_header Connection &quot;&quot;;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h2 id="nginx优化后"><a href="#nginx优化后" class="headerlink" title="nginx优化后"></a>nginx优化后</h2><h3 id="后端4个tornado进程"><a href="#后端4个tornado进程" class="headerlink" title="后端4个tornado进程"></a>后端4个tornado进程</h3><ul>
 <li>qps<br><img src="https://yunsonbai.github.io/images/tornado/qps2.png" alt="qps2"><br>还是比较理想的，比之前的gunicorn+gevent+djangot有了700的提升</li>
 </ul>
 <h3 id="后端8个tornado进程"><a href="#后端8个tornado进程" class="headerlink" title="后端8个tornado进程"></a>后端8个tornado进程</h3><p><img src="https://yunsonbai.github.io/images/tornado/qps3.png" alt="qps3"><br>还是比较理想的，比后端4个tornado进程有了700的提升</p>
 <h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>io密集型服务器的，相对于dajango tornado还是有很大的优势的，如果说基于Python开发，tornado还是一个非常好的选择。<br>关于tornado进程数个数，这里建议是2n(n为cpu核心数)个，当然这是一般情况，具体情况还需要具体分析压测一下。</p>
-<h2 id="文章推荐"><a href="#文章推荐" class="headerlink" title="文章推荐"></a>文章推荐</h2><p><strong><a href="https://yunsonbai.top/2019/02/24/ysab/" target="_blank" rel="external">ysab基于golang的压测工具</a></strong><br><strong><a href="https://yunsonbai.top/2019/03/21/yunorm/" target="_blank" rel="external">yunorm轻量接orm</a></strong><br><strong><a href="https://yunsonbai.top/2019/04/16/golang-gin/" target="_blank" rel="external">Golang高性能web框架gin</a></strong></p>
+<h2 id="文章推荐"><a href="#文章推荐" class="headerlink" title="文章推荐"></a>文章推荐</h2><p><strong><a href="https://yunsonbai.top/2019/02/24/ysab/" target="_blank" rel="noopener">ysab基于golang的压测工具</a></strong><br><strong><a href="https://yunsonbai.top/2019/03/21/yunorm/" target="_blank" rel="noopener">yunorm轻量接orm</a></strong><br><strong><a href="https://yunsonbai.top/2019/04/16/golang-gin/" target="_blank" rel="noopener">Golang高性能web框架gin</a></strong></p>
 
       
     </div>
@@ -501,7 +502,7 @@
     
       <div>
         <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
-    <img id="wechat_subscriber_qcode" src="https://yunsonbai.top/images/wechat_qrcode.bmp" alt="yunsonbai wechat" style="width: 200px; max-width: 100%;"/>
+    <img id="wechat_subscriber_qcode" src="https://yunsonbai.top/images/wechat_qrcode.bmp" alt="yunsonbai wechat" style="width: 200px; max-width: 100%;">
     <div>微信公众号</div>
 </div>
 
@@ -589,7 +590,7 @@
 <a href="http://www.jiathis.com/share?uid=2140465" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
 <a class="jiathis_counter_style"></a>
 </div>
-<script type="text/javascript" >
+<script type="text/javascript">
 var jiathis_config={
   data_track_clickback:true,
   summary:"",
@@ -652,9 +653,7 @@ var jiathis_config={
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
-              <img class="site-author-image" itemprop="image"
-                src="https://yunsonbai.github.io/images/system/logo_v3.png""
-                alt="yunsonbai" />
+              <img class="site-author-image" itemprop="image" src="https://yunsonbai.github.io/images/system/logo_v3.png" " alt="yunsonbai">
             
               <p class="site-author-name" itemprop="name">yunsonbai</p>
               <p class="site-description motion-element" itemprop="description">just do it!</p>
@@ -730,6 +729,12 @@ var jiathis_config={
                 <div class="site-state-item site-state-tags">
                   <a href="/tags/index.html">
                     
+                    
+                      
+                    
+                      
+                    
+                      
                     
                       
                     

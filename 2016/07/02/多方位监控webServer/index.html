@@ -4,10 +4,10 @@
 
 
 <html class="theme-next gemini" lang="zh-Hans,en,default">
-<head>
-  <meta charset="UTF-8"/>
-<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
 
 
@@ -21,8 +21,8 @@
 
 
 
-<meta http-equiv="Cache-Control" content="no-transform" />
-<meta http-equiv="Cache-Control" content="no-siteapp" />
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
 
 
 
@@ -45,9 +45,9 @@
 
 
 
-<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
 
-<link href="/css/main.css?v=6.0.6" rel="stylesheet" type="text/css" />
+<link href="/css/main.css?v=6.0.6" rel="stylesheet" type="text/css">
 
 
   <link rel="apple-touch-icon" sizes="180x180" href="/images/system/logo_v3.png?v=6.0.6">
@@ -97,23 +97,26 @@
 
 
 
-  <meta name="description" content="引言12最近趁着开发需求较少，着手整理了一段时间关于系统监控的东西，系统监控的目的就是为了快速的发现系统问题、找到问题所在、并解决它。下边分享一下">
+
+  <meta name="description" content="多角度监控 web Server">
+<meta name="keywords" content="web,Server,监控,api监控">
 <meta property="og:type" content="article">
-<meta property="og:title" content="多方位监控webServer">
+<meta property="og:title" content="多角度监控webServer">
 <meta property="og:url" content="http://yunsonbai.github.io/2016/07/02/多方位监控webServer/index.html">
 <meta property="og:site_name" content="雲Son">
-<meta property="og:description" content="引言12最近趁着开发需求较少，着手整理了一段时间关于系统监控的东西，系统监控的目的就是为了快速的发现系统问题、找到问题所在、并解决它。下边分享一下">
-<meta property="og:updated_time" content="2018-01-05T06:17:55.876Z">
+<meta property="og:description" content="多角度监控 web Server">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-04-24T10:02:19.615Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="多方位监控webServer">
-<meta name="twitter:description" content="引言12最近趁着开发需求较少，着手整理了一段时间关于系统监控的东西，系统监控的目的就是为了快速的发现系统问题、找到问题所在、并解决它。下边分享一下">
+<meta name="twitter:title" content="多角度监控webServer">
+<meta name="twitter:description" content="多角度监控 web Server">
 
 
 
 
 
 
-  <link rel="canonical" href="http://yunsonbai.github.io/2016/07/02/多方位监控webServer/"/>
+  <link rel="canonical" href="http://yunsonbai.github.io/2016/07/02/多方位监控webServer/">
 
 
 
@@ -123,7 +126,7 @@
   };
 </script>
 
-  <title>多方位监控webServer | 雲Son</title>
+  <title>多角度监控webServer | 雲Son</title>
   
 
 
@@ -231,7 +234,7 @@
           
   <li class="menu-item menu-item-home">
     <a href="/" rel="section">
-      <i class="menu-item-icon fa fa-fw fa-home"></i> <br />Home</a>
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br>Home</a>
 </li>
 
       
@@ -240,7 +243,7 @@
           
   <li class="menu-item menu-item-tags">
     <a href="/tags/" rel="section">
-      <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />Tags</a>
+      <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags</a>
 </li>
 
       
@@ -249,7 +252,7 @@
           
   <li class="menu-item menu-item-categories">
     <a href="/categories/" rel="section">
-      <i class="menu-item-icon fa fa-fw fa-th"></i> <br />Categories</a>
+      <i class="menu-item-icon fa fa-fw fa-th"></i> <br>Categories</a>
 </li>
 
       
@@ -260,7 +263,7 @@
             <a href="javascript:;" class="popup-trigger">
           
             
-              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />Search</a>
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>Search</a>
         </li>
       
     </ul>
@@ -280,9 +283,7 @@
       <i class="fa fa-times-circle"></i>
     </span>
     <div class="local-search-input-wrapper">
-      <input autocomplete="off"
-             placeholder="Searching..." spellcheck="false"
-             type="text" id="local-search-input">
+      <input autocomplete="off" placeholder="Searching..." spellcheck="false" type="text" id="local-search-input">
     </div>
   </div>
   <div id="local-search-result"></div>
@@ -309,7 +310,7 @@
     
       
     
-    <a href="https://github.com/yunsonbai" class="github-corner" target="_blank" title="Follow me on GitHub" aria-label="Follow me on GitHub"><svg width="80" height="80" viewBox="0 0 250 250" style="fill:#222; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg>
+    <a href="https://github.com/yunsonbai" class="github-corner" target="_blank" title="Follow me on GitHub" aria-label="Follow me on GitHub"><svg width="80" height="80" viewbox="0 0 250 250" style="fill:#222; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"/><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"/><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"/></svg>
     
       </a>
     
@@ -346,8 +347,8 @@
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="yunsonbai">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://yunsonbai.github.io/images/system/logo_v3.png"">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="https://yunsonbai.github.io/images/system/logo_v3.png" ">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -359,7 +360,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">多方位监控webServer</h1>
+          <h1 class="post-title" itemprop="name headline">多角度监控webServer</h1>
         
 
         <div class="post-meta">
@@ -381,7 +382,7 @@
           </span>
 
           
-            <span class="post-category" >
+            <span class="post-category">
             
               <span class="post-meta-divider">|</span>
             
@@ -422,6 +423,8 @@
           
 
           
+              <div class="post-description">多角度监控 web Server</div>
+          
 
         </div>
       </header>
@@ -444,24 +447,24 @@
 <h3 id="开始谈这段时间的结果"><a href="#开始谈这段时间的结果" class="headerlink" title="开始谈这段时间的结果"></a>开始谈这段时间的结果</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">上边说的有点废话，但是对于刚毕业的学生来讲，很多人会遇到这样的情况，下边开始说说这段时间是怎么来监控我们的系统的。</span><br></pre></td></tr></table></figure>
 <h2 id="报错邮件的添加"><a href="#报错邮件的添加" class="headerlink" title="报错邮件的添加"></a>报错邮件的添加</h2><h3 id="重要性"><a href="#重要性" class="headerlink" title="重要性"></a>重要性</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">我们知道在稳定的系统，都有可能因为这样或那样的问题（硬件、网络等问题）导致出错，尤其是在系统中调用第三方接口的代</span><br><span class="line">码段，第三方的接口是不可控的，换句话说就是这些地方极易出现问题。所以这些地方需要有报警邮件及时通知。</span><br></pre></td></tr></table></figure>
 <h3 id="添加报警模块"><a href="#添加报警模块" class="headerlink" title="添加报警模块"></a>添加报警模块</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">之前我写过一篇文章，是如何利用sentry（采用Django开发，当然有其他的可以留言讨论）来监控系统，如下是连接，sentry</span><br><span class="line">可以使全局的监控，也可以是部分代码段的监控，在部分代码段的监控上建议使用try语句监控，这样避免致服务中断，给用户不</span><br><span class="line">好的体验。</span><br></pre></td></tr></table></figure>
-<p><a href="https://www.yunsonbai.top/2016/05/30/django-sentry/" target="_blank" rel="external">利用sentry收集django的日志</a></p>
+<p><a href="https://www.yunsonbai.top/2016/05/30/django-sentry/" target="_blank" rel="noopener">利用sentry收集django的日志</a></p>
 <h2 id="Api响应时间的监控"><a href="#Api响应时间的监控" class="headerlink" title="Api响应时间的监控"></a>Api响应时间的监控</h2><h3 id="必要性"><a href="#必要性" class="headerlink" title="必要性"></a>必要性</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">关于api的响应时间监控显然很重要，如果你能实时或准实时的看到你写的接口的响应时间的话，你就会很有目的性的去优化你的</span><br><span class="line">接口，就能提供更好的服务。在调用第三方接口的地方最好也能加上监控，因为有可能你接口慢就是由于第三方的接口导致的。</span><br></pre></td></tr></table></figure>
 <h3 id="准实时监控"><a href="#准实时监控" class="headerlink" title="准实时监控"></a>准实时监控</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">我叫它准实时因为过一小段时间后我们才能知道结果。</span><br></pre></td></tr></table></figure>
 <h4 id="利用nginx日志"><a href="#利用nginx日志" class="headerlink" title="利用nginx日志"></a>利用nginx日志</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">在nginx日志中可以根据<span class="variable">$request_time</span>(全程的时间：从用户点击到所有结果返回）和<span class="variable">$upstream_response_time</span>（Nginx</span><br><span class="line">向后端建立连接开始到接受完数据然后关闭连接为止的时间），可以根据需求来利用这两个参数的值。当然你需要写一个日志分析</span><br><span class="line">脚本，这个不难。</span><br></pre></td></tr></table></figure>
 <h4 id="利用diamond"><a href="#利用diamond" class="headerlink" title="利用diamond"></a>利用diamond</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">diamond是可以实现类似于定期任务的工具,可以监控系统内存、CPU使用情况等等，你可以事先写好代码片段去请求自己的接口，</span><br><span class="line">然后加到diamond的collectors中，定期执行，它能给你在单位时间内系统的监控参数。可以看一下之前的文章。</span><br></pre></td></tr></table></figure>
-<p><a href="https://www.yunsonbai.top/2016/06/13/python-diamond/" target="_blank" rel="external">使用diamond监控系统或api</a></p>
+<p><a href="https://www.yunsonbai.top/2016/06/13/python-diamond/" target="_blank" rel="noopener">使用diamond监控系统或api</a></p>
 <h3 id="实时监控"><a href="#实时监控" class="headerlink" title="实时监控"></a>实时监控</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">个人觉得最好只监控api中的关键部位，因为他将会影响api的整体</span><br><span class="line">响应时间。</span><br></pre></td></tr></table></figure>
 <h4 id="利用Metrology"><a href="#利用Metrology" class="headerlink" title="利用Metrology"></a>利用Metrology</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line">import time</span><br><span class="line">from metrology import Metrology</span><br><span class="line">from metrology.reporter import GraphiteReporter</span><br><span class="line"></span><br><span class="line">class ApiTimer(object):</span><br><span class="line"></span><br><span class="line">	__instance = None</span><br><span class="line"></span><br><span class="line">	def __init__(self, key, carbon_host, carbon_port):</span><br><span class="line">		self.timer = Metrology.timer(key)</span><br><span class="line">		self.carbon_host = carbon_host</span><br><span class="line">		self.carbon_port = carbon_port</span><br><span class="line"></span><br><span class="line">	def reporte(self):</span><br><span class="line">		<span class="comment"># 主要负责往传输统计结果</span></span><br><span class="line">		reporter = GraphiteReporter(self.carbon_host, self.carbon_port)</span><br><span class="line">		reporter.write()</span><br><span class="line"></span><br><span class="line">	def probe(self, func, *arg, **args):</span><br><span class="line">		<span class="comment"># 代理执行函数</span></span><br><span class="line">		st = time.time()</span><br><span class="line">		res = func(*arg, **args)</span><br><span class="line">		self.timer.update(int((time.time() - st) * 1000))</span><br><span class="line">		last_tick = self.timer.meter.last_tick.value</span><br><span class="line">		<span class="keyword">if</span> last_tick - self.timer.meter.start_time &gt; 2:</span><br><span class="line">			self.reporte()</span><br><span class="line">			self.timer.clear()</span><br><span class="line">		<span class="built_in">return</span> res</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">def fun(a):</span><br><span class="line">	pass</span><br><span class="line">	<span class="comment"># time.sleep(random.random())</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">	<span class="comment"># 以下是测试用例</span></span><br><span class="line">	<span class="comment"># import random</span></span><br><span class="line">	st = time.time()</span><br><span class="line">	timer = ApiTimer(<span class="string">'test1.test'</span>, <span class="string">'xx.xx.xx.xx'</span>, xx)</span><br><span class="line">	<span class="keyword">while</span> time.time() - st &lt; 20:</span><br><span class="line">		timer.probe(fun, 1)</span><br></pre></td></tr></table></figure>
 <h2 id="关键部位info日志添加"><a href="#关键部位info日志添加" class="headerlink" title="关键部位info日志添加"></a>关键部位info日志添加</h2><h3 id="重要性-1"><a href="#重要性-1" class="headerlink" title="重要性"></a>重要性</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">有时候你会遇到这样的问题：api响应时间超短，也没有报错邮件，但是就是结果不对。这一般是返回结果出了问题，遇到最多</span><br><span class="line">的就是在调用第三方接口的时候出了这样的问题，这时候就需要有info日志来帮忙了。打日志最好使用,|:分隔符分开关键的参</span><br><span class="line">数和返回值，方便过滤。</span><br></pre></td></tr></table></figure>
 <h3 id="在api中关键断码段打印日志"><a href="#在api中关键断码段打印日志" class="headerlink" title="在api中关键断码段打印日志"></a>在api中关键断码段打印日志</h3><h4 id="使用sentry"><a href="#使用sentry" class="headerlink" title="使用sentry"></a>使用sentry</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sentry除了能监控error日志，还能收集info日志，你可以尝试使用。但是sentry打的info日志会有很多额外的信息。可以</span><br><span class="line">去前边的链接中看怎么使用。</span><br></pre></td></tr></table></figure>
 <h4 id="使用rsyslog"><a href="#使用rsyslog" class="headerlink" title="使用rsyslog"></a>使用rsyslog</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">该方法比较通用，不论在什么开发语言和框架下，基本上都支持对rsyslog的</span><br><span class="line">使用。我前边写了一篇在Django中使用rsyslog，可以看一下。</span><br></pre></td></tr></table></figure>
-<p><a href="https://www.yunsonbai.top/2016/06/08/django-rsyslog/" target="_blank" rel="external">使用rsyslog收集Django的日志</a></p>
+<p><a href="https://www.yunsonbai.top/2016/06/08/django-rsyslog/" target="_blank" rel="noopener">使用rsyslog收集Django的日志</a></p>
 <h3 id="收集远程日志"><a href="#收集远程日志" class="headerlink" title="收集远程日志"></a>收集远程日志</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">前边说了日志打印，下边说一下如何收集这些日志。</span><br></pre></td></tr></table></figure>
 <h4 id="服务器写传输脚本，定期执行"><a href="#服务器写传输脚本，定期执行" class="headerlink" title="服务器写传输脚本，定期执行"></a>服务器写传输脚本，定期执行</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">有点low，但也不失为一种办法</span><br></pre></td></tr></table></figure>
 <h4 id="使用rsyslog-1"><a href="#使用rsyslog-1" class="headerlink" title="使用rsyslog"></a>使用rsyslog</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">当然如果你使用的是使用的是sentry收集info日志，你不用操心怎么收集，因为sentry都帮你做好了。如果是使用的rsyslog的</span><br><span class="line">话你就需要收集服务器上的日志了。rsyslog除了可以帮你本地打印日志，还能远程收集日志。可以走默认端口514来收集，当然</span><br><span class="line">需要把web服务器上的rsyslog配置成远程传输的方式，即通过514端口输出日志到远端rsyslog日志服务器上。</span><br></pre></td></tr></table></figure>
 <h4 id="使用syslog-ng收集"><a href="#使用syslog-ng收集" class="headerlink" title="使用syslog-ng收集"></a>使用syslog-ng收集</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">syslog-ng收集日志的方式和rsyslog一样都是走514端口，但是syslog-ng可以很方便的根据关键词帮你进行日志过滤，这样的</span><br><span class="line">话你就不用苦恼于web应用太多而<span class="built_in">local</span>只能从（0-7）总感觉不够用，但是关于rsyslog和syslog-ng的比较大家可以在网上搜</span><br><span class="line">搜，毕竟这里只是提供方法。</span><br></pre></td></tr></table></figure>
 <h4 id="使用ELK"><a href="#使用ELK" class="headerlink" title="使用ELK"></a>使用ELK</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">使用ELK，何为ELK：</span><br><span class="line">	e:</span><br><span class="line">         elasticsearch，搜索引擎，创建索引，存储数据</span><br><span class="line">    	l:</span><br><span class="line">         logstash， 日志收集，过滤，传输日志到elasticsearch</span><br><span class="line">    	k:</span><br><span class="line">         kibana， web展示</span><br><span class="line">用这个日至系统的好处就是能直接通过浏览器访问你的日志，免去了grep操作。目前我们有部分系统采用ELK。</span><br><span class="line">关于如何搭建请点击下边的链接。</span><br></pre></td></tr></table></figure>
-<p><a href="https://www.yunsonbai.top/2016/07/01/ELK%E5%AE%9E%E6%97%B6%E6%97%A5%E5%BF%97%E5%B9%B3%E5%8F%B0%E6%90%AD%E5%BB%BA/" target="_blank" rel="external">ELK系统搭建</a></p>
+<p><a href="https://www.yunsonbai.top/2016/07/01/ELK%E5%AE%9E%E6%97%B6%E6%97%A5%E5%BF%97%E5%B9%B3%E5%8F%B0%E6%90%AD%E5%BB%BA/" target="_blank" rel="noopener">ELK系统搭建</a></p>
 <h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">至此，从error监控、api响应时间监控、关键代码段响应时间监控、info日志打印四个角度对webServer做了多方位的监控，这</span><br><span class="line">些监控是为了方便你及时修改系统bug和做优化的。如何选择还是要根据具体情况而定，总之一定要遵循这样的原则：不能因为监控</span><br><span class="line">系统而拖垮服务，最终目的是为了更好的提供服务。</span><br></pre></td></tr></table></figure>
 
       
@@ -476,7 +479,7 @@
     
       <div>
         <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
-    <img id="wechat_subscriber_qcode" src="https://yunsonbai.top/images/wechat_qrcode.bmp" alt="yunsonbai wechat" style="width: 200px; max-width: 100%;"/>
+    <img id="wechat_subscriber_qcode" src="https://yunsonbai.top/images/wechat_qrcode.bmp" alt="yunsonbai wechat" style="width: 200px; max-width: 100%;">
     <div>微信公众号</div>
 </div>
 
@@ -550,7 +553,7 @@
 <a href="http://www.jiathis.com/share?uid=2140465" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
 <a class="jiathis_counter_style"></a>
 </div>
-<script type="text/javascript" >
+<script type="text/javascript">
 var jiathis_config={
   data_track_clickback:true,
   summary:"",
@@ -613,9 +616,7 @@ var jiathis_config={
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
-              <img class="site-author-image" itemprop="image"
-                src="https://yunsonbai.github.io/images/system/logo_v3.png""
-                alt="yunsonbai" />
+              <img class="site-author-image" itemprop="image" src="https://yunsonbai.github.io/images/system/logo_v3.png" " alt="yunsonbai">
             
               <p class="site-author-name" itemprop="name">yunsonbai</p>
               <p class="site-description motion-element" itemprop="description">just do it!</p>
@@ -691,6 +692,12 @@ var jiathis_config={
                 <div class="site-state-item site-state-tags">
                   <a href="/tags/index.html">
                     
+                    
+                      
+                    
+                      
+                    
+                      
                     
                       
                     

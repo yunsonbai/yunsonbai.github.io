@@ -4,10 +4,10 @@
 
 
 <html class="theme-next gemini" lang="zh-Hans,en,default">
-<head>
-  <meta charset="UTF-8"/>
-<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
 
 
@@ -21,8 +21,8 @@
 
 
 
-<meta http-equiv="Cache-Control" content="no-transform" />
-<meta http-equiv="Cache-Control" content="no-siteapp" />
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
 
 
 
@@ -45,9 +45,9 @@
 
 
 
-<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
 
-<link href="/css/main.css?v=6.0.6" rel="stylesheet" type="text/css" />
+<link href="/css/main.css?v=6.0.6" rel="stylesheet" type="text/css">
 
 
   <link rel="apple-touch-icon" sizes="180x180" href="/images/system/logo_v3.png?v=6.0.6">
@@ -97,18 +97,21 @@
 
 
 
-  <meta name="description" content="引言123前段时间分享了一篇在django中使用djcelery来完成异步任务，使用的小伙伴会发现djcelery会在mysql创建很多表，如果你不使用mysql作为BROKER的话,数据显得很脏，另外如果你用了mysql作为BROKER又会带来性能问题，毕竟数据库的读写速度不如缓存。接下来就分享一下如何在django中不使用djcelery，而是纯粹的使用celery来实现异步任务。">
+
+  <meta name="description" content="django中使用celery">
+<meta name="keywords" content="django,celery,异步任务">
 <meta property="og:type" content="article">
-<meta property="og:title" content="在django中只使用celery">
+<meta property="og:title" content="django中使用celery">
 <meta property="og:url" content="http://yunsonbai.github.io/2016/07/18/django使用celery/index.html">
 <meta property="og:site_name" content="雲Son">
-<meta property="og:description" content="引言123前段时间分享了一篇在django中使用djcelery来完成异步任务，使用的小伙伴会发现djcelery会在mysql创建很多表，如果你不使用mysql作为BROKER的话,数据显得很脏，另外如果你用了mysql作为BROKER又会带来性能问题，毕竟数据库的读写速度不如缓存。接下来就分享一下如何在django中不使用djcelery，而是纯粹的使用celery来实现异步任务。">
+<meta property="og:description" content="django中使用celery">
+<meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://yunsonbai.github.io/images/celery/celery_django.png">
 <meta property="og:image" content="https://yunsonbai.github.io/images/celery/moresettings.jpg">
-<meta property="og:updated_time" content="2018-01-05T06:17:55.877Z">
+<meta property="og:updated_time" content="2019-04-24T09:50:43.342Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="在django中只使用celery">
-<meta name="twitter:description" content="引言123前段时间分享了一篇在django中使用djcelery来完成异步任务，使用的小伙伴会发现djcelery会在mysql创建很多表，如果你不使用mysql作为BROKER的话,数据显得很脏，另外如果你用了mysql作为BROKER又会带来性能问题，毕竟数据库的读写速度不如缓存。接下来就分享一下如何在django中不使用djcelery，而是纯粹的使用celery来实现异步任务。">
+<meta name="twitter:title" content="django中使用celery">
+<meta name="twitter:description" content="django中使用celery">
 <meta name="twitter:image" content="https://yunsonbai.github.io/images/celery/celery_django.png">
 
 
@@ -116,7 +119,7 @@
 
 
 
-  <link rel="canonical" href="http://yunsonbai.github.io/2016/07/18/django使用celery/"/>
+  <link rel="canonical" href="http://yunsonbai.github.io/2016/07/18/django使用celery/">
 
 
 
@@ -126,7 +129,7 @@
   };
 </script>
 
-  <title>在django中只使用celery | 雲Son</title>
+  <title>django中使用celery | 雲Son</title>
   
 
 
@@ -234,7 +237,7 @@
           
   <li class="menu-item menu-item-home">
     <a href="/" rel="section">
-      <i class="menu-item-icon fa fa-fw fa-home"></i> <br />Home</a>
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br>Home</a>
 </li>
 
       
@@ -243,7 +246,7 @@
           
   <li class="menu-item menu-item-tags">
     <a href="/tags/" rel="section">
-      <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />Tags</a>
+      <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags</a>
 </li>
 
       
@@ -252,7 +255,7 @@
           
   <li class="menu-item menu-item-categories">
     <a href="/categories/" rel="section">
-      <i class="menu-item-icon fa fa-fw fa-th"></i> <br />Categories</a>
+      <i class="menu-item-icon fa fa-fw fa-th"></i> <br>Categories</a>
 </li>
 
       
@@ -263,7 +266,7 @@
             <a href="javascript:;" class="popup-trigger">
           
             
-              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />Search</a>
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>Search</a>
         </li>
       
     </ul>
@@ -283,9 +286,7 @@
       <i class="fa fa-times-circle"></i>
     </span>
     <div class="local-search-input-wrapper">
-      <input autocomplete="off"
-             placeholder="Searching..." spellcheck="false"
-             type="text" id="local-search-input">
+      <input autocomplete="off" placeholder="Searching..." spellcheck="false" type="text" id="local-search-input">
     </div>
   </div>
   <div id="local-search-result"></div>
@@ -312,7 +313,7 @@
     
       
     
-    <a href="https://github.com/yunsonbai" class="github-corner" target="_blank" title="Follow me on GitHub" aria-label="Follow me on GitHub"><svg width="80" height="80" viewBox="0 0 250 250" style="fill:#222; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg>
+    <a href="https://github.com/yunsonbai" class="github-corner" target="_blank" title="Follow me on GitHub" aria-label="Follow me on GitHub"><svg width="80" height="80" viewbox="0 0 250 250" style="fill:#222; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"/><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"/><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"/></svg>
     
       </a>
     
@@ -349,8 +350,8 @@
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="yunsonbai">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://yunsonbai.github.io/images/system/logo_v3.png"">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="https://yunsonbai.github.io/images/system/logo_v3.png" ">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -362,7 +363,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">在django中只使用celery</h1>
+          <h1 class="post-title" itemprop="name headline">django中使用celery</h1>
         
 
         <div class="post-meta">
@@ -384,7 +385,7 @@
           </span>
 
           
-            <span class="post-category" >
+            <span class="post-category">
             
               <span class="post-meta-divider">|</span>
             
@@ -425,6 +426,8 @@
           
 
           
+              <div class="post-description">django中使用celery</div>
+          
 
         </div>
       </header>
@@ -446,12 +449,12 @@
 <h2 id="代码示例及启动"><a href="#代码示例及启动" class="headerlink" title="代码示例及启动"></a>代码示例及启动</h2><h3 id="celery-py"><a href="#celery-py" class="headerlink" title="celery.py"></a>celery.py</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">from __future__ import absolute_import</span><br><span class="line">   import os</span><br><span class="line"></span><br><span class="line">   from celery import Celery</span><br><span class="line"></span><br><span class="line">   <span class="comment"># set the default Django settings module for the 'celery' program.</span></span><br><span class="line">   os.environ.setdefault(<span class="string">'DJANGO_SETTINGS_MODULE'</span>, <span class="string">'proj.settings'</span>)</span><br><span class="line"></span><br><span class="line">   from django.conf import settings  <span class="comment"># noqa</span></span><br><span class="line"></span><br><span class="line">   app = Celery(<span class="string">'proj'</span>)</span><br><span class="line"></span><br><span class="line">   <span class="comment"># Using a string here means the worker will not have to</span></span><br><span class="line">   <span class="comment"># pickle the object when using Windows.</span></span><br><span class="line">   app.config_from_object(<span class="string">'django.conf:settings'</span>)</span><br><span class="line">   app.autodiscover_tasks(lambda: settings.INSTALLED_APPS)</span><br><span class="line"></span><br><span class="line">   @app.task(<span class="built_in">bind</span>=True)</span><br><span class="line">   def debug_task(self):</span><br><span class="line">       <span class="built_in">print</span>(<span class="string">'Request: &#123;0!r&#125;'</span>.format(self.request))</span><br></pre></td></tr></table></figure>
 <h3 id="init-py"><a href="#init-py" class="headerlink" title="init.py"></a><strong>init</strong>.py</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">在与celery.py同级的__init__.py文件中加入(这也都是官方给出的)</span><br><span class="line">   	from __future__ import absolute_import</span><br><span class="line">       <span class="comment"># This will make sure the app is always imported when</span></span><br><span class="line">       <span class="comment"># Django starts so that shared_task will use this app.</span></span><br><span class="line">       from .celery import app as celery_app  <span class="comment"># noqa</span></span><br></pre></td></tr></table></figure>
 <h3 id="tasks-py"><a href="#tasks-py" class="headerlink" title="tasks.py"></a>tasks.py</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">（这是自己造的）</span><br><span class="line">from __future__ import absolute_import</span><br><span class="line">   from proj import celery_app</span><br><span class="line">   import time</span><br><span class="line"></span><br><span class="line">   @celery_app.task(<span class="built_in">bind</span>=True)</span><br><span class="line">   def mul(*args, **kwargs):</span><br><span class="line">       f = open(<span class="string">'/home/baisong/a.txt'</span>, <span class="string">'a+'</span>)</span><br><span class="line">       f.write(str(time.time()))</span><br><span class="line">       f.write(<span class="string">'/n'</span>)</span><br><span class="line">       f.close()</span><br></pre></td></tr></table></figure>
-<h3 id="启动"><a href="#启动" class="headerlink" title="启动"></a>启动</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">beat:</span><br><span class="line">   	celery -A proj beat <span class="_">-l</span> info</span><br><span class="line">   worker:</span><br><span class="line">   	celery -A proj worker <span class="_">-l</span> info</span><br></pre></td></tr></table></figure>
+<h3 id="启动"><a href="#启动" class="headerlink" title="启动"></a>启动</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">beat:</span><br><span class="line">   	celery -A proj beat -l info</span><br><span class="line">   worker:</span><br><span class="line">   	celery -A proj worker -l info</span><br></pre></td></tr></table></figure>
 <h2 id="提问"><a href="#提问" class="headerlink" title="提问"></a>提问</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">前边几乎全是官方给出的，下边是有些人会遇到的，多配置文件怎么</span><br><span class="line">   办， 可以看看下边的目录结构</span><br></pre></td></tr></table></figure>
 <img src="https://yunsonbai.github.io/images/celery/moresettings.jpg">
 <h2 id="解决"><a href="#解决" class="headerlink" title="解决"></a>解决</h2><h3 id="重写celery-py"><a href="#重写celery-py" class="headerlink" title="重写celery.py"></a>重写celery.py</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">from __future__ import absolute_import</span><br><span class="line">   import os</span><br><span class="line">   from celery import Celery</span><br><span class="line">   import sys</span><br><span class="line">   from django.conf import settings</span><br><span class="line">   app_name = <span class="string">'proj'</span></span><br><span class="line">   defauke_config = <span class="string">'proj.settings'</span></span><br><span class="line">   try:</span><br><span class="line">       defauke_config = sys.argv[-1].split(<span class="string">'--config='</span>)[1]</span><br><span class="line">   except:</span><br><span class="line">       pass</span><br><span class="line">   <span class="comment"># set the default Django settings module for the 'celery' program.</span></span><br><span class="line">   os.environ.setdefault(<span class="string">'DJANGO_SETTINGS_MODULE'</span>, str(defauke_config))</span><br><span class="line"></span><br><span class="line">   app = Celery(app_name)</span><br><span class="line"></span><br><span class="line">   <span class="comment"># Using a string here means the worker will not have to</span></span><br><span class="line">   <span class="comment"># pickle the object when using Windows.</span></span><br><span class="line">   app.config_from_object(<span class="string">'django.conf:settings'</span>)</span><br><span class="line">   app.autodiscover_tasks(lambda: settings.INSTALLED_APPS)</span><br></pre></td></tr></table></figure>
-<h3 id="启动-1"><a href="#启动-1" class="headerlink" title="启动"></a>启动</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">celery -A proj beat <span class="_">-l</span> info --config=proj.settings.settings1</span><br><span class="line">   celery -A proj worker <span class="_">-l</span> info --config=proj.settings.settings1</span><br></pre></td></tr></table></figure>
-<h2 id="链接"><a href="#链接" class="headerlink" title="链接"></a>链接</h2><p><a href="https://www.yunsonbai.top/2016/07/12/celery/" target="_blank" rel="external">celery 异步任务</a></p>
+<h3 id="启动-1"><a href="#启动-1" class="headerlink" title="启动"></a>启动</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">celery -A proj beat -l info --config=proj.settings.settings1</span><br><span class="line">   celery -A proj worker -l info --config=proj.settings.settings1</span><br></pre></td></tr></table></figure>
+<h2 id="链接"><a href="#链接" class="headerlink" title="链接"></a>链接</h2><p><a href="https://www.yunsonbai.top/2016/07/12/celery/" target="_blank" rel="noopener">celery 异步任务</a></p>
 
       
     </div>
@@ -465,7 +468,7 @@
     
       <div>
         <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
-    <img id="wechat_subscriber_qcode" src="https://yunsonbai.top/images/wechat_qrcode.bmp" alt="yunsonbai wechat" style="width: 200px; max-width: 100%;"/>
+    <img id="wechat_subscriber_qcode" src="https://yunsonbai.top/images/wechat_qrcode.bmp" alt="yunsonbai wechat" style="width: 200px; max-width: 100%;">
     <div>微信公众号</div>
 </div>
 
@@ -539,7 +542,7 @@
 <a href="http://www.jiathis.com/share?uid=2140465" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
 <a class="jiathis_counter_style"></a>
 </div>
-<script type="text/javascript" >
+<script type="text/javascript">
 var jiathis_config={
   data_track_clickback:true,
   summary:"",
@@ -602,9 +605,7 @@ var jiathis_config={
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
-              <img class="site-author-image" itemprop="image"
-                src="https://yunsonbai.github.io/images/system/logo_v3.png""
-                alt="yunsonbai" />
+              <img class="site-author-image" itemprop="image" src="https://yunsonbai.github.io/images/system/logo_v3.png" " alt="yunsonbai">
             
               <p class="site-author-name" itemprop="name">yunsonbai</p>
               <p class="site-description motion-element" itemprop="description">just do it!</p>
@@ -680,6 +681,12 @@ var jiathis_config={
                 <div class="site-state-item site-state-tags">
                   <a href="/tags/index.html">
                     
+                    
+                      
+                    
+                      
+                    
+                      
                     
                       
                     
