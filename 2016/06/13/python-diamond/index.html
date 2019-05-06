@@ -1,0 +1,1554 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<html class="theme-next gemini" lang="zh-Hans,en,default">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+
+<link rel="stylesheet" href="/css/main.css?v=7.1.1">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/system/logo_v3.png?v=7.1.1">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/system/logo_v3.png?v=7.1.1">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/system/logo_v3.png?v=7.1.1">
+
+
+  <link rel="mask-icon" href="/images/system/logo_v3.png?v=7.1.1" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '7.1.1',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    back2top: ,
+    back2top_sidebar: ,
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="引言12如何保证系统或api在出问题的时候及时发现并解决呢？这就需要用到监控系统，监控系统可以是实时监控，也可以是非实时的（需要定时去检查系统），这里说一下用diamond实现非实时监控">
+<meta name="keywords" content="python,diamond,系统监控,api监控">
+<meta property="og:type" content="article">
+<meta property="og:title" content="使用diamond监控系统或api">
+<meta property="og:url" content="http://yunsonbai.github.io/2016/06/13/python-diamond/index.html">
+<meta property="og:site_name" content="雲Son">
+<meta property="og:description" content="引言12如何保证系统或api在出问题的时候及时发现并解决呢？这就需要用到监控系统，监控系统可以是实时监控，也可以是非实时的（需要定时去检查系统），这里说一下用diamond实现非实时监控">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-01-05T06:17:55.876Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="使用diamond监控系统或api">
+<meta name="twitter:description" content="引言12如何保证系统或api在出问题的时候及时发现并解决呢？这就需要用到监控系统，监控系统可以是实时监控，也可以是非实时的（需要定时去检查系统），这里说一下用diamond实现非实时监控">
+
+
+
+
+
+  
+  
+  <link rel="canonical" href="http://yunsonbai.github.io/2016/06/13/python-diamond/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>使用diamond监控系统或api | 雲Son</title>
+  
+
+
+
+
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?11f968f1dccff5bc4f6ed78778a799da";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">雲Son</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Home</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Categories</a>
+
+  </li>
+
+      
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>Search</a>
+        </li>
+      
+    </ul>
+  
+
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="Searching..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yunsonbai.github.io/2016/06/13/python-diamond/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="yunsonbai">
+      <meta itemprop="description" content="just do it!">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="雲Son">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">使用diamond监控系统或api
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2016-06-13 18:25:23" itemprop="dateCreated datePublished" datetime="2016-06-13T18:25:23+08:00">2016-06-13</time>
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/api或系统监控/" itemprop="url" rel="index"><span itemprop="name">api或系统监控</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+              
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+            
+                <span class="post-meta-item-text">Comments: </span>
+                <a href="/2016/06/13/python-diamond/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count gitment-comments-count" data-xid="/2016/06/13/python-diamond/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">如何保证系统或api在出问题的时候及时发现并解决呢？这就需要用到监控系统，监控系统可以是实时监控，也可以是</span><br><span class="line">非实时的（需要定时去检查系统），这里说一下用diamond实现非实时监控</span><br></pre></td></tr></table></figure>
+<a id="more"></a>
+<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># cd /usr/local/Diamond</span></span><br><span class="line"><span class="comment"># git clone git@github.com:python-diamond/Diamond.git</span></span><br></pre></td></tr></table></figure>
+<h2 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h2><h3 id="diamond配置（-conf-diamond-conf）"><a href="#diamond配置（-conf-diamond-conf）" class="headerlink" title="diamond配置（./conf/diamond.conf）"></a>diamond配置（./conf/diamond.conf）</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br><span class="line">228</span><br><span class="line">229</span><br><span class="line">230</span><br><span class="line">231</span><br><span class="line">232</span><br></pre></td><td class="code"><pre><span class="line">[server]</span><br><span class="line"></span><br><span class="line">handlers = diamond.handler.graphite.GraphiteHandler, diamond.handler.archive.ArchiveHandler</span><br><span class="line"></span><br><span class="line"><span class="comment"># User diamond will run as</span></span><br><span class="line"><span class="comment"># Leave empty to use the current user</span></span><br><span class="line">user =</span><br><span class="line"></span><br><span class="line"><span class="comment"># Group diamond will run as</span></span><br><span class="line"><span class="comment"># Leave empty to use the current group</span></span><br><span class="line">group =</span><br><span class="line"></span><br><span class="line"><span class="comment"># Pid file</span></span><br><span class="line">pid_file = /xx/Diamond/run/diamond.pid</span><br><span class="line"></span><br><span class="line"><span class="comment"># Directory to load collector modules from</span></span><br><span class="line">collectors_path = /xx/Diamond/share/diamond/collectors/</span><br><span class="line">collectors_config_path = /xx/Diamond/conf/collectors/</span><br><span class="line">collectors_reload_interval = 5</span><br><span class="line"></span><br><span class="line"><span class="comment"># Directory to load handler configs from</span></span><br><span class="line">handlers_config_path = /xx/Diamond/conf/handlers/</span><br><span class="line"></span><br><span class="line"><span class="comment"># Directory to load handler modules from</span></span><br><span class="line">handlers_path = /xx/Diamond/share/diamond/handlers/</span><br><span class="line"></span><br><span class="line"><span class="comment">################################################################################</span></span><br><span class="line"><span class="comment">### Options for handlers</span></span><br><span class="line">[handlers]</span><br><span class="line"></span><br><span class="line"><span class="comment"># daemon logging handler(s)</span></span><br><span class="line">keys = rotated_file</span><br><span class="line"></span><br><span class="line"><span class="comment">### Defaults options for all Handlers</span></span><br><span class="line">[[default]]</span><br><span class="line"></span><br><span class="line">[[ArchiveHandler]]</span><br><span class="line"></span><br><span class="line"><span class="comment"># File to write archive log files</span></span><br><span class="line">log_file = /var/<span class="built_in">log</span>/diamond/archive.log</span><br><span class="line"></span><br><span class="line"><span class="comment"># Number of days to keep archive log files</span></span><br><span class="line">days = 7</span><br><span class="line"></span><br><span class="line">[[GraphiteHandler]]</span><br><span class="line"><span class="comment">### Options for GraphiteHandler</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Graphite server host(本人认为携程carbon比较合适)</span></span><br><span class="line">host = xx.xx.xx.xx</span><br><span class="line"></span><br><span class="line"><span class="comment"># Port to send metrics to</span></span><br><span class="line">port = 2003</span><br><span class="line"></span><br><span class="line"><span class="comment"># Socket timeout (seconds)</span></span><br><span class="line">timeout = 15</span><br><span class="line"></span><br><span class="line"><span class="comment"># Batch size for metrics</span></span><br><span class="line">batch = 1</span><br><span class="line"></span><br><span class="line">[[GraphitePickleHandler]]</span><br><span class="line"><span class="comment">### Options for GraphitePickleHandler</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Graphite server host(本人认为携程carbon比较合适)</span></span><br><span class="line">host = xx.xx.xx.xx  <span class="comment">#写你搭建好的carbon服务器地址</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Port to send metrics to</span></span><br><span class="line">port = 2004</span><br><span class="line"></span><br><span class="line"><span class="comment"># Socket timeout (seconds)</span></span><br><span class="line">timeout = 15</span><br><span class="line"></span><br><span class="line"><span class="comment"># Batch size for pickled metrics</span></span><br><span class="line">batch = 256</span><br><span class="line"></span><br><span class="line">[[MySQLHandler]]</span><br><span class="line"><span class="comment">### Options for MySQLHandler</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># MySQL Connection Info</span></span><br><span class="line">hostname    = xx.xx.xx.xx</span><br><span class="line">port        = xx</span><br><span class="line">username    = xx</span><br><span class="line">password    = xx</span><br><span class="line">database    = diamond</span><br><span class="line">table       = metrics</span><br><span class="line"><span class="comment"># INT UNSIGNED NOT NULL</span></span><br><span class="line">col_time    = timestamp</span><br><span class="line"><span class="comment"># VARCHAR(255) NOT NULL</span></span><br><span class="line">col_metric  = metric</span><br><span class="line"><span class="comment"># VARCHAR(255) NOT NULL</span></span><br><span class="line">col_value   = value</span><br><span class="line"></span><br><span class="line">[[StatsdHandler]]</span><br><span class="line">host = 127.0.0.1</span><br><span class="line">port = 8125</span><br><span class="line"></span><br><span class="line">[[TSDBHandler]]</span><br><span class="line">host = 127.0.0.1</span><br><span class="line">port = 4242</span><br><span class="line">timeout = 15</span><br><span class="line"></span><br><span class="line">[[LibratoHandler]]</span><br><span class="line">user = user@example.com</span><br><span class="line">apikey = abcdefghijklmnopqrstuvwxyz0123456789abcdefghijklmnopqrstuvwxyz01</span><br><span class="line"></span><br><span class="line">[[HostedGraphiteHandler]]</span><br><span class="line">apikey = abcdefghijklmnopqrstuvwxyz0123456789abcdefghijklmnopqrstuvwxyz01</span><br><span class="line">timeout = 15</span><br><span class="line">batch = 1</span><br><span class="line"></span><br><span class="line"><span class="comment"># And any other config settings from GraphiteHandler are valid here</span></span><br><span class="line"></span><br><span class="line">[[HttpPostHandler]]</span><br><span class="line"></span><br><span class="line"><span class="comment">### Urp to post the metrics</span></span><br><span class="line">url = http://localhost:8888/</span><br><span class="line"><span class="comment">### Metrics batch size</span></span><br><span class="line">batch = 100</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">################################################################################</span></span><br><span class="line"><span class="comment">### Options for collectors</span></span><br><span class="line">[collectors]</span><br><span class="line">[[default]]</span><br><span class="line"><span class="comment">### Defaults options for all Collectors</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Uncomment and set to hardcode a hostname for the collector path</span></span><br><span class="line"><span class="comment"># Keep in mind, periods are seperators in graphite</span></span><br><span class="line"><span class="comment"># hostname = my_custom_hostname</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># If you prefer to just use a different way of calculating the hostname</span></span><br><span class="line"><span class="comment"># Uncomment and set this to one of these values:</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># smart             = Default. Tries fqdn_short. If that's localhost, uses hostname_short</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># fqdn_short        = Default. Similar to hostname -s</span></span><br><span class="line"><span class="comment"># fqdn              = hostname output</span></span><br><span class="line"><span class="comment"># fqdn_rev          = hostname in reverse (com.example.www)</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># uname_short       = Similar to uname -n, but only the first part</span></span><br><span class="line"><span class="comment"># uname_rev         = uname -r in reverse (com.example.www)</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># hostname_short    = `hostname -s`</span></span><br><span class="line"><span class="comment"># hostname          = `hostname`</span></span><br><span class="line"><span class="comment"># hostname_rev      = `hostname` in reverse (com.example.www)</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># shell             = Run the string set in hostname as a shell command and use its</span></span><br><span class="line"><span class="comment">#                     output(with spaces trimmed off from both ends) as the hostname.</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># hostname_method = smart</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Path Prefix and Suffix</span></span><br><span class="line"><span class="comment"># you can use one or both to craft the path where you want to put metrics</span></span><br><span class="line"><span class="comment"># such as: %(path_prefix)s.$(hostname)s.$(path_suffix)s.$(metric)s</span></span><br><span class="line">path_prefix = servers <span class="comment">#在graphite显示的最外层名字</span></span><br><span class="line"><span class="comment"># path_suffix =</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Path Prefix for Virtual Machines</span></span><br><span class="line"><span class="comment"># If the host supports virtual machines, collectors may report per</span></span><br><span class="line"><span class="comment"># VM metrics. Following OpenStack nomenclature, the prefix for</span></span><br><span class="line"><span class="comment"># reporting per VM metrics is "instances", and metric foo for VM</span></span><br><span class="line"><span class="comment"># bar will be reported as: instances.bar.foo...</span></span><br><span class="line"><span class="comment"># instance_prefix = instances</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Default Poll Interval (seconds)</span></span><br><span class="line">interval = 10  <span class="comment">#(所有的监控多长时间执行一次，并发送数据给carbon)</span></span><br><span class="line"></span><br><span class="line"><span class="comment">###############################################</span></span><br><span class="line"><span class="comment"># Default enabled collectors</span></span><br><span class="line"><span class="comment">########################################</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#[[CPUCollector]]</span></span><br><span class="line"><span class="comment">#enabled = True</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#[[DiskSpaceCollector]]</span></span><br><span class="line"><span class="comment">#enabled = True</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#[[DiskUsageCollector]]</span></span><br><span class="line"><span class="comment">#enabled = True</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#[[LoadAverageCollector]]</span></span><br><span class="line"><span class="comment">#enabled = True</span></span><br><span class="line"></span><br><span class="line">[[MemoryCollector]]</span><br><span class="line">enabled = True</span><br><span class="line"></span><br><span class="line"><span class="comment">#[[VMStatCollector]]</span></span><br><span class="line"><span class="comment">#enabled = True</span></span><br><span class="line"></span><br><span class="line">[loggers]</span><br><span class="line"></span><br><span class="line">keys = root</span><br><span class="line"></span><br><span class="line"><span class="comment"># handlers are higher in this config file, in:</span></span><br><span class="line"><span class="comment"># [handlers]</span></span><br><span class="line"><span class="comment"># keys = ...</span></span><br><span class="line"></span><br><span class="line">[formatters]</span><br><span class="line"></span><br><span class="line">keys = default</span><br><span class="line"></span><br><span class="line">[logger_root]</span><br><span class="line"></span><br><span class="line"><span class="comment"># to increase verbosity, set DEBUG</span></span><br><span class="line">level = INFO</span><br><span class="line">handlers = rotated_file</span><br><span class="line">propagate = 1</span><br><span class="line"></span><br><span class="line">[handler_rotated_file]</span><br><span class="line"></span><br><span class="line">class = handlers.TimedRotatingFileHandler</span><br><span class="line">level = DEBUG</span><br><span class="line">formatter = default</span><br><span class="line"><span class="comment"># rotate at midnight, each day and keep 7 days</span></span><br><span class="line">args = (<span class="string">'/var/log/diamond/diamond.log'</span>, <span class="string">'midnight'</span>, 1, 7)</span><br><span class="line"></span><br><span class="line">[formatter_default]</span><br><span class="line"></span><br><span class="line">format = [%(asctime)s] [%(threadName)s] %(message)s</span><br><span class="line">datefmt =</span><br><span class="line"></span><br><span class="line"><span class="comment">#######################################</span></span><br><span class="line"><span class="comment">### Options for config merging</span></span><br><span class="line"><span class="comment"># [configs]</span></span><br><span class="line"><span class="comment"># path = "/etc/diamond/configs/"</span></span><br><span class="line"><span class="comment"># extension = ".conf"</span></span><br><span class="line"><span class="comment">#----------------------------------------------</span></span><br><span class="line"><span class="comment"># Example:</span></span><br><span class="line"><span class="comment"># /etc/diamond/configs/net.conf</span></span><br><span class="line"><span class="comment"># [collectors]</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># [[NetworkCollector]]</span></span><br><span class="line">          <span class="comment"># enabled = True</span></span><br></pre></td></tr></table></figure>
+<h3 id="数据库支持（mysql）"><a href="#数据库支持（mysql）" class="headerlink" title="数据库支持（mysql）"></a>数据库支持（mysql）</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">create database diamond</span><br></pre></td></tr></table></figure>
+<h3 id="增加MemoryCollector（当然按照上边的配置还能加其他的）"><a href="#增加MemoryCollector（当然按照上边的配置还能加其他的）" class="headerlink" title="增加MemoryCollector（当然按照上边的配置还能加其他的）"></a>增加MemoryCollector（当然按照上边的配置还能加其他的）</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">在目录/xx/Diamond/share/diamond/collectors/中添加一个py文件</span><br><span class="line">该文件diamond已经写好，在src目录下寻找一下</span><br><span class="line">（src/collectors/memory/memory.py）</span><br></pre></td></tr></table></figure>
+<h3 id="增加自己的Collector"><a href="#增加自己的Collector" class="headerlink" title="增加自己的Collector"></a>增加自己的Collector</h3><h4 id="添加ExampleCollector-conf"><a href="#添加ExampleCollector-conf" class="headerlink" title="添加ExampleCollector.conf"></a>添加ExampleCollector.conf</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">在/xx/Diamond/conf/collectors/添加一个ExampleCollector.conf</span><br><span class="line">（你也可以是其他的名字，xxCollector.conf ）</span><br></pre></td></tr></table></figure>
+<h4 id="添加ExampleCollector-py"><a href="#添加ExampleCollector-py" class="headerlink" title="添加ExampleCollector.py"></a>添加ExampleCollector.py</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">在/xx/Diamond/share/diamond/collectors/中添加ExampleCollector.py</span><br><span class="line"><span class="comment"># coding=utf-8</span></span><br><span class="line">import diamond.collector</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">def <span class="built_in">test</span>():</span><br><span class="line">    <span class="comment"># dosomething</span></span><br><span class="line">    pass   </span><br><span class="line"></span><br><span class="line">class ExampleCollector(diamond.collector.Collector):</span><br><span class="line"></span><br><span class="line">    def collect(self):</span><br><span class="line">        metric_name = <span class="string">"my.example.metric"</span></span><br><span class="line">        st = time.time()</span><br><span class="line">        <span class="built_in">test</span>()</span><br><span class="line">        et = time.time()</span><br><span class="line">        metric_value = (et - st) * 1000</span><br><span class="line">        self.publish(metric_name, metric_value)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    pass</span><br></pre></td></tr></table></figure>
+<h3 id="启动"><a href="#启动" class="headerlink" title="启动"></a>启动</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># cd /usr/local/Diamond</span></span><br><span class="line"><span class="comment"># python ./bin/diamond -lf -c ./conf/diamond.conf</span></span><br></pre></td></tr></table></figure>
+<h3 id="查看结果"><a href="#查看结果" class="headerlink" title="查看结果"></a>查看结果</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">可以到已经搭建好的graphite（待我整理完会补充，也可以到网上搜一下）</span><br><span class="line">后台查看应该会有 /Metrics/servers .....</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="http://diamond.readthedocs.io/en/latest/" target="_blank" rel="noopener">Diamond</a></p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/python/" rel="tag"># python</a>
+          
+            <a href="/tags/diamond/" rel="tag"># diamond</a>
+          
+            <a href="/tags/系统监控/" rel="tag"># 系统监控</a>
+          
+            <a href="/tags/api监控/" rel="tag"># api监控</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/06/09/nginx常用配置/" rel="next" title="nginx常用配置">
+                <i class="fa fa-chevron-left"></i> nginx常用配置
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/07/01/ELK实时日志平台搭建/" rel="prev" title="ELK日志平台搭建">
+                ELK日志平台搭建 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+    <div class="comments" id="comments">
+      
+        <div id="gitment-container"></div>
+      
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">yunsonbai</p>
+              <div class="site-description motion-element" itemprop="description">just do it!</div>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives">
+                
+                    <span class="site-state-item-count">41</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  
+                    
+                      <a href="/categories/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">19</span>
+                    <span class="site-state-item-name">categories</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                      <a href="/tags/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">138</span>
+                    <span class="site-state-item-name">tags</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://github.com/yunsonbai" title="GitHub &rarr; https://github.com/yunsonbai" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="mailto:1572120849@qq.com" title="E-Mail &rarr; mailto:1572120849@qq.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                </span>
+              
+            </div>
+          
+
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#引言"><span class="nav-number">1.</span> <span class="nav-text">引言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装"><span class="nav-number">2.</span> <span class="nav-text">安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#配置"><span class="nav-number">3.</span> <span class="nav-text">配置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#diamond配置（-conf-diamond-conf）"><span class="nav-number">3.1.</span> <span class="nav-text">diamond配置（./conf/diamond.conf）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数据库支持（mysql）"><span class="nav-number">3.2.</span> <span class="nav-text">数据库支持（mysql）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#增加MemoryCollector（当然按照上边的配置还能加其他的）"><span class="nav-number">3.3.</span> <span class="nav-text">增加MemoryCollector（当然按照上边的配置还能加其他的）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#增加自己的Collector"><span class="nav-number">3.4.</span> <span class="nav-text">增加自己的Collector</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#添加ExampleCollector-conf"><span class="nav-number">3.4.1.</span> <span class="nav-text">添加ExampleCollector.conf</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#添加ExampleCollector-py"><span class="nav-number">3.4.2.</span> <span class="nav-text">添加ExampleCollector.py</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#启动"><span class="nav-number">3.5.</span> <span class="nav-text">启动</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#查看结果"><span class="nav-number">3.6.</span> <span class="nav-text">查看结果</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+  
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2015 – <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">yunsonbai</span>
+
+  
+
+  
+</div>
+
+
+
+
+
+
+  <div class="theme-info">Theme – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v7.1.1</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/js/utils.js?v=7.1.1"></script>
+
+  <script src="/js/motion.js?v=7.1.1"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/affix.js?v=7.1.1"></script>
+
+  <script src="/js/schemes/pisces.js?v=7.1.1"></script>
+
+
+
+
+  
+  <script src="/js/scrollspy.js?v=7.1.1"></script>
+<script src="/js/post-details.js?v=7.1.1"></script>
+
+
+
+  
+
+
+  <script src="/js/next-boot.js?v=7.1.1"></script>
+
+
+  
+
+  
+
+  
+
+  
+
+
+  
+    
+<!-- LOCAL: You can save these files to your site and update links -->
+    
+        
+        <link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+        <script src="https://yunsonbai.top/js/gitment.browser1.js"></script>
+    
+<!-- END LOCAL -->
+
+    
+
+    
+      <script type="text/javascript">
+      function renderGitment(){
+        var gitment = new Gitment({
+            id: window.location.pathname,
+            owner: 'yunsonbai',
+            repo: 'yunsonbai.github.io',
+            
+            lang: "" || navigator.language || navigator.systemLanguage || navigator.userLanguage,
+            
+            oauth: {
+            
+            
+                client_secret: 'b5be0d96ab3ce116945b9da7deb99790dd831e11',
+            
+                client_id: '352684171ad224de572f'
+            }});
+        gitment.render('gitment-container');
+      }
+
+      
+      renderGitment();
+      
+      </script>
+    
+
+
+
+  
+
+
+  
+  <script>
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url).replace(/\/{2,}/g, '/');
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x"></i></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x"></i></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

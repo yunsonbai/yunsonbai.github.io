@@ -3428,7 +3428,6 @@ var Gitment =
                         }, options);
 
                         this.state.user.isLoggingIn = true;
-
                         // 'https://gh-oauth.imsun.net'
                         // 'https://github.com/login/oauth/access_token'
                         _utils.http.post('https://github.com/login/oauth/access_token', {
