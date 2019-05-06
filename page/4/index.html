@@ -2481,6 +2481,36 @@
   
 
   
+  
+
+<script src="//cdn1.lncld.net/static/js/3.11.1/av-min.js"></script>
+
+
+
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+
+<script>
+  var GUEST = ['nick', 'mail', 'link'];
+  var guest = 'nick,mail,link';
+  guest = guest.split(',').filter(function(item) {
+    return GUEST.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#comments',
+    verify: false,
+    notify: false,
+    appId: 'Ucbsyt811udgtLtslLKYAvfv-gzGzoHsz',
+    appKey: 'gzHKJEqACA7ECTvgJIMcPdzh',
+    placeholder: 'Just go go',
+    avatar: 'mm',
+    meta: guest,
+    pageSize: '20' || 10,
+    visitor: ,
+    lang: '' || 'zh-cn'
+  });
+</script>
+
+
 
 
 

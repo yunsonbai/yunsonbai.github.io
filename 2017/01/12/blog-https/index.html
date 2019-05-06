@@ -427,7 +427,7 @@
             
                 <span class="post-meta-item-text">Comments: </span>
                 <a href="/2017/01/12/blog-https/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count gitment-comments-count" data-xid="/2017/01/12/blog-https/" itemprop="commentCount"></span>
+                  <span class="post-comments-count valine-comment-count" data-xid="/2017/01/12/blog-https/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -585,9 +585,6 @@
 
   
     <div class="comments" id="comments">
-      
-        <div id="gitment-container"></div>
-      
     </div>
 
   
@@ -1195,45 +1192,35 @@
   
 
   
-
-
   
-    
-<!-- LOCAL: You can save these files to your site and update links -->
-    
-        
-        <link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
-        <script src="https://yunsonbai.top/js/gitment.browser1.js"></script>
-    
-<!-- END LOCAL -->
 
-    
+<script src="//cdn1.lncld.net/static/js/3.11.1/av-min.js"></script>
 
-    
-      <script type="text/javascript">
-      function renderGitment(){
-        var gitment = new Gitment({
-            id: window.location.pathname,
-            owner: 'yunsonbai',
-            repo: 'yunsonbai.github.io',
-            
-            lang: "" || navigator.language || navigator.systemLanguage || navigator.userLanguage,
-            
-            oauth: {
-            
-            
-                client_secret: 'b5be0d96ab3ce116945b9da7deb99790dd831e11',
-            
-                client_id: '352684171ad224de572f'
-            }});
-        gitment.render('gitment-container');
-      }
 
-      
-      renderGitment();
-      
-      </script>
-    
+
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+
+<script>
+  var GUEST = ['nick', 'mail', 'link'];
+  var guest = 'nick,mail,link';
+  guest = guest.split(',').filter(function(item) {
+    return GUEST.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#comments',
+    verify: false,
+    notify: false,
+    appId: 'Ucbsyt811udgtLtslLKYAvfv-gzGzoHsz',
+    appKey: 'gzHKJEqACA7ECTvgJIMcPdzh',
+    placeholder: 'Just go go',
+    avatar: 'mm',
+    meta: guest,
+    pageSize: '20' || 10,
+    visitor: ,
+    lang: '' || 'zh-cn'
+  });
+</script>
+
 
 
 

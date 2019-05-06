@@ -425,7 +425,7 @@
             
                 <span class="post-meta-item-text">Comments: </span>
                 <a href="/2016/06/13/python-diamond/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count gitment-comments-count" data-xid="/2016/06/13/python-diamond/" itemprop="commentCount"></span>
+                  <span class="post-comments-count valine-comment-count" data-xid="/2016/06/13/python-diamond/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -506,8 +506,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/06/09/nginx常用配置/" rel="next" title="nginx常用配置">
-                <i class="fa fa-chevron-left"></i> nginx常用配置
+              <a href="/2016/06/09/eth0-no-ipv4/" rel="next" title="当eth0没有ipv4地址的解决办法">
+                <i class="fa fa-chevron-left"></i> 当eth0没有ipv4地址的解决办法
               </a>
             
           </div>
@@ -542,9 +542,6 @@
 
   
     <div class="comments" id="comments">
-      
-        <div id="gitment-container"></div>
-      
     </div>
 
   
@@ -1152,45 +1149,35 @@
   
 
   
-
-
   
-    
-<!-- LOCAL: You can save these files to your site and update links -->
-    
-        
-        <link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
-        <script src="https://yunsonbai.top/js/gitment.browser1.js"></script>
-    
-<!-- END LOCAL -->
 
-    
+<script src="//cdn1.lncld.net/static/js/3.11.1/av-min.js"></script>
 
-    
-      <script type="text/javascript">
-      function renderGitment(){
-        var gitment = new Gitment({
-            id: window.location.pathname,
-            owner: 'yunsonbai',
-            repo: 'yunsonbai.github.io',
-            
-            lang: "" || navigator.language || navigator.systemLanguage || navigator.userLanguage,
-            
-            oauth: {
-            
-            
-                client_secret: 'b5be0d96ab3ce116945b9da7deb99790dd831e11',
-            
-                client_id: '352684171ad224de572f'
-            }});
-        gitment.render('gitment-container');
-      }
 
-      
-      renderGitment();
-      
-      </script>
-    
+
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+
+<script>
+  var GUEST = ['nick', 'mail', 'link'];
+  var guest = 'nick,mail,link';
+  guest = guest.split(',').filter(function(item) {
+    return GUEST.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#comments',
+    verify: false,
+    notify: false,
+    appId: 'Ucbsyt811udgtLtslLKYAvfv-gzGzoHsz',
+    appKey: 'gzHKJEqACA7ECTvgJIMcPdzh',
+    placeholder: 'Just go go',
+    avatar: 'mm',
+    meta: guest,
+    pageSize: '20' || 10,
+    visitor: ,
+    lang: '' || 'zh-cn'
+  });
+</script>
+
 
 
 
