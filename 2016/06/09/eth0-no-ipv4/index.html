@@ -403,14 +403,15 @@
           
             
               <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2016/06/09/eth0-no-ipv4/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2016/06/09/eth0-no-ipv4/" itemprop="commentCount"></span>
-                </a>
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-comment-o"></i>
               </span>
+              
+                <a href="/2016/06/09/eth0-no-ipv4/#SOHUCS" itemprop="discussionUrl">
+                  <span id="changyan_count_unit" class="post-comments-count hc-comment-count" data-xid="2016/06/09/eth0-no-ipv4/" itemprop="commentsCount"></span>
+                </a>
+              
             
           
 
@@ -423,7 +424,7 @@
 
           
 
-        </div>
+        </span></div>
       </header>
     
 
@@ -481,8 +482,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/06/08/django-rsyslog/" rel="next" title="使用rsyslog收集Django的日志">
-                <i class="fa fa-chevron-left"></i> 使用rsyslog收集Django的日志
+              <a href="/2016/06/09/nginx常用配置/" rel="next" title="nginx常用配置">
+                <i class="fa fa-chevron-left"></i> nginx常用配置
               </a>
             
           </div>
@@ -491,8 +492,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2016/06/09/nginx常用配置/" rel="prev" title="nginx常用配置">
-                nginx常用配置 <i class="fa fa-chevron-right"></i>
+              <a href="/2016/06/13/python-diamond/" rel="prev" title="使用diamond监控系统或api">
+                使用diamond监控系统或api <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -547,7 +548,9 @@ var jiathis_config={
 
   
     <div class="comments" id="comments">
+      <div id="SOHUCS"></div>
     </div>
+
   
 
 
@@ -1157,33 +1160,24 @@ var jiathis_config={
 
 
 
-
-
-
-
-  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
   
+    <script type="text/javascript">
+    (function(){
+      var appid = 'cyudCQTNd';
+      var conf = 'prod_ae363f091daefb0d3eef620fa65b9f3f';
+      var width = window.innerWidth || document.documentElement.clientWidth;
+      if (width < 960) {
+      window.document.write('<script id="changyan_mobile_js" charset="utf-8" type="text/javascript" src="https://changyan.sohu.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf + '"><\/script>'); } else { var loadJs=function(d,a){var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;var b=document.createElement("script");b.setAttribute("type","text/javascript");b.setAttribute("charset","UTF-8");b.setAttribute("src",d);if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}c.appendChild(b)};loadJs("https://changyan.sohu.com/upload/changyan.js",function(){
+        window.changyan.api.config({appid:appid,conf:conf})});
+      }
+    })();
+    </script>
+    <script type="text/javascript" src="https://assets.changyan.sohu.com/upload/plugins/plugins.count.js"></script>
   
-  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
-  
-  <script type="text/javascript">
-    var GUEST = ['nick','mail','link'];
-    var guest = 'nick,mail,link';
-    guest = guest.split(',').filter(function (item) {
-      return GUEST.indexOf(item)>-1;
-    });
-    new Valine({
-        el: '#comments' ,
-        verify: false,
-        notify: false,
-        appId: 'Ucbsyt811udgtLtslLKYAvfv-gzGzoHsz',
-        appKey: 'gzHKJEqACA7ECTvgJIMcPdzh',
-        placeholder: 'Just go go',
-        avatar:'mm',
-        guest_info:guest,
-        pageSize:'20' || 10,
-    });
-  </script>
+
+
+
+
 
 
 
