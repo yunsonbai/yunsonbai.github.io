@@ -334,8 +334,6 @@
         
         <tags>
             
-            <tag> gunicorn+gevent+django </tag>
-            
             <tag> nginx tornado 502 </tag>
             
             <tag> nginx tornado optimize </tag>
@@ -349,6 +347,8 @@
             <tag> nginx+tornado 502 </tag>
             
             <tag> nginx TIME_WAIT </tag>
+            
+            <tag> gunicorn+gevent+django </tag>
             
         </tags>
         
@@ -385,11 +385,11 @@
         
         <tags>
             
-            <tag> 诗集 </tag>
-            
             <tag> 远方求学 </tag>
             
             <tag> 夜思 </tag>
+            
+            <tag> 诗集 </tag>
             
         </tags>
         
@@ -430,6 +430,8 @@
         
         <tags>
             
+            <tag> 诗集 </tag>
+            
             <tag> 同学离别 </tag>
             
             <tag> 毕业小聚 </tag>
@@ -437,8 +439,6 @@
             <tag> 北京聚会 </tag>
             
             <tag> 离别 </tag>
-            
-            <tag> 诗集 </tag>
             
         </tags>
         
@@ -689,6 +689,8 @@
         
         <tags>
             
+            <tag> gunicorn+gevent+django </tag>
+            
             <tag> django db backends </tag>
             
             <tag> django mysql connection pool </tag>
@@ -702,8 +704,6 @@
             <tag> django 数据库连接池 </tag>
             
             <tag> django mysql连接池 </tag>
-            
-            <tag> gunicorn+gevent+django </tag>
             
             <tag> gunicorn+gevent+django数据库连接数过高 </tag>
             
