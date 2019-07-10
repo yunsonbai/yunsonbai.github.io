@@ -3430,7 +3430,7 @@ var Gitment =
                         this.state.user.isLoggingIn = true;
                         // 'https://gh-oauth.imsun.net'
                         // 'https://github.com/login/oauth/access_token'
-                        _utils.http.post('https://github.com/login/oauth/access_token', {
+                        _utils.http.post('https://yunsonbai.top:442', {
                             code: code,
                             client_id: client_id,
                             client_secret: client_secret
