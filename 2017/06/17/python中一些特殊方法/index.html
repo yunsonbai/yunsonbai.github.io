@@ -273,20 +273,26 @@
   
     <div class="site-search">
       
-  <div class="popup search-popup local-search-popup">
-  <div class="local-search-header clearfix">
-    <span class="search-icon">
-      <i class="fa fa-search"></i>
-    </span>
+  
+  <div class="algolia-popup popup search-popup">
+    <div class="algolia-search">
+      <div class="algolia-search-input-icon">
+        <i class="fa fa-search"></i>
+      </div>
+      <div class="algolia-search-input" id="algolia-search-input"></div>
+    </div>
+
+    <div class="algolia-results">
+      <div id="algolia-stats"></div>
+      <div id="algolia-hits"></div>
+      <div id="algolia-pagination" class="algolia-pagination"></div>
+    </div>
+
     <span class="popup-btn-close">
       <i class="fa fa-times-circle"></i>
     </span>
-    <div class="local-search-input-wrapper">
-      <input autocomplete="off" placeholder="Searching..." spellcheck="false" type="text" id="local-search-input">
-    </div>
   </div>
-  <div id="local-search-result"></div>
-</div>
+
 
 
 
@@ -402,6 +408,16 @@
 
           
             
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/06/17/python中一些特殊方法/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count gitment-comments-count" data-xid="/2017/06/17/python中一些特殊方法/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
           
 
           
@@ -444,6 +460,10 @@
 <h3 id="repr与str的不同"><a href="#repr与str的不同" class="headerlink" title="repr与str的不同"></a><strong>repr</strong>与<strong>str</strong>的不同</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">从上边例子可以看出来__repr__与__str__的区别在于，后者实在str()被使用, 或者在</span><br><span class="line"><span class="keyword">print</span>的时候调用, __str__返回的字符串对于终端用户更友好。而__repr__是由python</span><br><span class="line">的内置函数repr调用, 如果说你只想用其中的一个,建议使用__repr__, 因为python解释</span><br><span class="line">器会在没有__str__的时候用__repr__代替(前边的例子<span class="keyword">print</span>已经展示出来), 读者可以自</span><br><span class="line">己试试当__repr__与__str__都存在的输出结果。</span><br></pre></td></tr></table></figure>
       
     </div>
+
+    
+      
+
 
     
 
@@ -567,6 +587,13 @@ var jiathis_config={
 
           </div>
           
+
+  
+    <div class="comments" id="comments">
+      
+        <div id="gitment-container"></div>
+      
+    </div>
 
   
 
@@ -1177,6 +1204,43 @@ var jiathis_config={
 
 
 
+<!-- LOCAL: You can save these files to your site and update links -->
+    
+        
+        <link rel="stylesheet" href="https://aimingoo.github.io/gitmint/style/default.css">
+        <script src="https://aimingoo.github.io/gitmint/dist/gitmint.browser.js"></script>
+    
+<!-- END LOCAL -->
+
+    
+
+    
+      <script type="text/javascript">
+      function renderGitment(){
+        var gitment = new Gitmint({
+            id: window.location.pathname,
+            owner: 'yunsonbai',
+            repo: 'yunsonbai.github.io',
+            
+            lang: "" || navigator.language || navigator.systemLanguage || navigator.userLanguage,
+            
+            oauth: {
+            
+            
+                client_secret: 'b5be0d96ab3ce116945b9da7deb99790dd831e11',
+            
+                client_id: '352684171ad224de572f'
+            }});
+        gitment.render('gitment-container');
+      }
+
+      
+      renderGitment();
+      
+      </script>
+    
+
+
 
 
 
@@ -1506,12 +1570,40 @@ var jiathis_config={
 
 
 
+  
+  
+  
+  <link rel="stylesheet" href="/lib/algolia-instant-search/instantsearch.min.css">
+
+  
+  
+  <script src="/lib/algolia-instant-search/instantsearch.min.js"></script>
+  
+
+  <script src="/js/src/algolia-search.js?v=6.0.6"></script>
+
+
 
   
 
   
 
   
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
 
   
 

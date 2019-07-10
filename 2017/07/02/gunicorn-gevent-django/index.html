@@ -280,20 +280,26 @@
   
     <div class="site-search">
       
-  <div class="popup search-popup local-search-popup">
-  <div class="local-search-header clearfix">
-    <span class="search-icon">
-      <i class="fa fa-search"></i>
-    </span>
+  
+  <div class="algolia-popup popup search-popup">
+    <div class="algolia-search">
+      <div class="algolia-search-input-icon">
+        <i class="fa fa-search"></i>
+      </div>
+      <div class="algolia-search-input" id="algolia-search-input"></div>
+    </div>
+
+    <div class="algolia-results">
+      <div id="algolia-stats"></div>
+      <div id="algolia-hits"></div>
+      <div id="algolia-pagination" class="algolia-pagination"></div>
+    </div>
+
     <span class="popup-btn-close">
       <i class="fa fa-times-circle"></i>
     </span>
-    <div class="local-search-input-wrapper">
-      <input autocomplete="off" placeholder="Searching..." spellcheck="false" type="text" id="local-search-input">
-    </div>
   </div>
-  <div id="local-search-result"></div>
-</div>
+
 
 
 
@@ -409,6 +415,16 @@
 
           
             
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/07/02/gunicorn-gevent-django/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count gitment-comments-count" data-xid="/2017/07/02/gunicorn-gevent-django/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
           
 
           
@@ -489,6 +505,10 @@
     </div>
 
     
+      
+
+
+    
 
     
     
@@ -526,8 +546,6 @@
       
         <div class="post-tags">
           
-            <a href="/tags/gunicorn-gevent-django/" rel="tag"># gunicorn+gevent+django</a>
-          
             <a href="/tags/django-db-backends/" rel="tag"># django db backends</a>
           
             <a href="/tags/django-mysql-connection-pool/" rel="tag"># django mysql connection pool</a>
@@ -541,6 +559,8 @@
             <a href="/tags/django-数据库连接池/" rel="tag"># django 数据库连接池</a>
           
             <a href="/tags/django-mysql连接池/" rel="tag"># django mysql连接池</a>
+          
+            <a href="/tags/gunicorn-gevent-django/" rel="tag"># gunicorn+gevent+django</a>
           
             <a href="/tags/gunicorn-gevent-django数据库连接数过高/" rel="tag"># gunicorn+gevent+django数据库连接数过高</a>
           
@@ -618,6 +638,13 @@ var jiathis_config={
 
           </div>
           
+
+  
+    <div class="comments" id="comments">
+      
+        <div id="gitment-container"></div>
+      
+    </div>
 
   
 
@@ -1228,6 +1255,43 @@ var jiathis_config={
 
 
 
+<!-- LOCAL: You can save these files to your site and update links -->
+    
+        
+        <link rel="stylesheet" href="https://aimingoo.github.io/gitmint/style/default.css">
+        <script src="https://aimingoo.github.io/gitmint/dist/gitmint.browser.js"></script>
+    
+<!-- END LOCAL -->
+
+    
+
+    
+      <script type="text/javascript">
+      function renderGitment(){
+        var gitment = new Gitmint({
+            id: window.location.pathname,
+            owner: 'yunsonbai',
+            repo: 'yunsonbai.github.io',
+            
+            lang: "" || navigator.language || navigator.systemLanguage || navigator.userLanguage,
+            
+            oauth: {
+            
+            
+                client_secret: 'b5be0d96ab3ce116945b9da7deb99790dd831e11',
+            
+                client_id: '352684171ad224de572f'
+            }});
+        gitment.render('gitment-container');
+      }
+
+      
+      renderGitment();
+      
+      </script>
+    
+
+
 
 
 
@@ -1557,12 +1621,40 @@ var jiathis_config={
 
 
 
+  
+  
+  
+  <link rel="stylesheet" href="/lib/algolia-instant-search/instantsearch.min.css">
+
+  
+  
+  <script src="/lib/algolia-instant-search/instantsearch.min.js"></script>
+  
+
+  <script src="/js/src/algolia-search.js?v=6.0.6"></script>
+
+
 
   
 
   
 
   
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
 
   
 

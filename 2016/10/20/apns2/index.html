@@ -273,20 +273,26 @@
   
     <div class="site-search">
       
-  <div class="popup search-popup local-search-popup">
-  <div class="local-search-header clearfix">
-    <span class="search-icon">
-      <i class="fa fa-search"></i>
-    </span>
+  
+  <div class="algolia-popup popup search-popup">
+    <div class="algolia-search">
+      <div class="algolia-search-input-icon">
+        <i class="fa fa-search"></i>
+      </div>
+      <div class="algolia-search-input" id="algolia-search-input"></div>
+    </div>
+
+    <div class="algolia-results">
+      <div id="algolia-stats"></div>
+      <div id="algolia-hits"></div>
+      <div id="algolia-pagination" class="algolia-pagination"></div>
+    </div>
+
     <span class="popup-btn-close">
       <i class="fa fa-times-circle"></i>
     </span>
-    <div class="local-search-input-wrapper">
-      <input autocomplete="off" placeholder="Searching..." spellcheck="false" type="text" id="local-search-input">
-    </div>
   </div>
-  <div id="local-search-result"></div>
-</div>
+
 
 
 
@@ -402,6 +408,16 @@
 
           
             
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2016/10/20/apns2/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count gitment-comments-count" data-xid="/2016/10/20/apns2/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
           
 
           
@@ -448,6 +464,10 @@
 <h2 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> apns2.client <span class="keyword">import</span> APNsClient</span><br><span class="line"><span class="keyword">from</span> apns2.payload <span class="keyword">import</span> Payload</span><br><span class="line"><span class="keyword">import</span> uuid</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">push</span><span class="params">()</span>:</span></span><br><span class="line">    token_hexs = [</span><br><span class="line">        <span class="string">'f9dcb885edbfcddsdaf64960bed56b19c362b3c617565126b085af2c8829467a'</span>,</span><br><span class="line">        <span class="string">'9dc9662fa9dsd390fc6b3d3ec637a764867241f516d847b54d24ce7e37963b6e'</span>,</span><br><span class="line">        <span class="string">'d52c31a293aa79c61222626b0d025866ssssa4d0c79a2b2bf729cd48c61f14a2'</span>,</span><br><span class="line">        <span class="string">'8c51ed081211d19d90f4b34b403c39f5ceeeeec368cfd9277812a7af778fbf5f'</span>,</span><br><span class="line">        <span class="string">'3df3c6bc4a98c38d5d13cbb932f4969f5f0efhhha8e4cd32270777f273dc0e41'</span>,</span><br><span class="line">        <span class="string">'a25fbf0b5f84632406f33a78398138c87d13iiiiiiiiiiic466c11be9de22011'</span>,</span><br><span class="line">        <span class="string">'3df3c6bc4a98c38d5d13cbb932f4969f5f0efyyyy8e4cd32270777f273dc0e41'</span>,</span><br><span class="line">        <span class="string">'aef8a3d0b6d38807ad8ab485665d36edc305a9793jjj269214bcd3357f60e07a'</span>]</span><br><span class="line">    print(len(token_hexs))</span><br><span class="line">    payload = Payload(alert=<span class="string">"Hello World!"</span>, sound=<span class="string">"default"</span>)</span><br><span class="line">    <span class="comment"># custom = &#123;</span></span><br><span class="line">    <span class="comment">#     'custom': &#123;</span></span><br><span class="line">    <span class="comment">#         'type': 1</span></span><br><span class="line">    <span class="comment">#     &#125;</span></span><br><span class="line">    <span class="comment"># &#125;</span></span><br><span class="line">    <span class="comment"># payload = Payload(custom=custom, content_available=True)</span></span><br><span class="line">    client = APNsClient(</span><br><span class="line">        <span class="string">'Dev_Cer-key.pem'</span>,</span><br><span class="line">        <span class="comment"># 'Cer_Key.pem',</span></span><br><span class="line">        use_sandbox=<span class="literal">True</span>,</span><br><span class="line">        use_alternative_port=<span class="literal">False</span>)</span><br><span class="line">    response = client.send_notification_multiple(token_hexs, payload)</span><br><span class="line">    <span class="keyword">return</span> response</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">response_handler</span><span class="params">(response)</span>:</span></span><br><span class="line">	<span class="comment"># do something: delete badtoken and so on</span></span><br><span class="line">    <span class="keyword">pass</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    response = push()</span><br><span class="line">	response_handler(response)</span><br></pre></td></tr></table></figure>
       
     </div>
+
+    
+      
+
 
     
 
@@ -563,6 +583,13 @@ var jiathis_config={
 
           </div>
           
+
+  
+    <div class="comments" id="comments">
+      
+        <div id="gitment-container"></div>
+      
+    </div>
 
   
 
@@ -1173,6 +1200,43 @@ var jiathis_config={
 
 
 
+<!-- LOCAL: You can save these files to your site and update links -->
+    
+        
+        <link rel="stylesheet" href="https://aimingoo.github.io/gitmint/style/default.css">
+        <script src="https://aimingoo.github.io/gitmint/dist/gitmint.browser.js"></script>
+    
+<!-- END LOCAL -->
+
+    
+
+    
+      <script type="text/javascript">
+      function renderGitment(){
+        var gitment = new Gitmint({
+            id: window.location.pathname,
+            owner: 'yunsonbai',
+            repo: 'yunsonbai.github.io',
+            
+            lang: "" || navigator.language || navigator.systemLanguage || navigator.userLanguage,
+            
+            oauth: {
+            
+            
+                client_secret: 'b5be0d96ab3ce116945b9da7deb99790dd831e11',
+            
+                client_id: '352684171ad224de572f'
+            }});
+        gitment.render('gitment-container');
+      }
+
+      
+      renderGitment();
+      
+      </script>
+    
+
+
 
 
 
@@ -1502,12 +1566,40 @@ var jiathis_config={
 
 
 
+  
+  
+  
+  <link rel="stylesheet" href="/lib/algolia-instant-search/instantsearch.min.css">
+
+  
+  
+  <script src="/lib/algolia-instant-search/instantsearch.min.js"></script>
+  
+
+  <script src="/js/src/algolia-search.js?v=6.0.6"></script>
+
+
 
   
 
   
 
   
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
 
   
 

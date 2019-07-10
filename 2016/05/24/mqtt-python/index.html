@@ -273,20 +273,26 @@
   
     <div class="site-search">
       
-  <div class="popup search-popup local-search-popup">
-  <div class="local-search-header clearfix">
-    <span class="search-icon">
-      <i class="fa fa-search"></i>
-    </span>
+  
+  <div class="algolia-popup popup search-popup">
+    <div class="algolia-search">
+      <div class="algolia-search-input-icon">
+        <i class="fa fa-search"></i>
+      </div>
+      <div class="algolia-search-input" id="algolia-search-input"></div>
+    </div>
+
+    <div class="algolia-results">
+      <div id="algolia-stats"></div>
+      <div id="algolia-hits"></div>
+      <div id="algolia-pagination" class="algolia-pagination"></div>
+    </div>
+
     <span class="popup-btn-close">
       <i class="fa fa-times-circle"></i>
     </span>
-    <div class="local-search-input-wrapper">
-      <input autocomplete="off" placeholder="Searching..." spellcheck="false" type="text" id="local-search-input">
-    </div>
   </div>
-  <div id="local-search-result"></div>
-</div>
+
 
 
 
@@ -402,6 +408,16 @@
 
           
             
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2016/05/24/mqtt-python/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count gitment-comments-count" data-xid="/2016/05/24/mqtt-python/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
           
 
           
@@ -438,6 +454,10 @@
 <h3 id="client-端"><a href="#client-端" class="headerlink" title="client 端"></a>client 端</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># coding=utf-8</span></span><br><span class="line">import paho.mqtt.client as mqtt</span><br><span class="line">import json</span><br><span class="line"><span class="comment">#</span></span><br><span class="line">def on_connect(client, userdata, flags, rc):</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">'Connected with result code '</span> + str(rc))</span><br><span class="line">    client.subscribe(<span class="string">'baisong'</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">def on_message(client, userdata, msg):</span><br><span class="line">    <span class="built_in">print</span> msg.topic + <span class="string">' '</span> + str(msg.payload)</span><br><span class="line">    <span class="built_in">print</span> json.loads(msg.payload)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    client = mqtt.Client()</span><br><span class="line">    client.on_connect = on_connect</span><br><span class="line">    client.on_message = on_message</span><br><span class="line"></span><br><span class="line">    try:</span><br><span class="line">        client.connect(<span class="string">'127.0.0.1'</span>, port=1883)</span><br><span class="line">        client.loop_forever()</span><br><span class="line">    except KeyboardInterrupt:</span><br><span class="line">        client.disconnect()</span><br></pre></td></tr></table></figure>
       
     </div>
+
+    
+      
+
 
     
 
@@ -557,6 +577,13 @@ var jiathis_config={
 
           </div>
           
+
+  
+    <div class="comments" id="comments">
+      
+        <div id="gitment-container"></div>
+      
+    </div>
 
   
 
@@ -1167,6 +1194,43 @@ var jiathis_config={
 
 
 
+<!-- LOCAL: You can save these files to your site and update links -->
+    
+        
+        <link rel="stylesheet" href="https://aimingoo.github.io/gitmint/style/default.css">
+        <script src="https://aimingoo.github.io/gitmint/dist/gitmint.browser.js"></script>
+    
+<!-- END LOCAL -->
+
+    
+
+    
+      <script type="text/javascript">
+      function renderGitment(){
+        var gitment = new Gitmint({
+            id: window.location.pathname,
+            owner: 'yunsonbai',
+            repo: 'yunsonbai.github.io',
+            
+            lang: "" || navigator.language || navigator.systemLanguage || navigator.userLanguage,
+            
+            oauth: {
+            
+            
+                client_secret: 'b5be0d96ab3ce116945b9da7deb99790dd831e11',
+            
+                client_id: '352684171ad224de572f'
+            }});
+        gitment.render('gitment-container');
+      }
+
+      
+      renderGitment();
+      
+      </script>
+    
+
+
 
 
 
@@ -1496,12 +1560,40 @@ var jiathis_config={
 
 
 
+  
+  
+  
+  <link rel="stylesheet" href="/lib/algolia-instant-search/instantsearch.min.css">
+
+  
+  
+  <script src="/lib/algolia-instant-search/instantsearch.min.js"></script>
+  
+
+  <script src="/js/src/algolia-search.js?v=6.0.6"></script>
+
+
 
   
 
   
 
   
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
 
   
 
