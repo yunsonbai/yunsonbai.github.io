@@ -88,9 +88,9 @@
         
         <tags>
             
-            <tag> python orm </tag>
-            
             <tag> orm </tag>
+            
+            <tag> python orm </tag>
             
         </tags>
         
@@ -111,8 +111,8 @@
 </ul>
 <h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><ul>
 <li>step 1:<ul>
-<li>Linux: wget <a href="https://github.com/yunsonbai/ysab/releases/download/v0.4.0/ysab_linux_0.4.0.tgz" target="_blank" rel="noopener">https://github.com/yunsonbai/ysab/releases/download/v0.4.0/ysab_linux_0.4.0.tgz</a></li>
-<li>MacOS: wget <a href="https://github.com/yunsonbai/ysab/releases/download/v0.4.0/ysab_mac_0.4.0.tzg" target="_blank" rel="noopener">https://github.com/yunsonbai/ysab/releases/download/v0.4.0/ysab_mac_0.4.0.tzg</a></li>
+<li>Linux: wget <a href="https://github.com/yunsonbai/ysab/releases/download/v0.4.1/ysab_linux_0.4.1.tgz" target="_blank" rel="noopener">https://github.com/yunsonbai/ysab/releases/download/v0.4.1/ysab_linux_0.4.1.tgz</a></li>
+<li>MacOS: wget <a href="https://github.com/yunsonbai/ysab/releases/download/v0.4.1/ysab_mac_0.4.1.tgz" target="_blank" rel="noopener">https://github.com/yunsonbai/ysab/releases/download/v0.4.1/ysab_mac_0.4.1.tgz</a></li>
 </ul>
 </li>
 <li><p>step 2:</p>
@@ -386,11 +386,11 @@
         
         <tags>
             
+            <tag> 诗集 </tag>
+            
             <tag> 远方求学 </tag>
             
             <tag> 夜思 </tag>
-            
-            <tag> 诗集 </tag>
             
         </tags>
         
@@ -484,13 +484,13 @@
         
         <tags>
             
-            <tag> 诗集 </tag>
-            
             <tag> 北国冬天 </tag>
             
             <tag> 忆江南 </tag>
             
             <tag> 冬末 </tag>
+            
+            <tag> 诗集 </tag>
             
         </tags>
         
@@ -1244,9 +1244,9 @@
         
         <tags>
             
-            <tag> orm </tag>
-            
             <tag> 日常运营工具包 </tag>
+            
+            <tag> orm </tag>
             
             <tag> 绘图 </tag>
             
