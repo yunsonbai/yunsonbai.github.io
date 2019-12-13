@@ -35,11 +35,11 @@
         
         <tags>
             
+            <tag> 诗集 </tag>
+            
             <tag> 雪 </tag>
             
             <tag> 家乡雪景 </tag>
-            
-            <tag> 诗集 </tag>
             
         </tags>
         
@@ -190,17 +190,13 @@
         
         <tags>
             
-            <tag> ab </tag>
-            
-            <tag> 压测 </tag>
+            <tag> 类似ab的压测工具 </tag>
             
             <tag> http服务压测 </tag>
             
-            <tag> 工具 </tag>
-            
             <tag> 性能压测 </tag>
             
-            <tag> golang </tag>
+            <tag> golang开发的压测工具 </tag>
             
         </tags>
         
@@ -377,6 +373,8 @@
         
         <tags>
             
+            <tag> gunicorn+gevent+django </tag>
+            
             <tag> nginx tornado 502 </tag>
             
             <tag> nginx tornado optimize </tag>
@@ -390,8 +388,6 @@
             <tag> nginx+tornado 502 </tag>
             
             <tag> nginx TIME_WAIT </tag>
-            
-            <tag> gunicorn+gevent+django </tag>
             
         </tags>
         
@@ -526,13 +522,13 @@
         
         <tags>
             
-            <tag> 诗集 </tag>
-            
             <tag> 北国冬天 </tag>
             
             <tag> 忆江南 </tag>
             
             <tag> 冬末 </tag>
+            
+            <tag> 诗集 </tag>
             
         </tags>
         
@@ -732,8 +728,6 @@
         
         <tags>
             
-            <tag> gunicorn+gevent+django </tag>
-            
             <tag> django db backends </tag>
             
             <tag> django mysql connection pool </tag>
@@ -747,6 +741,8 @@
             <tag> django 数据库连接池 </tag>
             
             <tag> django mysql连接池 </tag>
+            
+            <tag> gunicorn+gevent+django </tag>
             
             <tag> gunicorn+gevent+django数据库连接数过高 </tag>
             
