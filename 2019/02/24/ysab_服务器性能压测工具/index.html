@@ -98,27 +98,27 @@
 
 
 <script data-ad-client="ca-pub-1143013968169801" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-  <meta name="description" content="基于 Python 的 ORM 包, 轻量级小巧精简, 支持数据库连接池">
-<meta name="keywords" content="Python,ORM,数据库连接池">
+  <meta name="description" content="一款类似ab的http服务器性能压测工具">
+<meta name="keywords" content="压测工具,http服务压测,服务器性能压测工具,golang开发的压测工具,ab,性能压测">
 <meta property="og:type" content="article">
-<meta property="og:title" content="yunorm">
-<meta property="og:url" content="http://yunsonbai.github.io/2019/03/21/yunorm/index.html">
+<meta property="og:title" content="ysab基于golang的http服务器压测工具">
+<meta property="og:url" content="http://yunsonbai.github.io/2019/02/24/ysab_服务器性能压测工具/index.html">
 <meta property="og:site_name" content="雲Son">
-<meta property="og:description" content="基于 Python 的 ORM 包, 轻量级小巧精简, 支持数据库连接池">
+<meta property="og:description" content="一款类似ab的http服务器性能压测工具">
 <meta property="og:locale" content="en">
-<meta property="og:image" content="https://yunsonbai.github.io/images/yunorm.jpg">
-<meta property="og:updated_time" content="2019-04-30T03:00:15.433Z">
+<meta property="og:image" content="https://yunsonbai.github.io/images/golang/ysab2.jpeg">
+<meta property="og:updated_time" content="2020-01-14T01:16:50.006Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="yunorm">
-<meta name="twitter:description" content="基于 Python 的 ORM 包, 轻量级小巧精简, 支持数据库连接池">
-<meta name="twitter:image" content="https://yunsonbai.github.io/images/yunorm.jpg">
+<meta name="twitter:title" content="ysab基于golang的http服务器压测工具">
+<meta name="twitter:description" content="一款类似ab的http服务器性能压测工具">
+<meta name="twitter:image" content="https://yunsonbai.github.io/images/golang/ysab2.jpeg">
 
 
 
 
 
 
-  <link rel="canonical" href="http://yunsonbai.github.io/2019/03/21/yunorm/">
+  <link rel="canonical" href="http://yunsonbai.github.io/2019/02/24/ysab_服务器性能压测工具/">
 
 
 
@@ -128,7 +128,7 @@
   };
 </script>
 
-  <title>yunorm | 雲Son</title>
+  <title>ysab基于golang的http服务器压测工具 | 雲Son</title>
   
 
 
@@ -351,7 +351,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yunsonbai.github.io/2019/03/21/yunorm/">
+    <link itemprop="mainEntityOfPage" href="http://yunsonbai.github.io/2019/02/24/ysab_服务器性能压测工具/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="yunsonbai">
@@ -368,7 +368,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">yunorm</h1>
+          <h1 class="post-title" itemprop="name headline">ysab基于golang的http服务器压测工具</h1>
         
 
         <div class="post-meta">
@@ -380,7 +380,7 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-03-21T18:48:10+08:00">2019-03-21</time>
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-02-24T17:30:00+08:00">2019-02-24</time>
             
 
             
@@ -401,7 +401,7 @@
                 <span class="post-meta-item-text">In</span>
               
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/工具包/" itemprop="url" rel="index"><span itemprop="name">工具包</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/压测工具/" itemprop="url" rel="index"><span itemprop="name">压测工具</span></a></span>
 
                 
                 
@@ -416,8 +416,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2019/03/21/yunorm/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count gitment-comments-count" data-xid="/2019/03/21/yunorm/" itemprop="commentsCount"></span>
+                <a href="/2019/02/24/ysab_服务器性能压测工具/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count gitment-comments-count" data-xid="/2019/02/24/ysab_服务器性能压测工具/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -431,7 +431,7 @@
           
 
           
-              <div class="post-description">基于 Python 的 ORM 包, 轻量级小巧精简, 支持数据库连接池</div>
+              <div class="post-description">一款类似ab的http服务器性能压测工具</div>
           
 
         </div>
@@ -447,76 +447,43 @@
       
 
       
-        <p>Yunorm is a small ORM. </p>
+        <h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><p>最近需要测试一个服务的性能，要求是<strong>重放线上真实请求(请求参数不一致)</strong>。比较常用的就是Apache的ab压测工具，有点出入的是如果想发送不同的get请求需要用脚本去写for循环去压。最后基于此用Golang实现了一个类似于ab的工具ysab，支持一次压测发送不同url、不同参数的功能。欢迎大家使用。</p>
+<h2 id="项目地址"><a href="#项目地址" class="headerlink" title="项目地址"></a>项目地址</h2><p><a href="https://github.com/yunsonbai/ysab" target="_blank" rel="noopener">Ysab</a></p>
+<a id="more"></a>
+<p><img src="https://yunsonbai.github.io/images/golang/ysab2.jpeg" alt="ysab"></p>
+<h2 id="功能介绍"><a href="#功能介绍" class="headerlink" title="功能介绍"></a>功能介绍</h2><ul>
+<li>发送单条url</li>
+<li>发送多条url</li>
+<li>支持可变body体</li>
+<li>支持GET、POST、PUT、DELETE</li>
+</ul>
+<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><ul>
+<li>step 1:<ul>
+<li>Linux: wget <a href="https://github.com/yunsonbai/ysab/releases/download/v0.4.1/ysab_linux_0.4.1.tgz" target="_blank" rel="noopener">https://github.com/yunsonbai/ysab/releases/download/v0.4.1/ysab_linux_0.4.1.tgz</a></li>
+<li>MacOS: wget <a href="https://github.com/yunsonbai/ysab/releases/download/v0.4.1/ysab_mac_0.4.1.tgz" target="_blank" rel="noopener">https://github.com/yunsonbai/ysab/releases/download/v0.4.1/ysab_mac_0.4.1.tgz</a></li>
+</ul>
+</li>
+<li><p>step 2:</p>
 <ul>
-<li>a small ORM but It’s very practical</li>
-<li>python3.5 and 3.6 (developed with 3.5)</li>
-<li>support mysql,support mysql connections pool</li>
-<li>can help you to maintenance the DB connection</li>
-<li>support to create multiple database connections<a id="more"></a>
+<li>tar -zxvf ysab_x_x.tgz</li>
+</ul>
 </li>
-</ul>
-<p><img src="https://yunsonbai.github.io/images/yunorm.jpg" alt="iamge"></p>
-<h2 id="github"><a href="#github" class="headerlink" title="github"></a>github</h2><p><a href="https://github.com/yunsonbai/yunorm" target="_blank" rel="noopener">yunorm</a></p>
-<h2 id="Requirements"><a href="#Requirements" class="headerlink" title="Requirements"></a>Requirements</h2><ul>
-<li>mysqlclient==1.3.14</li>
-</ul>
-<h2 id="Install"><a href="#Install" class="headerlink" title="Install"></a>Install</h2><ul>
-<li>git clone <a href="mailto:git@github.com" target="_blank" rel="noopener">git@github.com</a>:yunsonbai/yunorm.git</li>
-<li>python setup.py install</li>
-</ul>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><p> <a href="https://github.com/yunsonbai/yunorm/tree/master/example" target="_blank" rel="noopener">example</a></p>
-<h2 id="note"><a href="#note" class="headerlink" title="note"></a>note</h2><p>If you want to use yunorm, the table that you will operate on must be exist in DB.</p>
-<h2 id="Documentation"><a href="#Documentation" class="headerlink" title="Documentation"></a>Documentation</h2><ul>
-<li><p>field</p>
+<li><p>step 3:</p>
 <ul>
-<li>Prikey</li>
-<li>CharField</li>
-<li>IntegerField</li>
-<li>DateTimeField</li>
-<li>DecimalField</li>
+<li>mv ysab /usr/bin/</li>
 </ul>
 </li>
-<li><p>filter operator</p>
-<ul>
-<li>lt: ‘&lt;’</li>
-<li>gt: ‘&gt;’</li>
-<li>une: ‘!=’</li>
-<li>lte: ‘&lt;=’</li>
-<li>gte: ‘&gt;=’</li>
-<li>in: ‘in’</li>
 </ul>
-</li>
-<li><p>function</p>
-<ul>
-<li>filter</li>
-<li>create</li>
-<li>update</li>
-<li>delete </li>
-<li>limit</li>
-<li>order_by</li>
-<li>group_by</li>
-<li>desc_order_by</li>
-<li>first</li>
-<li>all</li>
-<li>count</li>
+<h2 id="部分例子"><a href="#部分例子" class="headerlink" title="部分例子"></a>部分例子</h2><ul>
+<li>1: ysab -n 900 -r 30 -u <a href="http://10.10.10.10:8080/test" target="_blank" rel="noopener">http://10.10.10.10:8080/test</a></li>
+<li>2: ysab -n 900 -urlsfile ./examples/urls.txt</li>
+<li>3: ysab -n 900 -r 30 -u <a href="http://10.10.10.10:8080/add" target="_blank" rel="noopener">http://10.10.10.10:8080/add</a> -d ‘{“name”: “yunson”}’</li>
+<li>4: ysab -n 900 -urlsfile -m POST ./examples/urls2.txt</li>
 </ul>
-</li>
-<li><p>note<br>if you want to get db data, you need call data() in the end</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">res = TestModel.objects.filter(**select_term).all().data()</span><br><span class="line">res = TestModel.objects.filter(**select_term).limit(<span class="number">0</span>, <span class="number">10</span>).data()</span><br><span class="line">res = TestModel.objects.filter(</span><br><span class="line">  **select_term).order_by(id).limit(<span class="number">0</span>, <span class="number">7</span>).data()</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>Get Data</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">select_term = &#123;</span><br><span class="line">  &quot;zan_num__gt&quot;: 0,</span><br><span class="line">  &quot;id__gt&quot;: 3700000</span><br><span class="line">&#125;</span><br><span class="line">res = TestModel.objects.filter(**select_term).all().data()</span><br><span class="line">feed = TestModel.objects.filter(id=3700000).first().data()</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>Create Data</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">test_create_orm</span><span class="params">(i)</span>:</span></span><br><span class="line">  create_data = &#123;</span><br><span class="line">    <span class="string">'label'</span>: <span class="number">1</span>,</span><br><span class="line">    <span class="string">'title'</span>: <span class="string">'test_&#123;0&#125;'</span>.format(i)</span><br><span class="line">  &#125;</span><br><span class="line">  TestOrm.create(**create_data)</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>Update Data</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">test_update_orm</span><span class="params">()</span>:</span></span><br><span class="line">  update_data = &#123;</span><br><span class="line">    <span class="string">'title'</span>: <span class="string">'hello yunsonbai'</span>,</span><br><span class="line">    <span class="string">'label'</span>: <span class="number">10</span></span><br><span class="line">  &#125;</span><br><span class="line">  res = TestOrm.objects.filter(id__in=[<span class="number">1</span>, <span class="number">2</span>]).data()</span><br><span class="line">  <span class="keyword">for</span> r <span class="keyword">in</span> res:</span><br><span class="line">    r.update(**update_data)</span><br><span class="line">  <span class="comment"># or</span></span><br><span class="line">  res = TestOrm.objects.filter(id=<span class="number">3</span>).first().data()</span><br><span class="line">  res.update(**update_data)</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>Delete Data</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">test_delete_orm</span><span class="params">()</span>:</span></span><br><span class="line">  res = TestOrm.objects.filter(id__in=[<span class="number">7</span>, ]).data()</span><br><span class="line">  <span class="keyword">for</span> r <span class="keyword">in</span> res:</span><br><span class="line">    result = r.delete()</span><br><span class="line">    print(result)</span><br></pre></td></tr></table></figure>
-</li>
+<h2 id="结果展示"><a href="#结果展示" class="headerlink" title="结果展示"></a>结果展示</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">[yunson ~]# ysab -n 900 -r 100 -u http://10.10.10.10:8080/test</span><br><span class="line"></span><br><span class="line">Summary:</span><br><span class="line">  Complete requests:		90000</span><br><span class="line">  Failed requests:		0</span><br><span class="line">  Time taken (s):		3.383578701</span><br><span class="line">  Total data size (Byte):	1080000</span><br><span class="line">  Data size/request (Byte):	12</span><br><span class="line">  Max use time (ms):		3260</span><br><span class="line">  Min use time (ms):		0</span><br><span class="line">  Average use time (ms):	13.161</span><br><span class="line">  Requests/sec:			26599.056192604872</span><br><span class="line"></span><br><span class="line">Percentage of waiting time (ms):</span><br><span class="line">    10.00%:		0</span><br><span class="line">    25.00%:		1</span><br><span class="line">    50.00%:		5</span><br><span class="line">    75.00%:		21</span><br><span class="line">    90.00%:		29</span><br><span class="line">    95.00%:		35</span><br><span class="line">    99.00%:		61</span><br><span class="line">    99.90%:		87</span><br><span class="line">    99.99%:		3258</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Time detail (ms)</span><br><span class="line">  item		min		mean		max</span><br><span class="line">  dns		0		0		0</span><br><span class="line">  conn		0		0.344		61</span><br><span class="line">  wait		0		2.341		3259</span><br><span class="line">  resp		0		0.006		13</span><br><span class="line"></span><br><span class="line">Response Time histogram (code: requests):</span><br><span class="line">  200:		90000</span><br></pre></td></tr></table></figure>
+<h2 id="其他说明"><a href="#其他说明" class="headerlink" title="其他说明"></a>其他说明</h2><ul>
+<li>被压测的服务使用gin写的一个简单的hello world接口</li>
+<li>推荐尝试使用 “-urlsfile” 命令，这样你可以发送不同url在同一压测中。<br>欢迎大家在github上讨论</li>
 </ul>
 
       
@@ -551,7 +518,7 @@
     <strong>Post author: </strong>yunsonbai</li>
   <li class="post-copyright-link">
     <strong>Post link:</strong>
-    <a href="http://yunsonbai.github.io/2019/03/21/yunorm/" title="yunorm">http://yunsonbai.github.io/2019/03/21/yunorm/</a>
+    <a href="http://yunsonbai.github.io/2019/02/24/ysab_服务器性能压测工具/" title="ysab基于golang的http服务器压测工具">http://yunsonbai.github.io/2019/02/24/ysab_服务器性能压测工具/</a>
   </li>
   <li class="post-copyright-license">
     <strong>Copyright Notice: </strong>All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 4.0</a> unless stating additionally.</li>
@@ -564,9 +531,11 @@
       
         <div class="post-tags">
           
-            <a href="/tags/orm/" rel="tag"># orm</a>
+            <a href="/tags/http服务压测/" rel="tag"># http服务压测</a>
           
-            <a href="/tags/python-orm/" rel="tag"># python orm</a>
+            <a href="/tags/性能压测/" rel="tag"># 性能压测</a>
+          
+            <a href="/tags/golang开发的压测工具/" rel="tag"># golang开发的压测工具</a>
           
         </div>
       
@@ -579,8 +548,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/02/24/ysab/" rel="next" title="ysab">
-                <i class="fa fa-chevron-left"></i> ysab
+              <a href="/2018/12/10/golang-gin/" rel="next" title="Golang高性能web框架gin">
+                <i class="fa fa-chevron-left"></i> Golang高性能web框架gin
               </a>
             
           </div>
@@ -589,8 +558,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2019/10/11/诗集整理-4/" rel="prev" title="雪">
-                雪 <i class="fa fa-chevron-right"></i>
+              <a href="/2019/03/21/yunorm_轻量级orm/" rel="prev" title="yunorm基于Python的轻量级orm">
+                yunorm基于Python的轻量级orm <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -668,22 +637,14 @@ var jiathis_config={
 
   <aside id="sidebar" class="sidebar">
     
+
     <div class="sidebar-inner">
 
       
 
       
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            Table of Contents
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            Overview
-          </li>
-        </ul>
-      
 
-      <section class="site-overview-wrap sidebar-panel">
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -1040,7 +1001,7 @@ var jiathis_config={
                     
                       
                     
-                    <span class="site-state-item-count">138</span>
+                    <span class="site-state-item-count">137</span>
                     <span class="site-state-item-name">tags</span>
                   </a>
                 </div>
@@ -1072,30 +1033,69 @@ var jiathis_config={
           
           
 
+
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-inline ">
+              <div class="links-of-blogroll-title">
+                <i class="fa fa-fire" aria-hidden="true"></i>
+                  推荐文章
+              </div>
+              <ul class="links-of-blogroll-list">
+                  <li>
+                    <a href="https://yunsonbai.top/2019/02/24/ysab/" title="http服务器性能压测工具 ysab" target="_blank"> http服务器性能压测工具 ysab</a>
+                  </li>
+                  <li>
+                    <a href="https://yunsonbai.top/2019/03/21/yunorm/" title="一款轻量级orm yunorm" target="_blank"> 一款轻量级orm yunorm</a>
+                  </li>
+              </ul>
+            </div>
+          
+
+
+
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <!-- modify icon to fire by szw -->
+                <i class="fa fa-history | lower }}" aria-hidden="true"></i>
+                最新文章
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                
+                  <li>
+                    <a href="/2019/10/11/诗集整理-4/" title="雪" target="_blank">雪</a>
+                  </li>
+                
+                  <li>
+                    <a href="/2019/03/21/yunorm_轻量级orm/" title="yunorm基于Python的轻量级orm" target="_blank">yunorm基于Python的轻量级orm</a>
+                  </li>
+                
+                  <li>
+                    <a href="/2019/02/24/ysab_服务器性能压测工具/" title="ysab基于golang的http服务器压测工具" target="_blank">ysab基于golang的http服务器压测工具</a>
+                  </li>
+                
+                  <li>
+                    <a href="/2018/12/10/golang-gin/" title="Golang高性能web框架gin" target="_blank">Golang高性能web框架gin</a>
+                  </li>
+                
+                  <li>
+                    <a href="/2018/12/05/nginx-tornado/" title="nginx+tornado折腾笔记" target="_blank">nginx+tornado折腾笔记</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+
+
           
             
           
           
-
         </div>
       </section>
 
-      
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#github"><span class="nav-number">1.</span> <span class="nav-text">github</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Requirements"><span class="nav-number">2.</span> <span class="nav-text">Requirements</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Install"><span class="nav-number">3.</span> <span class="nav-text">Install</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Quick-Start"><span class="nav-number">4.</span> <span class="nav-text">Quick Start</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#note"><span class="nav-number">5.</span> <span class="nav-text">note</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Documentation"><span class="nav-number">6.</span> <span class="nav-text">Documentation</span></a></li></ol></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
       
 
       

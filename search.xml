@@ -46,8 +46,8 @@
     </entry>
     
     <entry>
-      <title><![CDATA[yunorm]]></title>
-      <url>http://yunsonbai.github.io/2019/03/21/yunorm/</url>
+      <title><![CDATA[yunorm基于Python的轻量级orm]]></title>
+      <url>http://yunsonbai.github.io/2019/03/21/yunorm_%E8%BD%BB%E9%87%8F%E7%BA%A7orm/</url>
       <content type="html"><![CDATA[<p>Yunorm is a small ORM. </p>
 <ul>
 <li>a small ORM but It’s very practical</li>
@@ -63,8 +63,7 @@
 <li>mysqlclient==1.3.14</li>
 </ul>
 <h2 id="Install"><a href="#Install" class="headerlink" title="Install"></a>Install</h2><ul>
-<li>git clone <a href="mailto:git@github.com" target="_blank" rel="noopener">git@github.com</a>:yunsonbai/yunorm.git</li>
-<li>python setup.py install</li>
+<li>pip install yunorm</li>
 </ul>
 <h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><p> <a href="https://github.com/yunsonbai/yunorm/tree/master/example" target="_blank" rel="noopener">example</a></p>
 <h2 id="note"><a href="#note" class="headerlink" title="note"></a>note</h2><p>If you want to use yunorm, the table that you will operate on must be exist in DB.</p>
@@ -139,8 +138,8 @@
     </entry>
     
     <entry>
-      <title><![CDATA[ysab]]></title>
-      <url>http://yunsonbai.github.io/2019/02/24/ysab/</url>
+      <title><![CDATA[ysab基于golang的http服务器压测工具]]></title>
+      <url>http://yunsonbai.github.io/2019/02/24/ysab_%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%80%A7%E8%83%BD%E5%8E%8B%E6%B5%8B%E5%B7%A5%E5%85%B7/</url>
       <content type="html"><![CDATA[<h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><p>最近需要测试一个服务的性能，要求是<strong>重放线上真实请求(请求参数不一致)</strong>。比较常用的就是Apache的ab压测工具，有点出入的是如果想发送不同的get请求需要用脚本去写for循环去压。最后基于此用Golang实现了一个类似于ab的工具ysab，支持一次压测发送不同url、不同参数的功能。欢迎大家使用。</p>
 <h2 id="项目地址"><a href="#项目地址" class="headerlink" title="项目地址"></a>项目地址</h2><p><a href="https://github.com/yunsonbai/ysab" target="_blank" rel="noopener">Ysab</a></p>
 <a id="more"></a>
@@ -189,8 +188,6 @@
         
         
         <tags>
-            
-            <tag> 类似ab的压测工具 </tag>
             
             <tag> http服务压测 </tag>
             
@@ -1996,6 +1993,39 @@
     </entry>
     
     <entry>
+      <title><![CDATA[fiddler代理利器]]></title>
+      <url>http://yunsonbai.github.io/2016/05/12/fiddler/</url>
+      <content type="html"><![CDATA[<h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">fiddler在前端开发工程师那可以说是利器,同样后端工程师也可能用到尤其是在利用app调试api的时候，</span><br><span class="line">也许你就会用到fiddler</span><br></pre></td></tr></table></figure>
+<a id="more"></a>
+<h3 id="只代理某个url"><a href="#只代理某个url" class="headerlink" title="只代理某个url"></a>只代理某个url</h3><h4 id="应用"><a href="#应用" class="headerlink" title="应用"></a>应用</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">比如把线上某个url代理到本地/或者调试某个接口,便于调试</span><br></pre></td></tr></table></figure>
+<h4 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">点击AotuResponder,之后把三个复选框全选上,然后点击add ruler</span><br><span class="line">加入:</span><br><span class="line">    regex:.*yunsonbai.com /activity/(.*)</span><br><span class="line">    http://127.0.0.1:8000/activity/<span class="variable">$1</span></span><br></pre></td></tr></table></figure>
+<h3 id="设置host"><a href="#设置host" class="headerlink" title="设置host"></a>设置host</h3><h4 id="应用-1"><a href="#应用-1" class="headerlink" title="应用"></a>应用</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">把某个域全部代理到本地</span><br></pre></td></tr></table></figure>
+<h4 id="配置-1"><a href="#配置-1" class="headerlink" title="配置"></a>配置</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">点击Tools-&gt;HOSTS-&gt;选上复选框</span><br><span class="line">加入:</span><br><span class="line">    127.0.0.1:8000 yunsonbai.com</span><br></pre></td></tr></table></figure>
+<h3 id="如何让手机也走设置好的代理"><a href="#如何让手机也走设置好的代理" class="headerlink" title="如何让手机也走设置好的代理"></a>如何让手机也走设置好的代理</h3><h4 id="应用-2"><a href="#应用-2" class="headerlink" title="应用"></a>应用</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">调试移动端应用</span><br></pre></td></tr></table></figure>
+<h4 id="配置-2"><a href="#配置-2" class="headerlink" title="配置"></a>配置</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">设置wifi代理为手动；</span><br><span class="line">servername: 你电脑的ip/或域名</span><br><span class="line">port: 8888（fiddler默认是启动8888端口）</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="http://www.telerik.com/fiddler" target="_blank" rel="noopener">Generating</a></p>
+]]></content>
+      
+        <categories>
+            
+            <category> fiddler </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> fiddler </tag>
+            
+            <tag> 代理 </tag>
+            
+            <tag> 调试 </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[hexo命令]]></title>
       <url>http://yunsonbai.github.io/2016/05/12/hexo%E5%91%BD%E4%BB%A4/</url>
       <content type="html"><![CDATA[<h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">记录了一下hexo常用的命令, 在维护个人博客的时候经常会用到</span><br></pre></td></tr></table></figure>
@@ -2025,39 +2055,6 @@
             <tag> hexo </tag>
             
             <tag> 命令 </tag>
-            
-        </tags>
-        
-    </entry>
-    
-    <entry>
-      <title><![CDATA[fiddler代理利器]]></title>
-      <url>http://yunsonbai.github.io/2016/05/12/fiddler/</url>
-      <content type="html"><![CDATA[<h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">fiddler在前端开发工程师那可以说是利器,同样后端工程师也可能用到尤其是在利用app调试api的时候，</span><br><span class="line">也许你就会用到fiddler</span><br></pre></td></tr></table></figure>
-<a id="more"></a>
-<h3 id="只代理某个url"><a href="#只代理某个url" class="headerlink" title="只代理某个url"></a>只代理某个url</h3><h4 id="应用"><a href="#应用" class="headerlink" title="应用"></a>应用</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">比如把线上某个url代理到本地/或者调试某个接口,便于调试</span><br></pre></td></tr></table></figure>
-<h4 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">点击AotuResponder,之后把三个复选框全选上,然后点击add ruler</span><br><span class="line">加入:</span><br><span class="line">    regex:.*yunsonbai.com /activity/(.*)</span><br><span class="line">    http://127.0.0.1:8000/activity/<span class="variable">$1</span></span><br></pre></td></tr></table></figure>
-<h3 id="设置host"><a href="#设置host" class="headerlink" title="设置host"></a>设置host</h3><h4 id="应用-1"><a href="#应用-1" class="headerlink" title="应用"></a>应用</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">把某个域全部代理到本地</span><br></pre></td></tr></table></figure>
-<h4 id="配置-1"><a href="#配置-1" class="headerlink" title="配置"></a>配置</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">点击Tools-&gt;HOSTS-&gt;选上复选框</span><br><span class="line">加入:</span><br><span class="line">    127.0.0.1:8000 yunsonbai.com</span><br></pre></td></tr></table></figure>
-<h3 id="如何让手机也走设置好的代理"><a href="#如何让手机也走设置好的代理" class="headerlink" title="如何让手机也走设置好的代理"></a>如何让手机也走设置好的代理</h3><h4 id="应用-2"><a href="#应用-2" class="headerlink" title="应用"></a>应用</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">调试移动端应用</span><br></pre></td></tr></table></figure>
-<h4 id="配置-2"><a href="#配置-2" class="headerlink" title="配置"></a>配置</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">设置wifi代理为手动；</span><br><span class="line">servername: 你电脑的ip/或域名</span><br><span class="line">port: 8888（fiddler默认是启动8888端口）</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="http://www.telerik.com/fiddler" target="_blank" rel="noopener">Generating</a></p>
-]]></content>
-      
-        <categories>
-            
-            <category> fiddler </category>
-            
-        </categories>
-        
-        
-        <tags>
-            
-            <tag> fiddler </tag>
-            
-            <tag> 代理 </tag>
-            
-            <tag> 调试 </tag>
             
         </tags>
         
