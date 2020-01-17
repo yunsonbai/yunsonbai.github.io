@@ -239,9 +239,9 @@
         
         <tags>
             
-            <tag> python orm </tag>
-            
             <tag> orm </tag>
+            
+            <tag> python orm </tag>
             
         </tags>
         
@@ -490,6 +490,8 @@
         
         <tags>
             
+            <tag> gunicorn+gevent+django </tag>
+            
             <tag> nginx tornado 502 </tag>
             
             <tag> nginx tornado optimize </tag>
@@ -503,8 +505,6 @@
             <tag> nginx+tornado 502 </tag>
             
             <tag> nginx TIME_WAIT </tag>
-            
-            <tag> gunicorn+gevent+django </tag>
             
         </tags>
         
@@ -845,8 +845,6 @@
         
         <tags>
             
-            <tag> gunicorn+gevent+django </tag>
-            
             <tag> django db backends </tag>
             
             <tag> django mysql connection pool </tag>
@@ -860,6 +858,8 @@
             <tag> django 数据库连接池 </tag>
             
             <tag> django mysql连接池 </tag>
+            
+            <tag> gunicorn+gevent+django </tag>
             
             <tag> gunicorn+gevent+django数据库连接数过高 </tag>
             
@@ -1399,9 +1399,9 @@
         
         <tags>
             
-            <tag> orm </tag>
-            
             <tag> 日常运营工具包 </tag>
+            
+            <tag> orm </tag>
             
             <tag> 绘图 </tag>
             
