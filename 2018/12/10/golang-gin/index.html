@@ -102,7 +102,7 @@
 <meta name="keywords" content="Golang,gin,压测,实践">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Golang高性能web框架gin">
-<meta property="og:url" content="http://yunsonbai.github.io/2018/12/10/golang-gin/index.html">
+<meta property="og:url" content="https://yunsonbai.top/2018/12/10/golang-gin/index.html">
 <meta property="og:site_name" content="雲Son">
 <meta property="og:description" content="高并发服务框架gin压力测试">
 <meta property="og:locale" content="en">
@@ -124,7 +124,7 @@
 
 
 
-  <link rel="canonical" href="http://yunsonbai.github.io/2018/12/10/golang-gin/">
+  <link rel="canonical" href="https://yunsonbai.top/2018/12/10/golang-gin/">
 
 
 
@@ -378,7 +378,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yunsonbai.github.io/2018/12/10/golang-gin/">
+    <link itemprop="mainEntityOfPage" href="https://yunsonbai.top/2018/12/10/golang-gin/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="yunsonbai">
@@ -474,8 +474,8 @@
       
 
       
-        <p><a href="https://yunsonbai.top/2019/04/16/golang-gin/" target="_blank" rel="noopener">原文连接</a></p>
-<h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><p>之前分享了一篇<a href="https://yunsonbai.top/2017/06/15/gunicorn-django/" target="_blank" rel="noopener">如何提高django的并发能力</a>文章，在文章的最后分享了进一步提升qps的方法，其中讲到了gin，下边在同样的业务场景分享一下压测数据。</p>
+        <p><a href="https://yunsonbai.top/2019/04/16/golang-gin/">原文连接</a></p>
+<h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><p>之前分享了一篇<a href="https://yunsonbai.top/2017/06/15/gunicorn-django/">如何提高django的并发能力</a>文章，在文章的最后分享了进一步提升qps的方法，其中讲到了gin，下边在同样的业务场景分享一下压测数据。</p>
 <a id="more"></a>
 <h2 id="说明"><a href="#说明" class="headerlink" title="说明"></a>说明</h2><ul>
 <li>服务器: 4核+4G (docker)</li>
@@ -487,7 +487,7 @@
 <li>压测方式：<img src="https://yunsonbai.github.io/images/django/lc.png" alt="lc"></li>
 <li>压测命令：<ul>
 <li>ysab: ysab -n 500 -r 200 -u <a href="http://B_ip:8080/test&#39;" target="_blank" rel="noopener">http://B_ip:8080/test&#39;</a></li>
-<li>备注: 欢迎使用ysab, <a href="https://yunsonbai.top/2019/02/24/ysab" target="_blank" rel="noopener"><font color="#7B68EE">ysab文档</font></a></li>
+<li>备注: 欢迎使用ysab, <a href="https://yunsonbai.top/2019/02/24/ysab"><font color="#7B68EE">ysab文档</font></a></li>
 </ul>
 </li>
 </ul>
@@ -556,7 +556,7 @@
 </li>
 </ul>
 <h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>Golang为什么会有这么好的性能，得益于goroutine以最低的耗损，充分利用多核，这里有一篇关于<a href="https://www.zhihu.com/question/20862617" target="_blank" rel="noopener">goroutine的说明</a>。<br>当然不管选择python的Django还是Golang的gin，关键看业务场景，如果本身没有这么高的并发量，Django还是很合适的，尤其是在试探型项目，从0到1的开发，不得不说利用Django能非常快速的完成。当然量(io密集型)比较大了，由于CPython的GIL的制约，这时候需要考量一种编译语言了，Golang还是个不错的选择。</p>
-<h2 id="文章推荐"><a href="#文章推荐" class="headerlink" title="文章推荐"></a>文章推荐</h2><p><strong><a href="https://yunsonbai.top/2019/02/24/ysab/" target="_blank" rel="noopener">ysab基于golang的压测工具</a></strong><br><strong><a href="https://yunsonbai.top/2019/03/21/yunorm/" target="_blank" rel="noopener">yunorm轻量接orm</a></strong></p>
+<h2 id="文章推荐"><a href="#文章推荐" class="headerlink" title="文章推荐"></a>文章推荐</h2><p><strong><a href="https://yunsonbai.top/2019/02/24/ysab/">ysab基于golang的压测工具</a></strong><br><strong><a href="https://yunsonbai.top/2019/03/21/yunorm/">yunorm轻量接orm</a></strong></p>
 
       
     </div>
@@ -599,7 +599,7 @@
     <strong>Post author: </strong>yunsonbai</li>
   <li class="post-copyright-link">
     <strong>Post link:</strong>
-    <a href="http://yunsonbai.github.io/2018/12/10/golang-gin/" title="Golang高性能web框架gin">http://yunsonbai.github.io/2018/12/10/golang-gin/</a>
+    <a href="https://yunsonbai.top/2018/12/10/golang-gin/" title="Golang高性能web框架gin">https://yunsonbai.top/2018/12/10/golang-gin/</a>
   </li>
   <li class="post-copyright-license">
     <strong>Copyright Notice: </strong>All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 4.0</a> unless stating additionally.</li>

@@ -102,7 +102,7 @@
 <meta name="keywords" content="django,mysql,connection,reuse,pool,数据库连接池,数据库连接复用">
 <meta property="og:type" content="article">
 <meta property="og:title" content="django数据库连接复用">
-<meta property="og:url" content="http://yunsonbai.github.io/2017/07/02/gunicorn-gevent-django/index.html">
+<meta property="og:url" content="https://yunsonbai.top/2017/07/02/gunicorn-gevent-django/index.html">
 <meta property="og:site_name" content="雲Son">
 <meta property="og:description" content="采用mysql连接池,实现连接复用,解决gunicorn+gevent+django数据库高连接数问题">
 <meta property="og:locale" content="en">
@@ -123,7 +123,7 @@
 
 
 
-  <link rel="canonical" href="http://yunsonbai.github.io/2017/07/02/gunicorn-gevent-django/">
+  <link rel="canonical" href="https://yunsonbai.top/2017/07/02/gunicorn-gevent-django/">
 
 
 
@@ -377,7 +377,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yunsonbai.github.io/2017/07/02/gunicorn-gevent-django/">
+    <link itemprop="mainEntityOfPage" href="https://yunsonbai.top/2017/07/02/gunicorn-gevent-django/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="yunsonbai">
@@ -473,10 +473,10 @@
       
 
       
-        <p><a href="https://yunsonbai.top/2017/07/02/gunicorn-gevent-django/" target="_blank" rel="noopener">原文连接</a></p>
-<h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><p>之前分享了一篇<a href="https://yunsonbai.top/2017/06/15/gunicorn-django/" target="_blank" rel="noopener">如何提高django的并发能力</a>文章，文章的最后结论是采用gunicorn+gthread+django的方式来提高并发能力，该方法简单的说是利用的多线程。<br>文章也抛出了一个问题：gunicorn+gevent+django+CONN_MAX_AGE会导致数据库连接数飙升，直至占满。如果一定要利用协程的方式启动，该怎么解决这个问题呢？看了一下django源码，找到了问题的根源，写了一下解决办法，下边分享一下。</p>
+        <p><a href="https://yunsonbai.top/2017/07/02/gunicorn-gevent-django/">原文连接</a></p>
+<h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><p>之前分享了一篇<a href="https://yunsonbai.top/2017/06/15/gunicorn-django/">如何提高django的并发能力</a>文章，文章的最后结论是采用gunicorn+gthread+django的方式来提高并发能力，该方法简单的说是利用的多线程。<br>文章也抛出了一个问题：gunicorn+gevent+django+CONN_MAX_AGE会导致数据库连接数飙升，直至占满。如果一定要利用协程的方式启动，该怎么解决这个问题呢？看了一下django源码，找到了问题的根源，写了一下解决办法，下边分享一下。</p>
 <a id="more"></a>
-<h2 id="说明"><a href="#说明" class="headerlink" title="说明"></a>说明</h2><p>还是利用上一篇文章<a href="https://yunsonbai.top/2017/06/15/gunicorn-django/" target="_blank" rel="noopener">如何提高django的并发能力</a>的数据模型，<strong>这次以get一条数据为例</strong>，由于某些原因(好吧手里没有资源)，采用了配置稍低的机器：</p>
+<h2 id="说明"><a href="#说明" class="headerlink" title="说明"></a>说明</h2><p>还是利用上一篇文章<a href="https://yunsonbai.top/2017/06/15/gunicorn-django/">如何提高django的并发能力</a>的数据模型，<strong>这次以get一条数据为例</strong>，由于某些原因(好吧手里没有资源)，采用了配置稍低的机器：</p>
 <ul>
 <li>服务器: 4核+4G (docker)</li>
 <li>压测机: 4核+2G (docker)</li>
@@ -487,7 +487,7 @@
 <li>压测方式：<img src="https://yunsonbai.github.io/images/django/lc.png" alt="lc"></li>
 <li>压测命令：<ul>
 <li>ysab: ysab -n 800 -r 10 -u <a href="http://B_ip:8080/test&#39;" target="_blank" rel="noopener">http://B_ip:8080/test&#39;</a></li>
-<li>备注: 欢迎使用ysab, <a href="https://yunsonbai.top/2019/02/24/ysab" target="_blank" rel="noopener"><font color="#7B68EE">ysab文档</font></a></li>
+<li>备注: 欢迎使用ysab, <a href="https://yunsonbai.top/2019/02/24/ysab"><font color="#7B68EE">ysab文档</font></a></li>
 </ul>
 </li>
 </ul>
@@ -521,7 +521,7 @@
 </li>
 </ul>
 <h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>利用连接池+假关闭的方式解决过高连接数的问题，如果有更好的建议，可以讨论。</p>
-<h2 id="文章推荐"><a href="#文章推荐" class="headerlink" title="文章推荐"></a>文章推荐</h2><p><strong><a href="https://yunsonbai.top/2019/02/24/ysab/" target="_blank" rel="noopener">ysab基于golang的压测工具</a></strong><br><strong><a href="https://yunsonbai.top/2019/03/21/yunorm/" target="_blank" rel="noopener">yunorm轻量接orm</a></strong><br><strong><a href="https://yunsonbai.top/2018/12/05/nginx-tornado/" target="_blank" rel="noopener">nginx+tornado折腾笔记</a></strong></p>
+<h2 id="文章推荐"><a href="#文章推荐" class="headerlink" title="文章推荐"></a>文章推荐</h2><p><strong><a href="https://yunsonbai.top/2019/02/24/ysab/">ysab基于golang的压测工具</a></strong><br><strong><a href="https://yunsonbai.top/2019/03/21/yunorm/">yunorm轻量接orm</a></strong><br><strong><a href="https://yunsonbai.top/2018/12/05/nginx-tornado/">nginx+tornado折腾笔记</a></strong></p>
 
       
     </div>
@@ -564,7 +564,7 @@
     <strong>Post author: </strong>yunsonbai</li>
   <li class="post-copyright-link">
     <strong>Post link:</strong>
-    <a href="http://yunsonbai.github.io/2017/07/02/gunicorn-gevent-django/" title="django数据库连接复用">http://yunsonbai.github.io/2017/07/02/gunicorn-gevent-django/</a>
+    <a href="https://yunsonbai.top/2017/07/02/gunicorn-gevent-django/" title="django数据库连接复用">https://yunsonbai.top/2017/07/02/gunicorn-gevent-django/</a>
   </li>
   <li class="post-copyright-license">
     <strong>Copyright Notice: </strong>All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 4.0</a> unless stating additionally.</li>

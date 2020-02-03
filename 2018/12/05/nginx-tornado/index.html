@@ -102,7 +102,7 @@
 <meta name="keywords" content="nginx,tornado,502,高并发,TIME_WAIT,epoll">
 <meta property="og:type" content="article">
 <meta property="og:title" content="nginx+tornado折腾笔记">
-<meta property="og:url" content="http://yunsonbai.github.io/2018/12/05/nginx-tornado/index.html">
+<meta property="og:url" content="https://yunsonbai.top/2018/12/05/nginx-tornado/index.html">
 <meta property="og:site_name" content="雲Son">
 <meta property="og:description" content="利用tornado异步特性实现高并发, 并调优">
 <meta property="og:locale" content="en">
@@ -122,7 +122,7 @@
 
 
 
-  <link rel="canonical" href="http://yunsonbai.github.io/2018/12/05/nginx-tornado/">
+  <link rel="canonical" href="https://yunsonbai.top/2018/12/05/nginx-tornado/">
 
 
 
@@ -376,7 +376,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yunsonbai.github.io/2018/12/05/nginx-tornado/">
+    <link itemprop="mainEntityOfPage" href="https://yunsonbai.top/2018/12/05/nginx-tornado/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="yunsonbai">
@@ -472,10 +472,10 @@
       
 
       
-        <p><a href="https://yunsonbai.top/2017/07/02/gunicorn-gevent-django/" target="_blank" rel="noopener">原文连接</a></p>
-<h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><p>之前分享了一篇<a href="https://yunsonbai.top/2017/06/15/gunicorn-django/" target="_blank" rel="noopener">如何提高django的并发能力</a>文章，在文章的最后分享了进一步提升qps的方法，其中讲到了tornado，于是利用业余时间，折腾了一下nginx+tornado，当然和<a href="https://yunsonbai.top/2017/06/15/gunicorn-django/" target="_blank" rel="noopener">如何提高django的并发能力</a>的业务模式一致。<br>为什么现在才分享: 其实之前就写完了，有一段时间没有在维护博客了，然后自己重新测试了一下，下边分享。</p>
+        <p><a href="https://yunsonbai.top/2017/07/02/gunicorn-gevent-django/">原文连接</a></p>
+<h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><p>之前分享了一篇<a href="https://yunsonbai.top/2017/06/15/gunicorn-django/">如何提高django的并发能力</a>文章，在文章的最后分享了进一步提升qps的方法，其中讲到了tornado，于是利用业余时间，折腾了一下nginx+tornado，当然和<a href="https://yunsonbai.top/2017/06/15/gunicorn-django/">如何提高django的并发能力</a>的业务模式一致。<br>为什么现在才分享: 其实之前就写完了，有一段时间没有在维护博客了，然后自己重新测试了一下，下边分享。</p>
 <a id="more"></a>
-<h2 id="说明"><a href="#说明" class="headerlink" title="说明"></a>说明</h2><p>还是利用上一篇文章<a href="https://yunsonbai.top/2017/06/15/gunicorn-django/" target="_blank" rel="noopener">如何提高django的并发能力</a>的数据模型，<strong>这次以get一条数据为例</strong>。</p>
+<h2 id="说明"><a href="#说明" class="headerlink" title="说明"></a>说明</h2><p>还是利用上一篇文章<a href="https://yunsonbai.top/2017/06/15/gunicorn-django/">如何提高django的并发能力</a>的数据模型，<strong>这次以get一条数据为例</strong>。</p>
 <ul>
 <li>服务器: 4核+4G (docker)</li>
 <li>压测机: 4核+2G (docker)</li>
@@ -491,7 +491,7 @@
 <li>压测方式：<img src="https://yunsonbai.github.io/images/django/lc.png" alt="lc"></li>
 <li>压测命令：<ul>
 <li>ysab: ysab -n 500 -r 100 -u <a href="http://B_ip:8080/test&#39;" target="_blank" rel="noopener">http://B_ip:8080/test&#39;</a></li>
-<li>备注: 欢迎使用ysab, <a href="https://yunsonbai.top/2019/02/24/ysab" target="_blank" rel="noopener"><font color="#7B68EE">ysab文档</font></a></li>
+<li>备注: 欢迎使用ysab, <a href="https://yunsonbai.top/2019/02/24/ysab"><font color="#7B68EE">ysab文档</font></a></li>
 </ul>
 </li>
 </ul>
@@ -515,7 +515,7 @@
 </ul>
 <h3 id="后端8个tornado进程"><a href="#后端8个tornado进程" class="headerlink" title="后端8个tornado进程"></a>后端8个tornado进程</h3><p><img src="https://yunsonbai.github.io/images/tornado/qps3.png" alt="qps3"><br>还是比较理想的，比后端4个tornado进程有了700的提升</p>
 <h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>io密集型服务器的，相对于dajango tornado还是有很大的优势的，如果说基于Python开发，tornado还是一个非常好的选择。<br>关于tornado进程数个数，这里建议是2n(n为cpu核心数)个，当然这是一般情况，具体情况还需要具体分析压测一下。</p>
-<h2 id="文章推荐"><a href="#文章推荐" class="headerlink" title="文章推荐"></a>文章推荐</h2><p><strong><a href="https://yunsonbai.top/2019/02/24/ysab/" target="_blank" rel="noopener">ysab基于golang的压测工具</a></strong><br><strong><a href="https://yunsonbai.top/2019/03/21/yunorm/" target="_blank" rel="noopener">yunorm轻量接orm</a></strong><br><strong><a href="https://yunsonbai.top/2019/04/16/golang-gin/" target="_blank" rel="noopener">Golang高性能web框架gin</a></strong></p>
+<h2 id="文章推荐"><a href="#文章推荐" class="headerlink" title="文章推荐"></a>文章推荐</h2><p><strong><a href="https://yunsonbai.top/2019/02/24/ysab/">ysab基于golang的压测工具</a></strong><br><strong><a href="https://yunsonbai.top/2019/03/21/yunorm/">yunorm轻量接orm</a></strong><br><strong><a href="https://yunsonbai.top/2019/04/16/golang-gin/">Golang高性能web框架gin</a></strong></p>
 
       
     </div>
@@ -558,7 +558,7 @@
     <strong>Post author: </strong>yunsonbai</li>
   <li class="post-copyright-link">
     <strong>Post link:</strong>
-    <a href="http://yunsonbai.github.io/2018/12/05/nginx-tornado/" title="nginx+tornado折腾笔记">http://yunsonbai.github.io/2018/12/05/nginx-tornado/</a>
+    <a href="https://yunsonbai.top/2018/12/05/nginx-tornado/" title="nginx+tornado折腾笔记">https://yunsonbai.top/2018/12/05/nginx-tornado/</a>
   </li>
   <li class="post-copyright-license">
     <strong>Copyright Notice: </strong>All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 4.0</a> unless stating additionally.</li>

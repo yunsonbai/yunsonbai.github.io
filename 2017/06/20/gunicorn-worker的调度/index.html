@@ -102,7 +102,7 @@
 <meta name="keywords" content="gunicorn,worker,dispatch,调度">
 <meta property="og:type" content="article">
 <meta property="og:title" content="gunicorn的worker调度">
-<meta property="og:url" content="http://yunsonbai.github.io/2017/06/20/gunicorn-worker的调度/index.html">
+<meta property="og:url" content="https://yunsonbai.top/2017/06/20/gunicorn-worker的调度/index.html">
 <meta property="og:site_name" content="雲Son">
 <meta property="og:description" content="gunicorn的worker调度">
 <meta property="og:locale" content="en">
@@ -116,7 +116,7 @@
 
 
 
-  <link rel="canonical" href="http://yunsonbai.github.io/2017/06/20/gunicorn-worker的调度/">
+  <link rel="canonical" href="https://yunsonbai.top/2017/06/20/gunicorn-worker的调度/">
 
 
 
@@ -370,7 +370,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yunsonbai.github.io/2017/06/20/gunicorn-worker的调度/">
+    <link itemprop="mainEntityOfPage" href="https://yunsonbai.top/2017/06/20/gunicorn-worker的调度/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="yunsonbai">
@@ -466,7 +466,7 @@
       
 
       
-        <h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><p>前段时间分享了一篇<strong><a href="https://yunsonbai.top/2017/06/15/gunicorn-django/" target="_blank" rel="noopener">如何提高django的并发能力</a></strong>的文章，由此引发了我对gunicorn的进一步研究，利用业余的时间看了一下gunicorn关于worker那部分的主要代码，下边以gevent为例子聊一聊它的工作流程(好吧目前主要看了看gevent这块儿的代码)。</p>
+        <h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><p>前段时间分享了一篇<strong><a href="https://yunsonbai.top/2017/06/15/gunicorn-django/">如何提高django的并发能力</a></strong>的文章，由此引发了我对gunicorn的进一步研究，利用业余的时间看了一下gunicorn关于worker那部分的主要代码，下边以gevent为例子聊一聊它的工作流程(好吧目前主要看了看gevent这块儿的代码)。</p>
 <a id="more"></a>
 <h2 id="归纳流程"><a href="#归纳流程" class="headerlink" title="归纳流程"></a>归纳流程</h2><ul>
 <li>gunicorn采用了n+1个进程，n就是真劳动worker数，即通过-w指定。1则是主worker，它负责管理这些劳动worker，它主要的工作就是对劳动worker进行增与杀，另外他会监听一个端口，外提供服务。</li>
@@ -488,8 +488,8 @@
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 为什么看ggevent，可以看一下works/__init__.py文件</span></span><br><span class="line"><span class="keyword">if</span> self.server_class <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span>:</span><br><span class="line">    environ = base_environ(self.cfg)</span><br><span class="line">    environ.update(&#123;</span><br><span class="line">        <span class="string">"wsgi.multithread"</span>: <span class="literal">True</span>,</span><br><span class="line">        <span class="string">"SERVER_SOFTWARE"</span>: VERSION,</span><br><span class="line">    &#125;)</span><br><span class="line">    server = self.server_class(</span><br><span class="line">        s, application=self.wsgi, spawn=pool, log=self.log,</span><br><span class="line">        handler_class=self.wsgi_handler, environ=environ,</span><br><span class="line">        **ssl_args)</span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">    <span class="comment"># s其实就是监听端口得到的那个socket</span></span><br><span class="line">    hfun = partial(self.handle, s)</span><br><span class="line">    <span class="comment"># 这里就是绑定文件描述符的关键</span></span><br><span class="line">    server = StreamServer(s, handle=hfun, spawn=pool, **ssl_args)</span><br><span class="line"></span><br><span class="line">server.start()</span><br><span class="line">servers.append(server)</span><br><span class="line"></span><br><span class="line"><span class="comment"># StreamServer是gevent提供的一个类，继承了BaseServer</span></span><br><span class="line"><span class="comment"># 在BaseServer完成处理方法的绑定(If given, the request handler)</span></span><br></pre></td></tr></table></figure>
 </li>
 </ul>
-<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>虽然没有看其他的工作方式流程，但大概应该差不多都是最前的三步过程，可能会有一些函数的不同，其实去看gunicorn的源码无非就是想了解其工作流程，前边的文章<strong><a href="https://yunsonbai.top/2017/06/15/gunicorn-django/" target="_blank" rel="noopener">如何提高django的并发能力</a></strong>，遇到了当采用gevent方法启动时会导致数据库连接不能复用，后边会继续研究，希望能找到具体的原因。</p>
-<h2 id="文章推荐"><a href="#文章推荐" class="headerlink" title="文章推荐"></a>文章推荐</h2><p><strong><a href="https://yunsonbai.top/2017/07/02/gunicorn-gevent-django/" target="_blank" rel="noopener">gunicorn+gevent+django解决mysql高连接数并提高性能</a></strong></p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>虽然没有看其他的工作方式流程，但大概应该差不多都是最前的三步过程，可能会有一些函数的不同，其实去看gunicorn的源码无非就是想了解其工作流程，前边的文章<strong><a href="https://yunsonbai.top/2017/06/15/gunicorn-django/">如何提高django的并发能力</a></strong>，遇到了当采用gevent方法启动时会导致数据库连接不能复用，后边会继续研究，希望能找到具体的原因。</p>
+<h2 id="文章推荐"><a href="#文章推荐" class="headerlink" title="文章推荐"></a>文章推荐</h2><p><strong><a href="https://yunsonbai.top/2017/07/02/gunicorn-gevent-django/">gunicorn+gevent+django解决mysql高连接数并提高性能</a></strong></p>
 
       
     </div>
@@ -532,7 +532,7 @@
     <strong>Post author: </strong>yunsonbai</li>
   <li class="post-copyright-link">
     <strong>Post link:</strong>
-    <a href="http://yunsonbai.github.io/2017/06/20/gunicorn-worker的调度/" title="gunicorn的worker调度">http://yunsonbai.github.io/2017/06/20/gunicorn-worker的调度/</a>
+    <a href="https://yunsonbai.top/2017/06/20/gunicorn-worker的调度/" title="gunicorn的worker调度">https://yunsonbai.top/2017/06/20/gunicorn-worker的调度/</a>
   </li>
   <li class="post-copyright-license">
     <strong>Copyright Notice: </strong>All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 4.0</a> unless stating additionally.</li>

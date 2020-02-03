@@ -102,7 +102,7 @@
 <meta name="keywords" content="博客,支持https,免费https">
 <meta property="og:type" content="article">
 <meta property="og:title" content="博客支持https">
-<meta property="og:url" content="http://yunsonbai.github.io/2017/01/12/blog-https/index.html">
+<meta property="og:url" content="https://yunsonbai.top/2017/01/12/blog-https/index.html">
 <meta property="og:site_name" content="雲Son">
 <meta property="og:description" content="使用Let&apos;s Encrypt, 使自己的网站支持htps">
 <meta property="og:locale" content="en">
@@ -118,7 +118,7 @@
 
 
 
-  <link rel="canonical" href="http://yunsonbai.github.io/2017/01/12/blog-https/">
+  <link rel="canonical" href="https://yunsonbai.top/2017/01/12/blog-https/">
 
 
 
@@ -372,7 +372,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yunsonbai.github.io/2017/01/12/blog-https/">
+    <link itemprop="mainEntityOfPage" href="https://yunsonbai.top/2017/01/12/blog-https/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="yunsonbai">
@@ -473,8 +473,8 @@
 <h2 id="起因"><a href="#起因" class="headerlink" title="起因"></a>起因</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">首先之前就已经听说从<span class="number">2017</span>年<span class="number">1</span>月份起，Chrome浏览器将会把采用HTTP协议的网站标记为“不安全”网站；另外最近自己手头的很多项目都开始往https下迁移；还有就是用谷歌浏览器看自己的博客一直提示感叹号；最后最让我郁闷的是某运营商的劫持，种种这些原因促使自己的让博客支持https访问。</span><br></pre></td></tr></table></figure>
 <h2 id="https请求流程"><a href="#https请求流程" class="headerlink" title="https请求流程"></a>https请求流程</h2><p><img src="https://yunsonbai.github.io/images/https/lc.jpg" alt="Catch8D7B"></p>
 <h2 id="实现方案"><a href="#实现方案" class="headerlink" title="实现方案"></a>实现方案</h2><ul>
-<li>简单方式： 把博客部署在github上，直接就能https访问<br>  例如<a href="https://yunsonbai.github.io/">yunsonbai_github</a></li>
-<li>稍微麻烦点的方式： 自己购买服务器部署上博客后，找认证机构办法签证（我采用的这个方式）<br>  例如<a href="https://yunsonbai.top" target="_blank" rel="noopener">yunsonbai</a><h2 id="认证机构"><a href="#认证机构" class="headerlink" title="认证机构"></a>认证机构</h2></li>
+<li>简单方式： 把博客部署在github上，直接就能https访问<br>  例如<a href="https://yunsonbai.github.io/" target="_blank" rel="noopener">yunsonbai_github</a></li>
+<li>稍微麻烦点的方式： 自己购买服务器部署上博客后，找认证机构办法签证（我采用的这个方式）<br>  例如<a href="https://yunsonbai.top">yunsonbai</a><h2 id="认证机构"><a href="#认证机构" class="headerlink" title="认证机构"></a>认证机构</h2></li>
 <li>收费的<ul>
 <li>geotrust</li>
 </ul>
@@ -514,7 +514,7 @@
 <li>配置nginx</li>
 </ul>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">server&#123;</span><br><span class="line">	listen <span class="number">443</span> ssl;</span><br><span class="line">	ssl_certificate /usr/ssl/signed.crt;</span><br><span class="line">	ssl_certificate_key /usr/ssl/domain.key;</span><br><span class="line">	location / &#123;</span><br><span class="line">			root   html;</span><br><span class="line">			index  index.html index.htm;</span><br><span class="line">		&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>也可以参考<a href="http://yunsonbai.github.io/2016/06/09/nginx-https%E9%85%8D%E7%BD%AE/">nginx实现https</a></p>
+<p>也可以参考<a href="http://yunsonbai.github.io/2016/06/09/nginx-https%E9%85%8D%E7%BD%AE/" target="_blank" rel="noopener">nginx实现https</a></p>
 <ul>
 <li>将http请求转到https下</li>
 </ul>
@@ -562,7 +562,7 @@
     <strong>Post author: </strong>yunsonbai</li>
   <li class="post-copyright-link">
     <strong>Post link:</strong>
-    <a href="http://yunsonbai.github.io/2017/01/12/blog-https/" title="博客支持https">http://yunsonbai.github.io/2017/01/12/blog-https/</a>
+    <a href="https://yunsonbai.top/2017/01/12/blog-https/" title="博客支持https">https://yunsonbai.top/2017/01/12/blog-https/</a>
   </li>
   <li class="post-copyright-license">
     <strong>Copyright Notice: </strong>All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 4.0</a> unless stating additionally.</li>
