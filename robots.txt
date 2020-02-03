@@ -11,4 +11,4 @@ Disallow: /css/
 Disallow: /fonts/
 Disallow: /vendors/
 Disallow: /fancybox/
-Sitemap: http://yunsonbai.site/baidusitemap.xml
+Sitemap: http://sitemap.yunsonbai.top/baidusitemap.xml
