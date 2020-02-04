@@ -109,7 +109,7 @@
 <meta property="og:image" content="https://yunsonbai.github.io/images/snowflake_deploy/q_t.svg">
 <meta property="og:image" content="https://yunsonbai.github.io/images/snowflake_deploy/dis.svg">
 <meta property="og:image" content="https://yunsonbai.github.io/images/snowflake_deploy/run.svg">
-<meta property="og:updated_time" content="2020-01-21T16:07:11.329Z">
+<meta property="og:updated_time" content="2020-02-04T03:13:22.180Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="snowflake分布式id部署">
 <meta name="twitter:description" content="分享一下雪花算法生成器的部署方式">
@@ -347,18 +347,10 @@
 </script>
 </div>
 
-<!--<div class="ad_cell">
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-  
-<ins class="adsbygoogle"
-     style="display:inline-block;width:170px;height:290px"
-     data-ad-client="ca-pub-1143013968169801"
-     data-ad-slot="6161467875"></ins>
-<script>
-     (adsbygoogle = window.adsbygoogle || []).push({});
-</script>
+<div class="ad_cell, text_center">
+<img id="wechat_subscriber_qcode" src="http://yunsonbai.github.io/images/wechat_qrcode.bmp" alt="yunsonbai wechat" style="width: 200px; max-width: 100%;">
+<div>微信公众号</div>
 </div>
--->
         </div>
         
 
@@ -482,7 +474,7 @@
       
 
       
-        <h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><p>我的博客：<a href="http://yunsonbai.top">http://yunsonbai.top</a><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ID在实际生产中起着非常重要的作用，任务追踪，任务查询等等等，尤其是在数据库层面，如果有一个id(非主键)能做唯一索引</span><br><span class="line">那查询速度将变得快(常数级)的惊人，但是这种唯一索引最好使用数字，而且是增加的。很多人可能有疑问，为什么唯一索引要</span><br><span class="line">建议使用int且一直增加的数字，建议大家查阅一下MySQL是怎么插入数据的。本文将介绍分布式ID生成算法snowflake的部署</span><br></pre></td></tr></table></figure></p>
+        <h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><p>原文链接：<a href="https://yunsonbai.top/2020/01/21/snowflake_deploy/">https://yunsonbai.top/2020/01/21/snowflake_deploy/</a><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ID在实际生产中起着非常重要的作用，任务追踪，任务查询等等等，尤其是在数据库层面，如果有一个id(非主键)能做唯一索引</span><br><span class="line">那查询速度将变得快(常数级)的惊人，但是这种唯一索引最好使用数字，而且是增加的。很多人可能有疑问，为什么唯一索引要</span><br><span class="line">建议使用int且一直增加的数字，建议大家查阅一下MySQL是怎么插入数据的。本文将介绍分布式ID生成算法snowflake的部署</span><br></pre></td></tr></table></figure></p>
 <a id="more"></a>
 <h2 id="关于snowflake"><a href="#关于snowflake" class="headerlink" title="关于snowflake"></a>关于snowflake</h2><ul>
 <li>官方介绍: [文档](<a href="https://github.com/twitter-archive/snowflake" target="_blank" rel="noopener">https://github.com/twitter-archive/snowflake</a></li>
@@ -583,8 +575,10 @@
     
       <div>
         <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
-    <img id="wechat_subscriber_qcode" src="http://yunsonbai.github.io/images/wechat_qrcode.bmp" alt="yunsonbai wechat" style="width: 200px; max-width: 100%;">
+    <!--  
+    <img id="wechat_subscriber_qcode" src="http://yunsonbai.github.io/images/wechat_qrcode.bmp" alt="yunsonbai wechat" style="width: 200px; max-width: 100%;"/>
     <div>微信公众号</div>
+    -->
 
     
     
