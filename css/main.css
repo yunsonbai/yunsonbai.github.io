@@ -1831,7 +1831,7 @@ pre .javascript .function {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: #82d555;
+  background: #787706;
 }
 .links-of-blogroll {
   font-size: 13px;
@@ -3158,11 +3158,38 @@ ul.breadcrumb li+li:last-child {
   left: 88%;
   top: 1%;
   width: 170px;
-  height: 300px;
+}
+.wechat_subscriber {
+  text-align: center;
+  display: none;
 }
 .ad_cell {
   height-max: 300px;
+  display: none;
 }
 .text_center {
   text-align: center;
+}
+@media only screen and (max-width: 1000px) {
+  .wechat_subscriber {
+    display: block;
+  }
+}
+@media only screen and (min-width: 1024px) {
+  .ad_cell {
+    display: block;
+  }
+  .ad_right {
+    positon: fixed;
+    float: right;
+    right: 0;
+    left: 88%;
+    top: 1%;
+    width: 120px;
+  }
+}
+@media only screen and (min-width: 1200px) {
+  .ad_cell {
+    display: block;
+  }
 }
