@@ -1831,7 +1831,7 @@ pre .javascript .function {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: #ff0ea1;
+  background: #ff1345;
 }
 .links-of-blogroll {
   font-size: 13px;
@@ -3150,6 +3150,14 @@ a {
   top: 1%;
   width: 170px;
 }
+.ad_left {
+  positon: fixed;
+  float: right;
+  right: 0;
+  left: 2%;
+  top: 1%;
+  width: 170px;
+}
 .wechat_subscriber {
   text-align: center;
   display: none;
@@ -3175,6 +3183,14 @@ a {
     float: right;
     right: 0;
     left: 88%;
+    top: 1%;
+    width: 120px;
+  }
+  .ad_left {
+    positon: fixed;
+    float: right;
+    right: 0;
+    left: 2%;
     top: 1%;
     width: 120px;
   }
