@@ -106,16 +106,16 @@
 <meta property="og:site_name" content="雲Son">
 <meta property="og:description" content="利用tornado异步特性实现高并发, 并调优">
 <meta property="og:locale" content="en">
-<meta property="og:image" content="https://yunsonbai.github.io/images/django/nf.png">
-<meta property="og:image" content="https://yunsonbai.github.io/images/django/lc.png">
-<meta property="og:image" content="https://yunsonbai.github.io/images/tornado/qps1.png">
-<meta property="og:image" content="https://yunsonbai.github.io/images/tornado/qps2.png">
-<meta property="og:image" content="https://yunsonbai.github.io/images/tornado/qps3.png">
-<meta property="og:updated_time" content="2019-04-24T09:55:29.868Z">
+<meta property="og:image" content="https://yunsonbai.top/images/django/nf.png">
+<meta property="og:image" content="https://yunsonbai.top/images/django/lc.png">
+<meta property="og:image" content="https://yunsonbai.top/images/tornado/qps1.png">
+<meta property="og:image" content="https://yunsonbai.top/images/tornado/qps2.png">
+<meta property="og:image" content="https://yunsonbai.top/images/tornado/qps3.png">
+<meta property="og:updated_time" content="2020-08-13T00:41:24.953Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="nginx+tornado折腾笔记">
 <meta name="twitter:description" content="利用tornado异步特性实现高并发, 并调优">
-<meta name="twitter:image" content="https://yunsonbai.github.io/images/django/nf.png">
+<meta name="twitter:image" content="https://yunsonbai.top/images/django/nf.png">
 
 
 
@@ -489,11 +489,11 @@
 <li>msyql: 4核+4G(docker) max_connections:1000  max_user_connections:1000</li>
 <li>数据库数据量: 50万条左右<br>不在介绍tornado的优势，直接说我折腾的过程</li>
 </ul>
-<h2 id="其他说明"><a href="#其他说明" class="headerlink" title="其他说明"></a>其他说明</h2><p>架构:<br><img src="https://yunsonbai.github.io/images/django/nf.png" alt="架构"></p>
+<h2 id="其他说明"><a href="#其他说明" class="headerlink" title="其他说明"></a>其他说明</h2><p>架构:<br><img src="https://yunsonbai.top/images/django/nf.png" alt="架构"></p>
 <p>样例代码:<br><strong><a href="https://github.com/yunsonbai/yunorm/tree/master/example/project/ce" target="_blank" rel="noopener">代码</a></strong></p>
 <p>orm: 采用了数据库连接池, 每个tornado 数据库 pool_size 为20</p>
 <h2 id="压测方式及命令"><a href="#压测方式及命令" class="headerlink" title="压测方式及命令"></a>压测方式及命令</h2><ul>
-<li>压测方式：<img src="https://yunsonbai.github.io/images/django/lc.png" alt="lc"></li>
+<li>压测方式：<img src="https://yunsonbai.top/images/django/lc.png" alt="lc"></li>
 <li>压测命令：<ul>
 <li>ysab: ysab -n 500 -r 100 -u <a href="http://B_ip:8080/test&#39;" target="_blank" rel="noopener">http://B_ip:8080/test&#39;</a></li>
 <li>备注: 欢迎使用ysab, <a href="https://yunsonbai.top/2019/02/24/ysab"><font color="#7B68EE">ysab文档</font></a></li>
@@ -501,7 +501,7 @@
 </li>
 </ul>
 <h2 id="nginx优化前"><a href="#nginx优化前" class="headerlink" title="nginx优化前"></a>nginx优化前</h2><p>本次server起4个(个数和核心数一致)tornado进程</p>
-<h3 id="压测结果"><a href="#压测结果" class="headerlink" title="压测结果"></a>压测结果</h3><h4 id="qps"><a href="#qps" class="headerlink" title="qps"></a>qps</h4><p><img src="https://yunsonbai.github.io/images/tornado/qps1.png" alt="qps1"></p>
+<h3 id="压测结果"><a href="#压测结果" class="headerlink" title="压测结果"></a>压测结果</h3><h4 id="qps"><a href="#qps" class="headerlink" title="qps"></a>qps</h4><p><img src="https://yunsonbai.top/images/tornado/qps1.png" alt="qps1"></p>
 <h4 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h4><p>不经意看，qps能提升这么多，仔细一看不是这么回事，注意看一下失败数将近38000条，有点蒙，为什么会有这么高的失败数，如果直接压测tornado server而不经过nginx，则不会出现这个问题。而且返回code如下所示：<br>Response Time histogram (code: requests):<br>  200:        12023<br>  502:        37977</p>
 <p>全是502，看了(netstat -nptal|grep TIME_WAIT|wc -l)一下TIME_WAIT数，破两万，为什么会有这么多的WAIT数？</p>
 <ul>
@@ -516,9 +516,9 @@
 <p>从nginx到server的连接不是长连接，导致每次请求nginx到server之间都会建立新的tcp连接，即便我们优化了net.ipv4.tcp_tw_reuse = 1<br>net.ipv4.tcp_tw_recycle = 1<br>高并发下照样会出现一坨的TIME_WAIT，导致502的问题。<br>到这优化了，可以参考文章<a href="https://skyao.gitbooks.io/learning-nginx/content/documentation/keep_alive.html" target="_blank" rel="noopener">nginx长连接</a>, 配置优化如下：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">upstream webapp &#123;</span><br><span class="line">    keepalive 300;</span><br><span class="line">    server 127.0.0.1:8000;</span><br><span class="line">    server 127.0.0.1:8001;</span><br><span class="line">    server 127.0.0.1:8002;</span><br><span class="line">    server 127.0.0.1:8003;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">server &#123;</span><br><span class="line">    listen       80;</span><br><span class="line">    location / &#123;</span><br><span class="line">        proxy_pass    http://webapp/;</span><br><span class="line">        proxy_http_version 1.1;</span><br><span class="line">        proxy_set_header Connection &quot;&quot;;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h2 id="nginx优化后"><a href="#nginx优化后" class="headerlink" title="nginx优化后"></a>nginx优化后</h2><h3 id="后端4个tornado进程"><a href="#后端4个tornado进程" class="headerlink" title="后端4个tornado进程"></a>后端4个tornado进程</h3><ul>
-<li>qps<br><img src="https://yunsonbai.github.io/images/tornado/qps2.png" alt="qps2"><br>还是比较理想的，比之前的gunicorn+gevent+djangot有了700的提升</li>
+<li>qps<br><img src="https://yunsonbai.top/images/tornado/qps2.png" alt="qps2"><br>还是比较理想的，比之前的gunicorn+gevent+djangot有了700的提升</li>
 </ul>
-<h3 id="后端8个tornado进程"><a href="#后端8个tornado进程" class="headerlink" title="后端8个tornado进程"></a>后端8个tornado进程</h3><p><img src="https://yunsonbai.github.io/images/tornado/qps3.png" alt="qps3"><br>还是比较理想的，比后端4个tornado进程有了700的提升</p>
+<h3 id="后端8个tornado进程"><a href="#后端8个tornado进程" class="headerlink" title="后端8个tornado进程"></a>后端8个tornado进程</h3><p><img src="https://yunsonbai.top/images/tornado/qps3.png" alt="qps3"><br>还是比较理想的，比后端4个tornado进程有了700的提升</p>
 <h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>io密集型服务器的，相对于dajango tornado还是有很大的优势的，如果说基于Python开发，tornado还是一个非常好的选择。<br>关于tornado进程数个数，这里建议是2n(n为cpu核心数)个，当然这是一般情况，具体情况还需要具体分析压测一下。</p>
 <h2 id="文章推荐"><a href="#文章推荐" class="headerlink" title="文章推荐"></a>文章推荐</h2><p><strong><a href="https://yunsonbai.top/2019/02/24/ysab/">ysab基于golang的压测工具</a></strong><br><strong><a href="https://yunsonbai.top/2019/03/21/yunorm/">yunorm轻量接orm</a></strong><br><strong><a href="https://yunsonbai.top/2019/04/16/golang-gin/">Golang高性能web框架gin</a></strong></p>
 

@@ -106,14 +106,14 @@
 <meta property="og:site_name" content="雲Son">
 <meta property="og:description" content="收集每日几亿条数据">
 <meta property="og:locale" content="en">
-<meta property="og:image" content="https://yunsonbai.github.io/images/log_collect.svg">
-<meta property="og:image" content="https://yunsonbai.github.io/images/kibana.png">
-<meta property="og:image" content="https://yunsonbai.github.io/images/grafana.png">
-<meta property="og:updated_time" content="2020-02-04T03:12:30.195Z">
+<meta property="og:image" content="https://yunsonbai.top/images/log_collect.svg">
+<meta property="og:image" content="https://yunsonbai.top/images/kibana.png">
+<meta property="og:image" content="https://yunsonbai.top/images/grafana.png">
+<meta property="og:updated_time" content="2020-08-13T00:40:47.442Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="filebeat+kafka+ELK分布式日志收集">
 <meta name="twitter:description" content="收集每日几亿条数据">
-<meta name="twitter:image" content="https://yunsonbai.github.io/images/log_collect.svg">
+<meta name="twitter:image" content="https://yunsonbai.top/images/log_collect.svg">
 
 
 
@@ -520,7 +520,7 @@
 </ul>
 <h3 id="其他说明"><a href="#其他说明" class="headerlink" title="其他说明"></a>其他说明</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">其实没有花太多篇幅介绍上边的组件的使用和原理，本文的分享重点不在这里，只是分享用什么样的架构来使用</span><br><span class="line">这些组件，关于这些组件的原理和使用我分享了几篇好文章以及官方文档，大家可以参考，另外网上这种介绍</span><br><span class="line">文章很多，接下来分享我的目前日志量和收集架构</span><br></pre></td></tr></table></figure>
 <h2 id="架构情况说明"><a href="#架构情况说明" class="headerlink" title="架构情况说明"></a>架构情况说明</h2><ul>
-<li>架构图:<br><img src="https://yunsonbai.github.io/images/log_collect.svg" alt="架构"></li>
+<li>架构图:<br><img src="https://yunsonbai.top/images/log_collect.svg" alt="架构"></li>
 <li>实例数: 全部基于docker部署，各类角色的实例数过千</li>
 <li>日志量: 日均日志约4.6亿条, 占空间约140G。</li>
 <li>目前收集架构负载: 十几个es节点个位数负载，个位数logstash节点也几乎没有负载。</li>
@@ -554,8 +554,8 @@
 </ul>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">跳过一次坑，没有修改number_of_shards，虽然机器多，但是日志散落不均匀导致总有es的某几个</span><br><span class="line">节点负载比较高，其他的却很清闲。</span><br></pre></td></tr></table></figure>
 <h4 id="关于数据展示"><a href="#关于数据展示" class="headerlink" title="关于数据展示"></a>关于数据展示</h4><ul>
-<li>kibana:一张老图<br><img src="https://yunsonbai.github.io/images/kibana.png" alt="一张老图"></li>
-<li>grafana<br><img src="https://yunsonbai.github.io/images/grafana.png" alt="炫酷的图]"></li>
+<li>kibana:一张老图<br><img src="https://yunsonbai.top/images/kibana.png" alt="一张老图"></li>
+<li>grafana<br><img src="https://yunsonbai.top/images/grafana.png" alt="炫酷的图]"></li>
 <li>统计脚本: python、golang、java任选</li>
 </ul>
 <h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">日志对于监控系统流量、提升系统性能、发现系统问题等有着十分重要的意义，可以说有些日志对于系统</span><br><span class="line">的演变来说起着决定行的作用。所以日志的收集是一项很重要且很有意思的工作，也可以说是一门学问，</span><br><span class="line">如何规范的输出日志方便后边的收集，如何压缩日志尽量减少磁盘的使用，如何控制日志结构使搜索更快</span><br><span class="line">等等这些问题。</span><br><span class="line">本文重点分享了当前我采用的收集方式，欢迎大家提出纠正和宝贵的意见。</span><br></pre></td></tr></table></figure>
