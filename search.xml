@@ -4,6 +4,55 @@
   
     
     <entry>
+      <title><![CDATA[Python 的 GIL]]></title>
+      <url>https://yunsonbai.top/2020/08/27/GIL/</url>
+      <content type="html"><![CDATA[<h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><p>原文链接：<a href="https://yunsonbai.top/2020/08/27/GIL/">https://yunsonbai.top/2020/08/27/GIL/</a><br>聊一个老生长谈的问题: Python的GIL。<br>结合日常工作的总结和前人的经验，聊一聊我自己对此GIL的理解。<br>希望本文对Python的初学者有一些帮助。</p>
+<a id="more"></a>
+<h2 id="到底什么是GIL？"><a href="#到底什么是GIL？" class="headerlink" title="到底什么是GIL？"></a>到底什么是GIL？</h2><p>GIL全称: Global Interpreter Lock。注意这里有个Interpreter(Cython、Jython)，说白了这把锁其实是加在解释器上的，这把锁只允许一个Python线程获得解释器控制权，简单说就是某一时刻只能有一个线程运行(单线程)。对GIL褒贬不一，对于单线程程序来讲其实没有什么影响，但是对于多线程程序，有的时候就会成为影响性能的瓶颈点。对GIL的形容，你可能在网上还会找到类似臭名昭著的形容词，其实我觉着万事都不能这么绝对，它存在既有存在的原因和用处。</p>
+<h2 id="GIL对Python到底有什么帮助？"><a href="#GIL对Python到底有什么帮助？" class="headerlink" title="GIL对Python到底有什么帮助？"></a>GIL对Python到底有什么帮助？</h2><p>我们知道Python使用了计数的方式来管理对象的回收，进而管理内存。简单来说就是每个对象都会有个计数，当这个计数变为0的时候，回收机制就会回收这个对象，释放对象占用的内存空间。看一个简单的例子：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">import</span> sys</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>a = <span class="number">4902384823</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>b = a</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>sys.getrefcount(a)</span><br><span class="line"><span class="number">3</span></span><br></pre></td></tr></table></figure></p>
+<p>通过getrefcount可以拿到某个对象的计数，插个小插曲，为什么我这里用这么大的数(4902384823)， 为什么不用1？细心的读者可以去网上找一下，Python的小整数池，你就会明白。</p>
+<p>我们继续聊GIL，想一下这个场景，如果解释器允许多线程并发执行，都要对这个a做操作，会有什么样的结果产生呢？线程1要把a赋值给c，线程2呢，要把a赋值成别的值(原来的a对象技术就会减小1)，线程3也要把a赋值成别的值，线程4更狠，直接释放了a，线程5….，试想一下，当出现这么多的进程要操作同一个对象的时候，情况就复杂了，是不是会导致程序的逻辑异常甚至直接崩溃呢？GIL就派上了用场，在某个时刻只允许一个线程运行，很完美的解决了上述问题。不排除还有其他的垃圾回收机制，比如golang就十分复杂，不得不引入STW机制，来进行垃圾回收，要知道在Python诞生之际，操做系统还没有线程的概念。</p>
+<p>有人可能会问，那不能给对象加把锁么？这样不就可以同时运行多个线程了么？那就会需要数量庞大的锁，维护这些锁开销很大，另外很可能会触发死锁(多锁情况下的陷阱)情况。而GIL只需要管理一个锁，能提高单个线程的性能。</p>
+<p>由于Python简单易用，目前越来越多的人开始学习和使用Python，这其中GIL起着很大的作用。C库的许多扩展，有的需要在Python中实现其功能，而GIL则提供了线程安全的内存管理，可以防止不一致的更改，GIL对Python的快速发展起着不可估量的作用。</p>
+<p>另外GIL只需要管理着一个锁，将变得很简单，这在早期的Python设计开发中，GIL是个结合实际情况而做出合适的选择。</p>
+<h2 id="有这个GIL我该怎么提升我的代码性能呢？"><a href="#有这个GIL我该怎么提升我的代码性能呢？" class="headerlink" title="有这个GIL我该怎么提升我的代码性能呢？"></a>有这个GIL我该怎么提升我的代码性能呢？</h2><p>要想提高代码性能，首先得先弄清楚你得代码是面向什么场景的。只有结合了实际，才能选出适合的方案来。咱们抛开业务讲，无非就是两种情况，CPU 计算瓶颈约束和 I/O 瓶颈约束。</p>
+<h3 id="CPU-密集计算型"><a href="#CPU-密集计算型" class="headerlink" title="CPU 密集计算型"></a>CPU 密集计算型</h3><p>你的程序是极其耗CPU的，最简单的，就是下边这个程序，他可能会跑满你某个核心<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">a = <span class="number">0</span></span><br><span class="line"><span class="keyword">while</span> <span class="number">1</span>:</span><br><span class="line">    a += <span class="number">1</span></span><br></pre></td></tr></table></figure></p>
+<p>你的CPU会不停的工作，甚至累趴下，这会程序已经没有优化的余地了，别说Python，就是任何语言也得望而止步，就好比是你开的车，你已经把挡挂到最高，把油门踩到底了，你还怎么加速，只有这个速度了。比较典型的还有图片计算、视频计算等等也都是耗CPU的计算。</p>
+<h3 id="I-O-型"><a href="#I-O-型" class="headerlink" title="I/O 型"></a>I/O 型</h3><p>什么是 I/O 型呢？网络访问、磁盘读写这都是典型的 I/O 操作，比如你访问google，你的I/O开销可就大多了，我想会有人应看到TIMEOUT，即便你访问baidu，嗖的一下打开的网页，那段时间，对于计算机世界来说那也是极为漫长的等待，而这段时间你的CPU几乎提前进入了退休生活，一个字，闲。</p>
+<p>磁盘访问也是一种 I/O 操作，磁盘如果是老式机械磁盘，那也是慢的出奇，即便后来的SSD相对于CPU时间片段来讲也漫长的很。</p>
+<h3 id="提升思路"><a href="#提升思路" class="headerlink" title="提升思路"></a>提升思路</h3><ul>
+<li><p>计算密集型(以下基于单核)<br>  对于CPU密集型来讲，无能为力，如果本身一个CPU 1秒只能计算一个结果，你就是换成什么语言，什么架构它也不可能超过一个，最好的情况是等于1个，但基本达不到，为什么？</p>
+<p>  先说Python，线程维护是有开销的，这个CPU得做，所以怎么可能到1个呢？有的初学者可能考虑换个语言加多线程，那可能比单线程还惨，多线程来回上下文切换，更耗资源</p>
+<p>  不说硬件的提升，光说代码，这时候应该考虑算法本身的提升，比如图片计算里，考虑换成矩阵计算会不会好些？或者看是不是有些计算是多余等等。当然如果考虑硬件的提升，那就没有止境了。</p>
+</li>
+<li><p>I/O 型(以下基于单核)<br>  对于Python， I/O密集型的应用还是有提升的余地的。如果说I/O等待占据了大部分时间，我们这会可以考虑“多线程”（如果已1秒为单位，即便是GIL存在，那也会有n个线程被执行），如果I/O等待的时间远远大于获取GIL(全局大锁)的时间，那多线程势必会提升速度。</p>
+<p>  多进程，虽然只有一个CPU，还是要看进程切换的时间和I/O等待的时间的对比，如果I/O等待时间很长，那多进程之间的切换开销也就微不足道了。</p>
+<p>  协程，这个是个好东西，在一个线程里边，协程切换是用户态的，开销小的多，这也是提升性能的利剑。</p>
+</li>
+<li><p>其他<br>  多核情况下，不管计算密集型还是I/O 型，多进程一定是能提升性能，毕竟一个人干活跟10个人干活肯定速度是不一样的。</p>
+</li>
+</ul>
+<h3 id="GIL依然存在"><a href="#GIL依然存在" class="headerlink" title="GIL依然存在"></a>GIL依然存在</h3><p>那能不能去掉GIL呢？答案显然是可以的，不然golang怎么做的？java怎么做的？可是为什么不去掉GIL呢，我认为还是历史原因，首先很多C库是基于GIL做的，推翻了重整，你懂得，很难。另外如果真的完全去掉GIL，那将是从里到外的巨大改进，前后兼容又成了巨大的问题。但是改进肯定有的。</p>
+]]></content>
+      
+        <categories>
+            
+            <category> Python </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> Python </tag>
+            
+            <tag> GIL </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[snowflake分布式id部署]]></title>
       <url>https://yunsonbai.top/2020/01/21/snowflake_deploy/</url>
       <content type="html"><![CDATA[<h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><p>原文链接：<a href="https://yunsonbai.top/2020/01/21/snowflake_deploy/">https://yunsonbai.top/2020/01/21/snowflake_deploy/</a><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ID在实际生产中起着非常重要的作用，任务追踪，任务查询等等等，尤其是在数据库层面，如果有一个id(非主键)能做唯一索引</span><br><span class="line">那查询速度将变得快(常数级)的惊人，但是这种唯一索引最好使用数字，而且是增加的。很多人可能有疑问，为什么唯一索引要</span><br><span class="line">建议使用int且一直增加的数字，建议大家查阅一下MySQL是怎么插入数据的。本文将介绍分布式ID生成算法snowflake的部署</span><br></pre></td></tr></table></figure></p>
@@ -343,9 +392,9 @@
         
         <tags>
             
-            <tag> orm </tag>
-            
             <tag> python orm </tag>
+            
+            <tag> orm </tag>
             
         </tags>
         
@@ -694,8 +743,6 @@
         
         <tags>
             
-            <tag> 诗集 </tag>
-            
             <tag> 同学离别 </tag>
             
             <tag> 毕业小聚 </tag>
@@ -703,6 +750,8 @@
             <tag> 北京聚会 </tag>
             
             <tag> 离别 </tag>
+            
+            <tag> 诗集 </tag>
             
         </tags>
         
@@ -747,13 +796,13 @@
         
         <tags>
             
+            <tag> 诗集 </tag>
+            
             <tag> 北国冬天 </tag>
             
             <tag> 忆江南 </tag>
             
             <tag> 冬末 </tag>
-            
-            <tag> 诗集 </tag>
             
         </tags>
         
@@ -1507,9 +1556,9 @@
         
         <tags>
             
-            <tag> 日常运营工具包 </tag>
-            
             <tag> orm </tag>
+            
+            <tag> 日常运营工具包 </tag>
             
             <tag> 绘图 </tag>
             
@@ -1831,30 +1880,6 @@
     </entry>
     
     <entry>
-      <title><![CDATA[当eth0没有ipv4地址的解决办法]]></title>
-      <url>https://yunsonbai.top/2016/06/09/eth0-no-ipv4/</url>
-      <content type="html"><![CDATA[<h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">有时候我们在Linux使用ifconfig后发现没有ipv4地址，下边说一下解决办法</span><br></pre></td></tr></table></figure>
-<a id="more"></a>
-<h2 id="打开ubuntu的-etc-network-interfaces"><a href="#打开ubuntu的-etc-network-interfaces" class="headerlink" title="打开ubuntu的/etc/network/interfaces"></a>打开ubuntu的/etc/network/interfaces</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">删除已经有的，后根据喜好选择添加如下</span><br><span class="line">自动：</span><br><span class="line">         auto eth0</span><br><span class="line">         iface eth0 inet dhcp</span><br><span class="line">    静态分配的配置方法：</span><br><span class="line">         auto eth0</span><br><span class="line">         iface eth0 inet static</span><br><span class="line">         address 192.168.205.139</span><br><span class="line">         netmask  255.255.255.0</span><br><span class="line">         gateway  192.168.205.1</span><br></pre></td></tr></table></figure>
-<h2 id="添加域名服务器"><a href="#添加域名服务器" class="headerlink" title="添加域名服务器"></a>添加域名服务器</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">打开/etc/resolv.conf文件</span><br><span class="line">   添加这行:nameserver 127.0.0.1</span><br></pre></td></tr></table></figure>
-<h2 id="重启eth0"><a href="#重启eth0" class="headerlink" title="重启eth0"></a>重启eth0</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$/etc/init.d/networking restart(这条命令是重启网卡)</span><br><span class="line"> 或者</span><br><span class="line"><span class="variable">$ifdown</span> eth0</span><br><span class="line"><span class="variable">$ifup</span>   eth0（这两条命令是有针对性的重启某个网络接口，因为一个系统可能有多个网络接口）</span><br></pre></td></tr></table></figure>]]></content>
-      
-        <categories>
-            
-            <category> Linux </category>
-            
-        </categories>
-        
-        
-        <tags>
-            
-            <tag> Linux - eth0没有ipv4地址 - ipv4地址 - 配置eth0 - ifconfig </tag>
-            
-        </tags>
-        
-    </entry>
-    
-    <entry>
       <title><![CDATA[nginx常用配置]]></title>
       <url>https://yunsonbai.top/2016/06/09/nginx%E5%B8%B8%E7%94%A8%E9%85%8D%E7%BD%AE/</url>
       <content type="html"><![CDATA[<h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nginx是一个高性能的HTTP和反向代理服务器，也是一个IMAP/POP3/SMTP服务器，下边说一下这断时间用到的nginx配置</span><br></pre></td></tr></table></figure>
@@ -1884,6 +1909,30 @@
         <tags>
             
             <tag> nginx - 配置 - nginx常用配置 - 反向代理 - 设置cookie </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[当eth0没有ipv4地址的解决办法]]></title>
+      <url>https://yunsonbai.top/2016/06/09/eth0-no-ipv4/</url>
+      <content type="html"><![CDATA[<h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">有时候我们在Linux使用ifconfig后发现没有ipv4地址，下边说一下解决办法</span><br></pre></td></tr></table></figure>
+<a id="more"></a>
+<h2 id="打开ubuntu的-etc-network-interfaces"><a href="#打开ubuntu的-etc-network-interfaces" class="headerlink" title="打开ubuntu的/etc/network/interfaces"></a>打开ubuntu的/etc/network/interfaces</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">删除已经有的，后根据喜好选择添加如下</span><br><span class="line">自动：</span><br><span class="line">         auto eth0</span><br><span class="line">         iface eth0 inet dhcp</span><br><span class="line">    静态分配的配置方法：</span><br><span class="line">         auto eth0</span><br><span class="line">         iface eth0 inet static</span><br><span class="line">         address 192.168.205.139</span><br><span class="line">         netmask  255.255.255.0</span><br><span class="line">         gateway  192.168.205.1</span><br></pre></td></tr></table></figure>
+<h2 id="添加域名服务器"><a href="#添加域名服务器" class="headerlink" title="添加域名服务器"></a>添加域名服务器</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">打开/etc/resolv.conf文件</span><br><span class="line">   添加这行:nameserver 127.0.0.1</span><br></pre></td></tr></table></figure>
+<h2 id="重启eth0"><a href="#重启eth0" class="headerlink" title="重启eth0"></a>重启eth0</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$/etc/init.d/networking restart(这条命令是重启网卡)</span><br><span class="line"> 或者</span><br><span class="line"><span class="variable">$ifdown</span> eth0</span><br><span class="line"><span class="variable">$ifup</span>   eth0（这两条命令是有针对性的重启某个网络接口，因为一个系统可能有多个网络接口）</span><br></pre></td></tr></table></figure>]]></content>
+      
+        <categories>
+            
+            <category> Linux </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> Linux - eth0没有ipv4地址 - ipv4地址 - 配置eth0 - ifconfig </tag>
             
         </tags>
         
