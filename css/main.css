@@ -1831,7 +1831,7 @@ pre .javascript .function {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: #53284f;
+  background: #bdfacd;
 }
 .links-of-blogroll {
   font-size: 13px;
@@ -3048,7 +3048,7 @@ ul.breadcrumb li+li:last-child {
 }
 @media (max-width: 767px) {
   .sub-menu+ #content > #posts .post-block {
-    margin-top: 8px;
+    margin-top: 0px;
   }
 }
 .post-header h1,
@@ -3110,7 +3110,7 @@ ul.breadcrumb li+li:last-child {
 }
 @media (max-width: 767px) {
   .content-wrap {
-    padding: 8px;
+    padding: 0px;
   }
   .posts-expand {
     margin: initial;
@@ -3128,14 +3128,14 @@ ul.breadcrumb li+li:last-child {
     border-radius: initial;
   }
   #posts > article + article .post-block {
-    margin-top: 8px;
+    margin-top: 0px;
   }
   .comments {
-    margin-top: 8px;
+    margin-top: 0px;
     padding: 0 12px;
   }
   .pagination {
-    margin: 8px 0 0;
+    margin: 0px 0 0;
   }
 }
 a {
