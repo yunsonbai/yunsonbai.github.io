@@ -39,3 +39,5 @@ http://yunsonbai.top/2017/09/01/%E5%85%B3%E4%BA%8E%E6%8F%90%E9%AB%98%E7%BD%91%E9
 http://yunsonbai.top/2017/06/30/python%E4%B8%AD%E7%9A%84%E8%A3%85%E9%A5%B0%E5%99%A8/index.html
 http://yunsonbai.top/2017/06/17/python%E4%B8%AD%E4%B8%80%E4%BA%9B%E7%89%B9%E6%AE%8A%E6%96%B9%E6%B3%95/index.html
 https://futures.yunsonbai.top/#/
+https://yunsonbai.top/2020/09/07/mysql-bfsw/
+https://yunsonbai.top/2020/08/27/GIL/
