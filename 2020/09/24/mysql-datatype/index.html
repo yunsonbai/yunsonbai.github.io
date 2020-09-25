@@ -98,23 +98,25 @@
 
 
 <script data-ad-client="ca-pub-1143013968169801" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-  <meta name="description" content="just do it!">
-<meta property="og:type" content="website">
-<meta property="og:title" content="雲Son">
-<meta property="og:url" content="https://yunsonbai.top/tags/golang开发的压测工具/index.html">
+  <meta name="description" content="引言原文链接：http://yunsonbai.top/2020/09/07/mysql-datatype/最近在复习MySQL的一些知识，结合自己的实践，记录了一些知识点，本文记录了整数类型、实数类型、varchar、char、BLOB、TEXT、枚举类型、DATETIME、TIMESTAMP等，并记录了一些包括存储效率、查询效率、使用注意事项等等一些问题和实例，欢迎大家阅读和指正。">
+<meta name="keywords" content="MySQL数据类型,MySQL查询效率提升,MySQL存储效率提升">
+<meta property="og:type" content="article">
+<meta property="og:title" content="MySQL复习笔记-数据类型">
+<meta property="og:url" content="https://yunsonbai.top/2020/09/24/mysql-datatype/index.html">
 <meta property="og:site_name" content="雲Son">
-<meta property="og:description" content="just do it!">
+<meta property="og:description" content="引言原文链接：http://yunsonbai.top/2020/09/07/mysql-datatype/最近在复习MySQL的一些知识，结合自己的实践，记录了一些知识点，本文记录了整数类型、实数类型、varchar、char、BLOB、TEXT、枚举类型、DATETIME、TIMESTAMP等，并记录了一些包括存储效率、查询效率、使用注意事项等等一些问题和实例，欢迎大家阅读和指正。">
 <meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2020-09-25T01:10:54.976Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="雲Son">
-<meta name="twitter:description" content="just do it!">
+<meta name="twitter:title" content="MySQL复习笔记-数据类型">
+<meta name="twitter:description" content="引言原文链接：http://yunsonbai.top/2020/09/07/mysql-datatype/最近在复习MySQL的一些知识，结合自己的实践，记录了一些知识点，本文记录了整数类型、实数类型、varchar、char、BLOB、TEXT、枚举类型、DATETIME、TIMESTAMP等，并记录了一些包括存储效率、查询效率、使用注意事项等等一些问题和实例，欢迎大家阅读和指正。">
 
 
 
 
 
 
-  <link rel="canonical" href="https://yunsonbai.top/tags/golang开发的压测工具/">
+  <link rel="canonical" href="https://yunsonbai.top/2020/09/24/mysql-datatype/">
 
 
 
@@ -124,7 +126,7 @@
   };
 </script>
 
-  <title>Tag: golang开发的压测工具 | 雲Son</title>
+  <title>MySQL复习笔记-数据类型 | 雲Son</title>
   
 
 
@@ -202,7 +204,7 @@
     
   
 
-  <div class="container sidebar-position-left ">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
 
@@ -371,76 +373,262 @@
           
             
 
-    
-    
-      
-      
-    
-      
-      
-    
-      
-      
-    
-    
-
-  
-
-
           
           <div id="content" class="content">
             
 
-  
-  
-  
-  <div class="post-block tag">
+  <div id="posts" class="posts-expand">
+    
 
-    <div id="posts" class="posts-collapse">
-      <div class="collection-title">
-        <h1>golang开发的压测工具<small>Tag</small>
-        </h1>
-      </div>
+  
 
-      
-        
+  
+  
+  
+
+  
 
   <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://yunsonbai.top/2020/09/24/mysql-datatype/">
 
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2019/02/24/ysab/" itemprop="url">
-              
-                <span itemprop="name">ysab基于golang的http服务器压测工具</span>
-              
-            </a>
-        
-      </h2>
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="yunsonbai">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="https://yunsonbai.github.io/images/system/logo_v3.png" ">
+    </span>
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-02-24T17:30:00+08:00" content="2019-02-24">
-          02-24
-        </time>
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="雲Son">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">MySQL复习笔记-数据类型</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-09-24T18:00:00+08:00">2020-09-24</time>
+            
+
+            
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/MySQL/" itemprop="url" rel="index"><span itemprop="name">MySQL</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    
+      <div>
+        
+     
+     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+     <ins class="adsbygoogle" style="display:block; text-align:center;" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-1143013968169801" data-ad-slot="5248520076"></ins>
+     <script>
+          (adsbygoogle = window.adsbygoogle || []).push({});
+     </script>
+
       </div>
+    
 
-    </header>
-  </article>
+    <div class="post-body" itemprop="articleBody">
 
+      
+      
+
+      
+        <h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><p>原文链接：<a href="http://yunsonbai.top/2020/09/07/mysql-datatype/">http://yunsonbai.top/2020/09/07/mysql-datatype/</a><br>最近在复习MySQL的一些知识，结合自己的实践，记录了一些知识点，本文记录了整数类型、实数类型、varchar、char、BLOB、TEXT、枚举类型、DATETIME、TIMESTAMP等，并记录了一些包括存储效率、查询效率、使用注意事项等等一些问题和实例，欢迎大家阅读和指正。</p>
+<a id="more"></a>
+<h2 id="整数类型"><a href="#整数类型" class="headerlink" title="整数类型"></a>整数类型</h2><ul>
+<li>TINYINT: 8位</li>
+<li>SMALLINT: 16位</li>
+<li>MEDIUMINT: 24位</li>
+<li>INT: 32位</li>
+<li>BIGINT: 64位</li>
+</ul>
+<p>整数类型有一个UNSIGNED属性，标识无符或者有符。比如对于TINYINT，存储范围上，无符0-255，有符则是-128-127。无符号和有符号类型使用相同的存储空间，具有相同的性能。</p>
+<p>问题: INT(11)表示的是11位存储么？<br>这个对于大多数应用是没有用的，它只能限制客户端用来显示字符的个数，实际的存储还是32位。</p>
+<h2 id="实数类型"><a href="#实数类型" class="headerlink" title="实数类型"></a>实数类型</h2><p>MySQL支持精确类型和不精确类型。</p>
+<p>FLOAT和DOUBLE支持使用标准的浮点运算进行近似计算。<br>DECIMAL用于存储精确的小数，允许小说点两边最多65个数字。</p>
+<p>CPU不支持对DECIMAL的直接计算但是迟迟浮点计算，MySQL则自己实现了DECIMAL的计算，换句话说，浮点计算要比精确计算快。</p>
+<p>另外浮点类型在存储同样范围的值时，要比DECIMAL使用更少的空间。因为需要额外的空间和计算开销，应尽量避免使用精确的DECIMAL，除非不可避免。可以考虑使用int来代替DECIMAL，只需要扩大响应的倍数即可。</p>
+<h2 id="字符串类型"><a href="#字符串类型" class="headerlink" title="字符串类型"></a>字符串类型</h2><h3 id="varchar-和-char"><a href="#varchar-和-char" class="headerlink" title="varchar 和 char"></a>varchar 和 char</h3><h4 id="varchar"><a href="#varchar" class="headerlink" title="varchar"></a>varchar</h4><p>用于存储可变长度字符串，比长类型更节省空间，仅使用必要的空间。varchar需要使用1或者2个字节记录字符串的长度。<br>由于varchar是变长的，所以在update的时，存储引擎会有不同的处理方式。InnoDB需要分裂页来使行可以存放进页内。MyISAM将行拆成不同的片段存放。</p>
+<p><strong>当字符串长度不定：</strong><br>1、最大长度比平均长度大的多；<br>2、列更新少，碎片不是问题<br>3、存储utf-8等复杂字符集时<br>推荐使用varchar。</p>
+<h4 id="char"><a href="#char" class="headerlink" title="char"></a>char</h4><p>存储定长字符串，这里的定长不是说存储的内容一定长度，而是占用的存储空间定长。<br><u><strong>需要注意的是，char存储时会删除末尾的空格</strong></u>，而varchar则不会，可自行使用mysql(5.5+)测试。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">CREATE TABLE `yuntest` (</span><br><span class="line">  `id` int(11) NOT NULL AUTO_INCREMENT,</span><br><span class="line">  `str1` char(10) NOT NULL,</span><br><span class="line">  `str2` varchar(10) NOT NULL,</span><br><span class="line">  PRIMARY KEY (`id`)</span><br><span class="line">) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;</span><br><span class="line">insert into yuntest(str1, str2) VALUES (&quot; test&quot;, &quot; test&quot;), (&quot;test2 &quot;, &quot;test2 &quot;);</span><br><span class="line"></span><br><span class="line">select id, CONCAT(&quot;&apos;&quot;,str1, &quot;&apos;&quot;), CONCAT(&quot;&apos;&quot;, str2, &quot;&apos;&quot;) from yuntest;</span><br><span class="line">+----+-----------------------+------------------------+</span><br><span class="line">| id | CONCAT(&quot;&apos;&quot;,str1, &quot;&apos;&quot;) | CONCAT(&quot;&apos;&quot;, str2, &quot;&apos;&quot;) |</span><br><span class="line">+----+-----------------------+------------------------+</span><br><span class="line">|  1 | &apos; test&apos;               | &apos; test&apos;                |</span><br><span class="line">|  2 | &apos;test2&apos;               | &apos;test2 &apos;               |</span><br><span class="line">+----+-----------------------+------------------------+</span><br></pre></td></tr></table></figure></p>
+<p>对于很短的字符串，或者所有的值长度近似一样，使用char存储比较理想。<br>如果数据经常变动，由于char类型使用了固定长度的存储空间，不容易产生碎片，所以要比varchar性能更好。</p>
+<p><strong>想想一下下边的例子，那种存储更有效率？</strong><br>char(1) 和varchar(1)。  显然char(1)存储效率要高，因为varchar(1)实际存储是两个字节，多余的那个用来记录长度。</p>
+<h4 id="varchar和char的延伸问题"><a href="#varchar和char的延伸问题" class="headerlink" title="varchar和char的延伸问题"></a>varchar和char的延伸问题</h4><p>1、当我们知道字符串最长不会超过10时<br>使用varchar(10) 和 varchar(255)存储，哪个更好呢？<br>存储开销上，没有区别。但对于查询时，则更短的更好，MySQL实际会为varchar分配固定且最大的内存来保证存储下内容，这样一来，varchar(255)将会使用更大的内存来，如果在遇到操作很多临时表，更短的varchar则能表现出更好的性能。</p>
+<p>另外根据实际情况，在设计varchar长度时，在尽可能短的情况下可以适当的考虑一下扩展。如果有特殊值真的超过了设计的长度，如果适当的考虑了扩展，则业务不会受影响，反之可能需要改动的就比较大。</p>
+<p>2、存在varchar(2000)<br>表有2000万行，占用GB级存储空间，其中一列是varchar(2000)，且用的utf-8, 每个字符需要用3个字节存储空间，最坏的情况下用6000字节空间，如果在order by中用到了这个列，且扫描整表，则可能需要超过120GB的临时表，这是灾难性的。怎么判断是不是使用了临时表呢？<br>使用explain显示执行计划，其中的Extra列，如果包含 “Using temporary”，说明用到了临时表。</p>
+<h3 id="BLOB-和-TEXT"><a href="#BLOB-和-TEXT" class="headerlink" title="BLOB 和 TEXT"></a>BLOB 和 TEXT</h3><p>用于存储较大的数据，BLOB存储二进制数据，TEXT存储字符串。<br>分为 TINYBLOB、SMALLBLOB、BLOB、MEDIUMBLOB、LONGBLOB。<br>TINYTEXT(256 bytes)、SMALLTEXT、TEXT(64kb)、MEDIUMTEXT(~16MB)、LONGTEXT(~4GB)</p>
+<p>在InnoDB中，BLOB和TEXT一般会存在行外，即在行内存储目标数据的存储指针，真实数据在外部存储。</p>
+<p><strong>需要注意:</strong><br>    MySQL只对每个列的最前面的max_sort_length字节进行排序，不是整个都做排序。</p>
+<h3 id="枚举类型ENUM"><a href="#枚举类型ENUM" class="headerlink" title="枚举类型ENUM"></a>枚举类型ENUM</h3><p>当要存储的字符串选值固定时，建议存储成整型(TINYINT)，然后由应用维护对应关系，要知道MySQL在整型的存储和查询效率上是高于字符串类型的。</p>
+<p>也可以选用枚举来存储，MySQL中的枚举类型其实存的也是整数，由MySQL来维护“数字-字符串”映射关系，存在.frm文件中。</p>
+<p>依然推荐使用应用自己维护这个映射关系，因为这样更加的灵活，方便扩展，而且MySQL不用维护映射关系使得查询效率更高。</p>
+<p><strong>问题，如果存成了整数，那么想按照字符串排序怎么办？</strong><br>1、如果是固定的几个字符串，一般排序的需求不会太多<br>2、即便真的要排序，开发者提前在外部排好序，然后在对应整型数字不就解决了么？</p>
+<h3 id="DATETIME和TIMESTAMP类型"><a href="#DATETIME和TIMESTAMP类型" class="headerlink" title="DATETIME和TIMESTAMP类型"></a>DATETIME和TIMESTAMP类型</h3><ul>
+<li>DATETIME存储日期，精度为秒，从1001到9999</li>
+<li>TIMESTAMP存储从1970年1月1日(格林时间)午夜以来的秒数。和UNIX时间戳相同。注意其显示依赖时区。</li>
+</ul>
+<p><strong>TIMESTAMP要比DATETIME空间效率更高。</strong></p>
+<h2 id="一个思考题"><a href="#一个思考题" class="headerlink" title="一个思考题"></a>一个思考题</h2><p>当存储Ipv4的时候，使用varchar还是int？<br>如果考虑存储效率和查询效率，建议使用int，因为实际Ipv4就是个32位的无符号整型值，只是为了方便人们观看，用.分割。 那该怎么存和取呢？<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 存:</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">ip_to_int</span><span class="params">(ip)</span>:</span></span><br><span class="line">    <span class="string">"""</span></span><br><span class="line"><span class="string">    :type ip: str</span></span><br><span class="line"><span class="string">    :rtype: int</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line">    int_ = <span class="number">0</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> ip.split(<span class="string">'.'</span>):</span><br><span class="line">        int_ = int_ &lt;&lt; <span class="number">8</span> | int(i)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> int_</span><br><span class="line"></span><br><span class="line"><span class="comment"># 取:</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">int_to_ip</span><span class="params">(int_)</span>:</span></span><br><span class="line">    <span class="string">"""</span></span><br><span class="line"><span class="string">    :type int_: int</span></span><br><span class="line"><span class="string">    :rtype: str</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line">    ip = []</span><br><span class="line">    <span class="keyword">for</span> _ <span class="keyword">in</span> range(<span class="number">4</span>):</span><br><span class="line">        ip.append(str(int_ &amp; <span class="number">255</span>))</span><br><span class="line">        int_ &gt;&gt;= <span class="number">8</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="string">'.'</span>.join(ip[::<span class="number">-1</span>])</span><br></pre></td></tr></table></figure></p>
+<p>如果不考虑存储、查询，为了查看数据方便，其实存成varchar，也不是不行。</p>
 
       
     </div>
 
+    
+      
+
+
+    
+
+    
+    
+    
+
+    
+      <div>
+        <div>
+    <img class="wechat_subscriber" src="http://yunsonbai.top/images/wechat_qrcode.bmp" alt="yunsonbai wechat" style="width: 200px; max-width: 100%;">
+    <div class="wechat_subscriber">微信公众号</div>
+</div>
+
+      </div>
+    
+
+    
+
+    
+      <div>
+        
+      </div>
+    
+
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>Post author: </strong>yunsonbai</li>
+  <li class="post-copyright-link">
+    <strong>Post link:</strong>
+    <a href="https://yunsonbai.top/2020/09/24/mysql-datatype/" title="MySQL复习笔记-数据类型">https://yunsonbai.top/2020/09/24/mysql-datatype/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>Copyright Notice: </strong>All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 4.0</a> unless stating additionally.</li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/MySQL/" rel="tag"># MySQL</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/09/07/mysql-bfsw/" rel="next" title="MySQL之并发控制和事务">
+                <i class="fa fa-chevron-left"></i> MySQL之并发控制和事务
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </div>
   
   
   
+  </article>
 
-  
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
           
+
+  
+
+
         </div>
         
           
@@ -1070,6 +1258,10 @@
 
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.0.6"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.0.6"></script>
+
+
 
   
 
