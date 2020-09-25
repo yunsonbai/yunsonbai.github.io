@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://yunsonbai.top/2020/09/24/mysql-datatype/</loc>
+    
+    <lastmod>2020-09-25T01:10:54.976Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://yunsonbai.top/2020/09/07/mysql-bfsw/</loc>
     
     <lastmod>2020-09-08T08:59:05.558Z</lastmod>
@@ -226,14 +233,14 @@
   </url>
   
   <url>
-    <loc>https://yunsonbai.top/tags/index.html</loc>
+    <loc>https://yunsonbai.top/categories/index.html</loc>
     
     <lastmod>2018-01-05T06:17:55.880Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://yunsonbai.top/categories/index.html</loc>
+    <loc>https://yunsonbai.top/tags/index.html</loc>
     
     <lastmod>2018-01-05T06:17:55.880Z</lastmod>
     
@@ -268,14 +275,14 @@
   </url>
   
   <url>
-    <loc>https://yunsonbai.top/2016/06/13/python-diamond/</loc>
+    <loc>https://yunsonbai.top/2016/06/09/eth0-no-ipv4/</loc>
     
     <lastmod>2018-01-05T06:17:55.876Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://yunsonbai.top/2016/06/09/eth0-no-ipv4/</loc>
+    <loc>https://yunsonbai.top/2016/06/13/python-diamond/</loc>
     
     <lastmod>2018-01-05T06:17:55.876Z</lastmod>
     
@@ -317,14 +324,14 @@
   </url>
   
   <url>
-    <loc>https://yunsonbai.top/2016/05/23/pypi%E5%BA%93/</loc>
+    <loc>https://yunsonbai.top/2016/05/20/redis-incr/</loc>
     
     <lastmod>2018-01-05T06:17:55.872Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://yunsonbai.top/2016/05/20/redis-incr/</loc>
+    <loc>https://yunsonbai.top/2016/05/23/pypi%E5%BA%93/</loc>
     
     <lastmod>2018-01-05T06:17:55.872Z</lastmod>
     
