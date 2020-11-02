@@ -4,6 +4,44 @@
   
     
     <entry>
+      <title><![CDATA[MySQL复习笔记-索引类型]]></title>
+      <url>https://yunsonbai.top/2020/11/02/mysql-indextype/</url>
+      <content type="html"><![CDATA[<h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><p>原文链接：<a href="http://yunsonbai.top/2020/11/02/mysql-indextype/">http://yunsonbai.top/2020/11/02/mysql-indextype/</a><br>最近在复习MySQL的一些知识，结合自己的实践，记录了一些知识点，本文整理了一下索引类型，并写了一些是使用心得。</p>
+<a id="more"></a>
+<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>索引包括：B-Tree索引、哈希索引、全文索引，本文着重记录了一下B-Tree索引和哈希索引读书和使用心得。</p>
+<p>首先明确的一点是MySQL的索引是在存储引擎层实现的</p>
+<p>没有特殊说明，谈论索引，多半说的是B-Tree，对于InnoDB来说每个叶子节点的逻辑页大小为16K。另外B-Tree对索引列是顺序组织存储，非常适合做范围查找。索引对多个值进行排序的依据是create table 语句中定义索引时列的顺序。</p>
+<p>联合索引需注意：按照匹配最左原则<br>比如这样创建索引key(a, b, c)<br>使用a,b,c、ab、a时是都可以用到索引的，使用b,c、b、c、则都不行，因为没有这bc两列都不是最左数据列<br>不能跳过中间索引，例如a,c则只能使用部分索引，也就是只能使用a这个索引。<br>如果查询中某个列使用了范围查询，那该列右边的列都将无法使用索引，例如 where a=xx and b &gt; xx and c=xx，这个c则不能使用索引，也就是说在使用范围查询时要思考一下利弊。</p>
+<h3 id="B-Tree索引"><a href="#B-Tree索引" class="headerlink" title="B-Tree索引"></a>B-Tree索引</h3><p>一般说索引的时候都是在聊这种索引，InnoDB使用的是B+Tree，是对B-Tree的升级。树的层数有限，从根节点一直延伸到叶子节点，子节点只存索引值，而叶子节点则记录指向数据本身的指针，这样就好比书的目录，查询起来，根据索引值，快速定位到要查内容的页码(真实数据地址)，然后在取出内容即可，当然有些时候不需要去原表取数据，比如 “覆盖索引”的概念</p>
+<p>关于B+Tree，网上有不少好的图例，可以看看这个 <a href="https://www.jianshu.com/p/ac12d2c83708" target="_blank" rel="noopener">BTree和B+Tree</a></p>
+<h3 id="哈希索引"><a href="#哈希索引" class="headerlink" title="哈希索引"></a>哈希索引</h3><p>说实话我没有直接用过这种索引类型，从书上的描述来讲，只有精确匹配索引所有列的查询才有效，存储引擎会对所有列计算一个哈希码，将哈希码存储在索引中，同时在表中保存指向每个数据行的指针。</p>
+<p>MySQL中memory引擎显式的支持这个索引类型，但笔者用的更多的是使用类似于哈希索引的方式。InnoDB引擎有个特殊的功能：自适应哈希索引。当InnoDB注意到某些索引值被使用的非常频繁时，会在内存中基于B-Tree索引之上在创建一个哈希索引，这样能实现更快速度的查询，这是个完全内部行为，使用者无法感知。</p>
+<p>在一般使用InnoDB的方式中，我们可以对某一列(可以是对url或者其他比较长的内容)或者所有列计算一个哈希值，这里的哈希值尽量是int类型的哈希值，例如crc32，它算出来的值较小，基于它的查找会非常的迅速，但是需要程序多维护这个字段。需要注意的是crc32会有一定的冲突概率，需要使用这样的查询语句(比如对url做crc32):<br>    select * from test where url_crc32 = 12234 and url=’xxxxx’<br>有的人可能会问了</p>
+<ul>
+<li>既然有冲突，那你这语句照样有可能使得需要过滤的条数很多，效率会高么</li>
+<li>能不能直接找个不冲突的</li>
+</ul>
+<p>第一个问题，据crc32的测试报告中，约1820万条数据中会有38638个数据冲突，这里并不是说38638个完全一样的，而是这些数据存在冲突，也就是说，上边的查询语句中会过滤掉几乎全部的数据，然后剩下可怜的1条或几条数据，做一下url比对，这个效率还是相当可观的，而且你还得经常能“庆幸”的遇到冲突数据，对于绝大部分的查询语句是很难遇到冲突语句的。</p>
+<p>第二个问题，倒是可以找到一个补充的算法，计算哈希值，但是会得不偿失，2000万数据量32位的哈希值和64位的哈希值，存储空间会差一大截，更重要的是，由于数值变大除了耗内存外，还会损失查询性能。当然非常有必要使用不冲突的哈希值，也是可以的。这就是一种权衡，根据实际需要来敲定到底用哪个。</p>
+<p>举几个例子，<br>如果业务数据不会超过10000条，你甚至业务初期都不用考虑哈希数据列；<br>如果不会超过1000万条，那crc32将是你的不错的选择；<br>如果没有必要非要完全不冲突(比如爬虫系统中，判定某个url是否爬过等)，个人经验3000万条以下使用crc32没有任何问题，当然还需要取决于你的表结构，如果表结构过于复杂几十个字段，这个结论还有待商榷；<br>如果一定要不能冲突，那只能选择更好的哈希算法了。</p>
+]]></content>
+      
+        <categories>
+            
+            <category> MySQL </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> MySQL </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[MySQL复习笔记-数据类型]]></title>
       <url>https://yunsonbai.top/2020/09/24/mysql-datatype/</url>
       <content type="html"><![CDATA[<h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><p>原文链接：<a href="http://yunsonbai.top/2020/09/07/mysql-datatype/">http://yunsonbai.top/2020/09/07/mysql-datatype/</a><br>最近在复习MySQL的一些知识，结合自己的实践，记录了一些知识点，本文记录了整数类型、实数类型、varchar、char、BLOB、TEXT、枚举类型、DATETIME、TIMESTAMP等，并记录了一些包括存储效率、查询效率、使用注意事项等等一些问题和实例，欢迎大家阅读和指正。</p>
@@ -819,11 +857,11 @@
         
         <tags>
             
+            <tag> 诗集 </tag>
+            
             <tag> 远方求学 </tag>
             
             <tag> 夜思 </tag>
-            
-            <tag> 诗集 </tag>
             
         </tags>
         
@@ -864,8 +902,6 @@
         
         <tags>
             
-            <tag> 诗集 </tag>
-            
             <tag> 同学离别 </tag>
             
             <tag> 毕业小聚 </tag>
@@ -873,6 +909,8 @@
             <tag> 北京聚会 </tag>
             
             <tag> 离别 </tag>
+            
+            <tag> 诗集 </tag>
             
         </tags>
         
@@ -1970,31 +2008,24 @@
     </entry>
     
     <entry>
-      <title><![CDATA[nginx实现https]]></title>
-      <url>https://yunsonbai.top/2016/06/09/nginx-https%E9%85%8D%E7%BD%AE/</url>
-      <content type="html"><![CDATA[<h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nginx是一个高性能的HTTP和反向代理服务器，也是一个IMAP/POP3/SMTP服务器，下边说一下nginx关于https的配置</span><br></pre></td></tr></table></figure>
+      <title><![CDATA[当eth0没有ipv4地址的解决办法]]></title>
+      <url>https://yunsonbai.top/2016/06/09/eth0-no-ipv4/</url>
+      <content type="html"><![CDATA[<h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">有时候我们在Linux使用ifconfig后发现没有ipv4地址，下边说一下解决办法</span><br></pre></td></tr></table></figure>
 <a id="more"></a>
-<h2 id="使用ssl生成证书"><a href="#使用ssl生成证书" class="headerlink" title="使用ssl生成证书"></a>使用ssl生成证书</h2><h3 id="生成命令"><a href="#生成命令" class="headerlink" title="生成命令"></a>生成命令</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout </span></span><br><span class="line">   /etc/nginx/ssl/nginx.key -out /etc/nginx/ssl/nginx.crt</span><br></pre></td></tr></table></figure>
-<h3 id="输入完命令后的提示"><a href="#输入完命令后的提示" class="headerlink" title="输入完命令后的提示"></a>输入完命令后的提示</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">提示如下，一步一步完成即可（也可以使用默认，也可随意）：</span><br><span class="line">Country Name (2 letter code) [AU]:China</span><br><span class="line">   State or Province Name (full name) [Some-State]: Beijing</span><br><span class="line">   Locality Name (eg, city) []:Beijing</span><br><span class="line">   Organization Name (eg, company) [Internet Widgits Pty Ltd]:Bouncy Castles, Inc.</span><br><span class="line">   Organizational Unit Name (eg, section) []:Ministry of Water Slides</span><br><span class="line">   Common Name (e.g. server FQDN or YOUR name) []:your_domain.com</span><br><span class="line">   Email Address []:admin@your_domain.com</span><br></pre></td></tr></table></figure>
-<h2 id="配置nginx"><a href="#配置nginx" class="headerlink" title="配置nginx"></a>配置nginx</h2><h3 id="打开-conf文件"><a href="#打开-conf文件" class="headerlink" title="打开.conf文件"></a>打开.conf文件</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> /etc/nginx、nginx.conf文件</span><br><span class="line">   vim nginx.conf</span><br></pre></td></tr></table></figure>
-<h3 id="添加如下配置"><a href="#添加如下配置" class="headerlink" title="添加如下配置"></a>添加如下配置</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">server&#123;</span><br><span class="line">     listen 80;</span><br><span class="line">     server_name www.xxx.xxx;</span><br><span class="line">&#125;</span><br><span class="line">server&#123;</span><br><span class="line">	listen 443 ssl;</span><br><span class="line">    ssl_certificate /etc/nginx/ssl/nginx.crt;</span><br><span class="line">    ssl_certificate_key /etc/nginx/ssl/nginx.key;</span><br><span class="line">    location /static/ &#123;</span><br><span class="line">    	<span class="built_in">alias</span>   /<span class="built_in">test</span>/static/;</span><br><span class="line">        expires 24h;</span><br><span class="line">    &#125; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h2><h3 id="启动nginx"><a href="#启动nginx" class="headerlink" title="启动nginx"></a>启动nginx</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nginx -c /etc/nginx/nginx.conf</span><br></pre></td></tr></table></figure>
-<h3 id="创建静态页"><a href="#创建静态页" class="headerlink" title="创建静态页"></a>创建静态页</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cd /test/static</span><br><span class="line">touch test.html</span><br><span class="line">echo &apos;test https&apos; &gt; test.html</span><br></pre></td></tr></table></figure>
-<h3 id="访问"><a href="#访问" class="headerlink" title="访问"></a>访问</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">在浏览器中访问https:127..0.1/static/test.html</span><br></pre></td></tr></table></figure>
-<h2 id="补充"><a href="#补充" class="headerlink" title="补充"></a>补充</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">最近发现了一个很奇怪的问题，就是使用python在访问https下的链接的时候一切正常</span><br><span class="line">然而在ios9下访问就会时不时的出现1004问题（访问不到）,最后的解决办法是使用最</span><br><span class="line">新的nginx解决</span><br></pre></td></tr></table></figure>
-<p><a href="http://www.yunsonbai.top/2016/06/09/nginx%E5%B8%B8%E7%94%A8%E9%85%8D%E7%BD%AE/" target="_blank" rel="noopener">nginx常用配置</a></p>
-]]></content>
+<h2 id="打开ubuntu的-etc-network-interfaces"><a href="#打开ubuntu的-etc-network-interfaces" class="headerlink" title="打开ubuntu的/etc/network/interfaces"></a>打开ubuntu的/etc/network/interfaces</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">删除已经有的，后根据喜好选择添加如下</span><br><span class="line">自动：</span><br><span class="line">         auto eth0</span><br><span class="line">         iface eth0 inet dhcp</span><br><span class="line">    静态分配的配置方法：</span><br><span class="line">         auto eth0</span><br><span class="line">         iface eth0 inet static</span><br><span class="line">         address 192.168.205.139</span><br><span class="line">         netmask  255.255.255.0</span><br><span class="line">         gateway  192.168.205.1</span><br></pre></td></tr></table></figure>
+<h2 id="添加域名服务器"><a href="#添加域名服务器" class="headerlink" title="添加域名服务器"></a>添加域名服务器</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">打开/etc/resolv.conf文件</span><br><span class="line">   添加这行:nameserver 127.0.0.1</span><br></pre></td></tr></table></figure>
+<h2 id="重启eth0"><a href="#重启eth0" class="headerlink" title="重启eth0"></a>重启eth0</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$/etc/init.d/networking restart(这条命令是重启网卡)</span><br><span class="line"> 或者</span><br><span class="line"><span class="variable">$ifdown</span> eth0</span><br><span class="line"><span class="variable">$ifup</span>   eth0（这两条命令是有针对性的重启某个网络接口，因为一个系统可能有多个网络接口）</span><br></pre></td></tr></table></figure>]]></content>
       
         <categories>
             
-            <category> nginx </category>
+            <category> Linux </category>
             
         </categories>
         
         
         <tags>
             
-            <tag> nginx - https - nginx实现https - ssl - ios访问https的1004问题补充 </tag>
+            <tag> Linux - eth0没有ipv4地址 - ipv4地址 - 配置eth0 - ifconfig </tag>
             
         </tags>
         
@@ -2036,24 +2067,31 @@
     </entry>
     
     <entry>
-      <title><![CDATA[当eth0没有ipv4地址的解决办法]]></title>
-      <url>https://yunsonbai.top/2016/06/09/eth0-no-ipv4/</url>
-      <content type="html"><![CDATA[<h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">有时候我们在Linux使用ifconfig后发现没有ipv4地址，下边说一下解决办法</span><br></pre></td></tr></table></figure>
+      <title><![CDATA[nginx实现https]]></title>
+      <url>https://yunsonbai.top/2016/06/09/nginx-https%E9%85%8D%E7%BD%AE/</url>
+      <content type="html"><![CDATA[<h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nginx是一个高性能的HTTP和反向代理服务器，也是一个IMAP/POP3/SMTP服务器，下边说一下nginx关于https的配置</span><br></pre></td></tr></table></figure>
 <a id="more"></a>
-<h2 id="打开ubuntu的-etc-network-interfaces"><a href="#打开ubuntu的-etc-network-interfaces" class="headerlink" title="打开ubuntu的/etc/network/interfaces"></a>打开ubuntu的/etc/network/interfaces</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">删除已经有的，后根据喜好选择添加如下</span><br><span class="line">自动：</span><br><span class="line">         auto eth0</span><br><span class="line">         iface eth0 inet dhcp</span><br><span class="line">    静态分配的配置方法：</span><br><span class="line">         auto eth0</span><br><span class="line">         iface eth0 inet static</span><br><span class="line">         address 192.168.205.139</span><br><span class="line">         netmask  255.255.255.0</span><br><span class="line">         gateway  192.168.205.1</span><br></pre></td></tr></table></figure>
-<h2 id="添加域名服务器"><a href="#添加域名服务器" class="headerlink" title="添加域名服务器"></a>添加域名服务器</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">打开/etc/resolv.conf文件</span><br><span class="line">   添加这行:nameserver 127.0.0.1</span><br></pre></td></tr></table></figure>
-<h2 id="重启eth0"><a href="#重启eth0" class="headerlink" title="重启eth0"></a>重启eth0</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$/etc/init.d/networking restart(这条命令是重启网卡)</span><br><span class="line"> 或者</span><br><span class="line"><span class="variable">$ifdown</span> eth0</span><br><span class="line"><span class="variable">$ifup</span>   eth0（这两条命令是有针对性的重启某个网络接口，因为一个系统可能有多个网络接口）</span><br></pre></td></tr></table></figure>]]></content>
+<h2 id="使用ssl生成证书"><a href="#使用ssl生成证书" class="headerlink" title="使用ssl生成证书"></a>使用ssl生成证书</h2><h3 id="生成命令"><a href="#生成命令" class="headerlink" title="生成命令"></a>生成命令</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout </span></span><br><span class="line">   /etc/nginx/ssl/nginx.key -out /etc/nginx/ssl/nginx.crt</span><br></pre></td></tr></table></figure>
+<h3 id="输入完命令后的提示"><a href="#输入完命令后的提示" class="headerlink" title="输入完命令后的提示"></a>输入完命令后的提示</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">提示如下，一步一步完成即可（也可以使用默认，也可随意）：</span><br><span class="line">Country Name (2 letter code) [AU]:China</span><br><span class="line">   State or Province Name (full name) [Some-State]: Beijing</span><br><span class="line">   Locality Name (eg, city) []:Beijing</span><br><span class="line">   Organization Name (eg, company) [Internet Widgits Pty Ltd]:Bouncy Castles, Inc.</span><br><span class="line">   Organizational Unit Name (eg, section) []:Ministry of Water Slides</span><br><span class="line">   Common Name (e.g. server FQDN or YOUR name) []:your_domain.com</span><br><span class="line">   Email Address []:admin@your_domain.com</span><br></pre></td></tr></table></figure>
+<h2 id="配置nginx"><a href="#配置nginx" class="headerlink" title="配置nginx"></a>配置nginx</h2><h3 id="打开-conf文件"><a href="#打开-conf文件" class="headerlink" title="打开.conf文件"></a>打开.conf文件</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> /etc/nginx、nginx.conf文件</span><br><span class="line">   vim nginx.conf</span><br></pre></td></tr></table></figure>
+<h3 id="添加如下配置"><a href="#添加如下配置" class="headerlink" title="添加如下配置"></a>添加如下配置</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">server&#123;</span><br><span class="line">     listen 80;</span><br><span class="line">     server_name www.xxx.xxx;</span><br><span class="line">&#125;</span><br><span class="line">server&#123;</span><br><span class="line">	listen 443 ssl;</span><br><span class="line">    ssl_certificate /etc/nginx/ssl/nginx.crt;</span><br><span class="line">    ssl_certificate_key /etc/nginx/ssl/nginx.key;</span><br><span class="line">    location /static/ &#123;</span><br><span class="line">    	<span class="built_in">alias</span>   /<span class="built_in">test</span>/static/;</span><br><span class="line">        expires 24h;</span><br><span class="line">    &#125; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h2><h3 id="启动nginx"><a href="#启动nginx" class="headerlink" title="启动nginx"></a>启动nginx</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nginx -c /etc/nginx/nginx.conf</span><br></pre></td></tr></table></figure>
+<h3 id="创建静态页"><a href="#创建静态页" class="headerlink" title="创建静态页"></a>创建静态页</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cd /test/static</span><br><span class="line">touch test.html</span><br><span class="line">echo &apos;test https&apos; &gt; test.html</span><br></pre></td></tr></table></figure>
+<h3 id="访问"><a href="#访问" class="headerlink" title="访问"></a>访问</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">在浏览器中访问https:127..0.1/static/test.html</span><br></pre></td></tr></table></figure>
+<h2 id="补充"><a href="#补充" class="headerlink" title="补充"></a>补充</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">最近发现了一个很奇怪的问题，就是使用python在访问https下的链接的时候一切正常</span><br><span class="line">然而在ios9下访问就会时不时的出现1004问题（访问不到）,最后的解决办法是使用最</span><br><span class="line">新的nginx解决</span><br></pre></td></tr></table></figure>
+<p><a href="http://www.yunsonbai.top/2016/06/09/nginx%E5%B8%B8%E7%94%A8%E9%85%8D%E7%BD%AE/" target="_blank" rel="noopener">nginx常用配置</a></p>
+]]></content>
       
         <categories>
             
-            <category> Linux </category>
+            <category> nginx </category>
             
         </categories>
         
         
         <tags>
             
-            <tag> Linux - eth0没有ipv4地址 - ipv4地址 - 配置eth0 - ifconfig </tag>
+            <tag> nginx - https - nginx实现https - ssl - ios访问https的1004问题补充 </tag>
             
         </tags>
         
