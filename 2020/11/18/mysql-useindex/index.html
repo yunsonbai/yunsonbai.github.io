@@ -98,23 +98,25 @@
 
 
 <script data-ad-client="ca-pub-1143013968169801" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-  <meta name="description" content="just do it!">
-<meta property="og:type" content="website">
-<meta property="og:title" content="雲Son">
-<meta property="og:url" content="https://yunsonbai.top/tags/日常运营工具包/index.html">
+  <meta name="description" content="引言原文链接：http://yunsonbai.top/2020/11/18/mysql-useindex/本文主要记录了高效使用索引的内容，有不足的还望大牛指正。">
+<meta name="keywords" content="MySQL,explain,索引,聚簇索引,覆盖索引">
+<meta property="og:type" content="article">
+<meta property="og:title" content="MySQL复习笔记-高效使用索引">
+<meta property="og:url" content="https://yunsonbai.top/2020/11/18/mysql-useindex/index.html">
 <meta property="og:site_name" content="雲Son">
-<meta property="og:description" content="just do it!">
+<meta property="og:description" content="引言原文链接：http://yunsonbai.top/2020/11/18/mysql-useindex/本文主要记录了高效使用索引的内容，有不足的还望大牛指正。">
 <meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2020-11-19T08:50:55.595Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="雲Son">
-<meta name="twitter:description" content="just do it!">
+<meta name="twitter:title" content="MySQL复习笔记-高效使用索引">
+<meta name="twitter:description" content="引言原文链接：http://yunsonbai.top/2020/11/18/mysql-useindex/本文主要记录了高效使用索引的内容，有不足的还望大牛指正。">
 
 
 
 
 
 
-  <link rel="canonical" href="https://yunsonbai.top/tags/日常运营工具包/">
+  <link rel="canonical" href="https://yunsonbai.top/2020/11/18/mysql-useindex/">
 
 
 
@@ -124,7 +126,7 @@
   };
 </script>
 
-  <title>Tag: 日常运营工具包 | 雲Son</title>
+  <title>MySQL复习笔记-高效使用索引 | 雲Son</title>
   
 
 
@@ -202,7 +204,7 @@
     
   
 
-  <div class="container sidebar-position-left ">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
 
@@ -371,76 +373,331 @@
           
             
 
-    
-    
-      
-      
-    
-      
-      
-    
-      
-      
-    
-    
-
-  
-
-
           
           <div id="content" class="content">
             
 
-  
-  
-  
-  <div class="post-block tag">
+  <div id="posts" class="posts-expand">
+    
 
-    <div id="posts" class="posts-collapse">
-      <div class="collection-title">
-        <h1>日常运营工具包<small>Tag</small>
-        </h1>
-      </div>
+  
 
-      
-        
+  
+  
+  
+
+  
 
   <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://yunsonbai.top/2020/11/18/mysql-useindex/">
 
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2016/09/29/yuntool/" itemprop="url">
-              
-                <span itemprop="name">yuntool</span>
-              
-            </a>
-        
-      </h2>
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="yunsonbai">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="https://yunsonbai.github.io/images/system/logo_v3.png" ">
+    </span>
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2016-09-29T17:41:16+08:00" content="2016-09-29">
-          09-29
-        </time>
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="雲Son">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">MySQL复习笔记-高效使用索引</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-11-18T18:00:00+08:00">2020-11-18</time>
+            
+
+            
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/MySQL/" itemprop="url" rel="index"><span itemprop="name">MySQL</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    
+      <div>
+        
+     
+     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+     <ins class="adsbygoogle" style="display:block; text-align:center;" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-1143013968169801" data-ad-slot="5248520076"></ins>
+     <script>
+          (adsbygoogle = window.adsbygoogle || []).push({});
+     </script>
+
       </div>
+    
 
-    </header>
-  </article>
+    <div class="post-body" itemprop="articleBody">
 
+      
+      
+
+      
+        <h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><p>原文链接：<a href="http://yunsonbai.top/2020/11/18/mysql-useindex/">http://yunsonbai.top/2020/11/18/mysql-useindex/</a><br>本文主要记录了高效使用索引的内容，有不足的还望大牛指正。</p>
+<a id="more"></a>
+<h2 id="索引列不能是表达式"><a href="#索引列不能是表达式" class="headerlink" title="索引列不能是表达式"></a>索引列不能是表达式</h2><p>其实这个在大学那会老师就讲过，可能没有遇到大数据量之前没有深刻的体会。下边例子中status是索引列:<br>select … where status=5    会用到索引<br>select … where status+1=6  全表扫描</p>
+<p>人能看明白status+1=6 等价于 status=5 但是MySQL无法解析，只能去原表一个一个的取一个一个的计算。<br>当然表达式还有类似于 func(status) = 5这种操作也是不行</p>
+<p>一句话，想要用索引，就别给索引列加表达式，除非哪天MySQL能解析了。</p>
+<h2 id="提高索引的选择性"><a href="#提高索引的选择性" class="headerlink" title="提高索引的选择性"></a>提高索引的选择性</h2><p>选择性: 差异数/总数。</p>
+<ul>
+<li><p>例子一：<br>  比如你生成了20个uuid1值，那么差异数就是20，总数也是20，选择性为1，最好的选择性。MySQL中用没有选择性为1的索引呢，有，比如唯一索引。</p>
+<p>  可以看到选择性的范围为 0&lt;选择性&lt;=1</p>
+</li>
+<li><p>例子二：<br>在某个表中使用status字段做索引，而业务规定，status的取值只能为 0 或者 1，那这个表的选择性为 2 / 总条数，因为你只可能出来0或者1，差异数为2。<br>此时随着数据的增长，选择性越来越差。</p>
+</li>
+</ul>
+<p>应该很容易理解，表一定的情况下，使用选择性约高的索引列做查询，绝大情况下MySQL的查询效率就越高。<br>比如用了唯一索引，一下定位只有一条，根本不用一个一个的去过滤。<br>如果使用了例子二中的索引列，如果你需要获取特定行，你肯定需要添加附加过滤条件，例如 select … where status=1 and xxx=xx。但是MySQL需要过滤一半的数据给你找出想要的数据。</p>
+<p>接着讨论，为什么是绝大情况查询效率高不是一定呢？还是例子二，比如status确实只有0或者1两种情况，但是这表如果当做任务表，这个就需要实际情况实际分析了，status为0是待执行任务，为1是执行完毕的任务，那如果90%以上的数据，都是执行完的任务，而你要查询的是当前待执行的任务，那使用status当索引列进行查询，那效率也是相当的高的。</p>
+<p><strong>在使用text等类型是要注意</strong><br>如果有个字段使用的是text类型，理论上如果把整个字段当做索引，那选择性肯定是很高，但是MySQL不允许索引这种类型的完整列，即便允许，那代价也是相当高，不见得能提升查询效率，试想一下，如果我们的书本，把每节内容当做目录，那这个目录还会有意义么？</p>
+<p>解决之道，可以考虑使用前缀索引或者前边提到的类似crc32的策略。</p>
+<p>前缀索引就是说，使用原列的前边部分长度的内容当做索引，比如我们有个字段content，类型为text，我们可以考虑使用content[0:5]当做索引，这里5不是定数，根据情况，如果前五个字符就能使得选择性较高，那就可以使用。当然前缀不行我们还可以考虑后缀。</p>
+<p>我之前是使用crc32解决的，但是在某个业务场景不能满足，有一次让我查询出二级域名为test.com的数据总数，这个crc32基本就不能用了，当然一条条过滤也能查出来，后来想想为了提高查询效率，把二级域名取出来，单独作为索引列。</p>
+<h2 id="使用explain验证"><a href="#使用explain验证" class="headerlink" title="使用explain验证"></a>使用explain验证</h2><p>explain是个非常好用的工具，可以方便的验证你接下来要执行的查询语句的特性</p>
+<ul>
+<li><p>例子一:<br>explain select * from news where id=100 \G<br>id: 1<br>select_type: SIMPLE</p>
+<pre><code>table: news
+ type: const
+</code></pre><p>possible_keys: PRIMARY</p>
+<pre><code>    key: PRIMARY
+key_len: 4
+    ref: const
+   rows: 1
+  Extra:
+</code></pre><p>使用了主键索引，常数级(const)操作</p>
+</li>
+<li><p>例子二:<br>explain select * from news where title=’xxx’ \G<br>  id: 1<br>select_type: SIMPLE</p>
+<pre><code>table: news
+ type: ALL
+</code></pre><p>possible_keys: NULL</p>
+<pre><code>   key: NULL
+key_len: NULL
+   ref: NULL
+  rows: 124
+ Extra: Using where
+</code></pre><p>没有使用索引，全表扫描，这个要看看自己的查询语句是否有问题了</p>
+</li>
+<li><p>例子三:<br>explain select * from news where id=100 or create_time=’2020-11-05’ \G<br>id: 1<br>select_type: SIMPLE</p>
+<pre><code>table: news
+ type: index_merge
+</code></pre><p>possible_keys: PRIMARY,idx_create_time</p>
+<pre><code>    key: PRIMARY,idx_create_time
+key_len: 4,8
+    ref: NULL
+   rows: 2
+  Extra: Using union(PRIMARY,idx_create_time); Using where
+</code></pre><p>这个Extra显示出MySQL做了索引合并，如果对多个索引使用or操作，需要耗费大量的cpu和内存资源在算法的缓存、排序和合并上，如果数据量巨大。一旦遇到这种情况要查看一下查询语句如何避免or操作，或者看看表结构是不是设计上存在问题。</p>
+</li>
+</ul>
+<p>其他关于explain的命令例子不在列举，网上可自行查看，很多资料和字段的解释。</p>
+<h2 id="合理安排查询语句列顺序"><a href="#合理安排查询语句列顺序" class="headerlink" title="合理安排查询语句列顺序"></a>合理安排查询语句列顺序</h2><p>一般情况需要把选择性高的列放到最前列，当然也不一定选择性高的列放前边就一定能提高性能，这个还要看具体列的值。</p>
+<p>举个例子吧， 比如有个表有500万条数据，其实status是一个索引，可能值有0，1，2，3四个值，另外一个字段是active，可能值为1-10000，从选择性来看，显然active的选择性优于status，从一般规律来讲，我们需要报active放在最前边，也就是说会按下边的语句写：<br>select * from table1 where active=xx and status=xx。 问题来了。</p>
+<p>情况一：绝大部分status都是3，只有十几条是0。上边的语句还对于status=0的情况就不是最优，显然把status放在前边，直接过滤出十几条后在过滤active，效率更高。</p>
+<p>情况二：延续情况一，如果是status=3.那显然，上边的语句就非常合适。</p>
+<p>在选择怎么是有索引或者怎么建立索引的时候还是要考虑当前的应用场景，来实现最优的查询效果。从经验角度讲，一般情况居多，把选择性高的索引放在最前边一般可以得到不错的查询效率。</p>
+<h2 id="理解聚簇索引和非聚簇索引"><a href="#理解聚簇索引和非聚簇索引" class="headerlink" title="理解聚簇索引和非聚簇索引"></a>理解聚簇索引和非聚簇索引</h2><h3 id="聚簇索引"><a href="#聚簇索引" class="headerlink" title="聚簇索引"></a>聚簇索引</h3><p>聚簇索引不是索引类型，是一种数据存储方式。以InnoDB为例。聚集是把相邻的数据和键值紧凑的存储。<br>InnoDB会在B-Tree树上的节点中存索引，而在叶子中存储所有的行数据，节点中的索引用的是主键。InnoDB值聚集在同一页面中的记录。</p>
+<p>聚集的数据的优点</p>
+<ul>
+<li>相关数据存放在一起。尤其在获取相邻id的数据时，能减少磁盘io，只需读取少数数据页即可</li>
+<li>数据访问快。索引和数据在同一个B-Tree树中，不用读取数据行</li>
+<li>最大限度的提高了io密集型应用的性能</li>
+<li>行号发生改变，只要主键值不变，二级索引不用维护。(得益于二级索引的索引结构)</li>
+</ul>
+<p>缺点</p>
+<ul>
+<li>插入速度严重依赖插入的值。按照自增主键或者自增整形作为聚簇索引插入是最快的。</li>
+<li>更新代价增加，如果更新聚簇索引列，有可能使服务器付出很大的代价，比如有上千万条数据，我们把中间某条充当聚簇索引的列改了，会导致行移动。还可能会导致页分裂。</li>
+<li>二级索引访问需要两次索引，而不是一次。（二级索引，叶子节点存储的是主键值，存储引擎使用二级索引时，先找到叶子节点的主键值，再根据主键值去聚集索引中查对应的行）</li>
+</ul>
+<p>插入数据时需要注意:</p>
+<ul>
+<li>尽量使用自增主键列作为聚簇索引的节点值</li>
+<li>不要使用散列值作为聚簇索引节点值，这样基本失去了聚集性，对于io密集型应用，不是个好选择。</li>
+</ul>
+<p>为什么尽量不要使用散列作为聚簇索引的节点值？</p>
+<ul>
+<li>型数据:<br>  对于自增型int类型作为节点值的话，InnoDB在存储数据时，直接把新数据放在页的最后边，当达到最大填充因子时，也就是达到页的15/16，会把新的记录记到新的页，这样一来页基本都被顺序的数据填满。</li>
+<li>散列数据<br>  因为新插入的数据的主键不一定比之前的数据大，不能直接放在索引的最后，需要找到合适的位置，然后分配空间，导致InnoDB不得不频繁的做页分裂，大量数据被移动，最终还会导致碎片。严重影响插入效率。</li>
+</ul>
+<h3 id="非聚簇索引"><a href="#非聚簇索引" class="headerlink" title="非聚簇索引"></a>非聚簇索引</h3><p>非聚簇索引，当然也是一种数据存储方式，以MyISAM为例，对于非聚簇索引，在B-Tree树中，节点存储索引值，叶子节点存储行号，也就说说，还需要读取数据行获取数据。<br>非聚簇索引存储方式，主键和二级索引无差别，都是节点存储索引值，叶子存储行号</p>
+<p>缺点:</p>
+<ul>
+<li>一旦行号改变，所有非聚簇索引数据都要重新建立。</li>
+<li>需要额外的读取数据行。</li>
+</ul>
+<h2 id="理解覆盖索引"><a href="#理解覆盖索引" class="headerlink" title="理解覆盖索引"></a>理解覆盖索引</h2><p>索引包含需要查询的字段的值，称为覆盖索引。<br>充分利用覆盖索引的优点:</p>
+<ul>
+<li>减少数据访问量，数据就在索引上。</li>
+<li>如果能充分利用覆盖索引，可以极大提高io密集型应用的性能，因为索引小可以加载到内存。</li>
+<li>顺序存储，有利于范围查询，极少i/o</li>
+</ul>
+<p>到底该怎么用？如果一个表中存在索引 user_id，那么select user_id from tablename limit 10  这个语句就是用了覆盖索引。</p>
+<p>怎么确定是否使用了覆盖索引，如果查询语句是用了覆盖索引，当使用explain时，Extra列可以看到Using index</p>
+<h2 id="冗余索引"><a href="#冗余索引" class="headerlink" title="冗余索引"></a>冗余索引</h2><p>新建索引时，比如已有索引keyA_B(a, b) 这时候如果在单独创建keyA(a)，这就造成了索引冗余，因为keyA_B的最左前缀索引已经包含了key_A，在创建key_A就是一种冗余。但是如果创建key(b, a)就不算冗余索引。</p>
+<p>冗余索引会带来的问题：很显然你创建的索引越多，对于增、改、删都会带来额外的开销，因为这些操作都可能引起索引的变化，不得不去维护。</p>
+<h2 id="小技巧"><a href="#小技巧" class="headerlink" title="小技巧"></a>小技巧</h2><ul>
+<li>避免使用多个范围条件。在进行范围查询时，范围字段的后续字段将无法使用索引，例如 where age &gt; xx and status &gt; xx。 这时候status将无法使用索引，如果status的值只有 0 1 2 3四种结果，可以换成 where status in (2,3) and age &gt; xx。 这样MySQL可以同时使用 status和age两个索引（in操作实际是等值操作）</li>
+<li>范围条件放在where语句最后，由于前边提到的原因，如果使用 where age&gt;xx and status=2 and type=2 后边的status和type都将无法使用索引，所以要换成 where status=2 and type=2 and age&gt;xx</li>
+<li>谨慎使用limit。对于limit 0 10，不管怎么样，都会很快返回，但是对于 limit 1000000, 10 则会慢的出奇，因为偏移量很大，MySQL需要过滤大量的数据来去掉不用的数据。解决办法之一是延迟关联，先使用覆盖索引查出来主键，在用主键去查。看下边的例子，其中sub_task_id是唯一索引，原表数据量3000万+：<br>select <em> from yuntable limit 1000000,10;  需要3秒以上的时间<br>select </em> from yuntable inner join (select id from yuntable limit 1000000,10) as tpm_table using(id);  只需要200毫秒左右</li>
+</ul>
 
       
     </div>
 
+    
+      
+
+
+    
+
+    
+    
+    
+
+    
+      <div>
+        <div>
+    <img class="wechat_subscriber" src="http://yunsonbai.top/images/wechat_qrcode.bmp" alt="yunsonbai wechat" style="width: 200px; max-width: 100%;">
+    <div class="wechat_subscriber">微信公众号</div>
+</div>
+
+      </div>
+    
+
+    
+
+    
+      <div>
+        
+      </div>
+    
+
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>Post author: </strong>yunsonbai</li>
+  <li class="post-copyright-link">
+    <strong>Post link:</strong>
+    <a href="https://yunsonbai.top/2020/11/18/mysql-useindex/" title="MySQL复习笔记-高效使用索引">https://yunsonbai.top/2020/11/18/mysql-useindex/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>Copyright Notice: </strong>All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 4.0</a> unless stating additionally.</li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/MySQL/" rel="tag"># MySQL</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/11/02/mysql-indextype/" rel="next" title="MySQL复习笔记-索引类型">
+                <i class="fa fa-chevron-left"></i> MySQL复习笔记-索引类型
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </div>
   
   
   
+  </article>
 
-  
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
           
+
+  
+
+
         </div>
         
           
@@ -1070,6 +1327,10 @@
 
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.0.6"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.0.6"></script>
+
+
 
   
 
