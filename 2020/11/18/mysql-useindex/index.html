@@ -98,18 +98,18 @@
 
 
 <script data-ad-client="ca-pub-1143013968169801" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-  <meta name="description" content="引言原文链接：http://yunsonbai.top/2020/11/18/mysql-useindex/本文主要记录了高效使用索引的内容，有不足的还望大牛指正。">
+  <meta name="description" content="引言原文链接：https://yunsonbai.top/2020/11/18/mysql-useindex/本文主要记录了高效使用索引的内容，有不足的还望大牛指正。">
 <meta name="keywords" content="MySQL,explain,索引,聚簇索引,覆盖索引">
 <meta property="og:type" content="article">
 <meta property="og:title" content="MySQL复习笔记-高效使用索引">
 <meta property="og:url" content="https://yunsonbai.top/2020/11/18/mysql-useindex/index.html">
 <meta property="og:site_name" content="雲Son">
-<meta property="og:description" content="引言原文链接：http://yunsonbai.top/2020/11/18/mysql-useindex/本文主要记录了高效使用索引的内容，有不足的还望大牛指正。">
+<meta property="og:description" content="引言原文链接：https://yunsonbai.top/2020/11/18/mysql-useindex/本文主要记录了高效使用索引的内容，有不足的还望大牛指正。">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2020-11-19T08:50:55.595Z">
+<meta property="og:updated_time" content="2020-11-20T01:15:02.039Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="MySQL复习笔记-高效使用索引">
-<meta name="twitter:description" content="引言原文链接：http://yunsonbai.top/2020/11/18/mysql-useindex/本文主要记录了高效使用索引的内容，有不足的还望大牛指正。">
+<meta name="twitter:description" content="引言原文链接：https://yunsonbai.top/2020/11/18/mysql-useindex/本文主要记录了高效使用索引的内容，有不足的还望大牛指正。">
 
 
 
@@ -490,7 +490,7 @@
       
 
       
-        <h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><p>原文链接：<a href="http://yunsonbai.top/2020/11/18/mysql-useindex/">http://yunsonbai.top/2020/11/18/mysql-useindex/</a><br>本文主要记录了高效使用索引的内容，有不足的还望大牛指正。</p>
+        <h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><p>原文链接：<a href="https://yunsonbai.top/2020/11/18/mysql-useindex/">https://yunsonbai.top/2020/11/18/mysql-useindex/</a><br>本文主要记录了高效使用索引的内容，有不足的还望大牛指正。</p>
 <a id="more"></a>
 <h2 id="索引列不能是表达式"><a href="#索引列不能是表达式" class="headerlink" title="索引列不能是表达式"></a>索引列不能是表达式</h2><p>其实这个在大学那会老师就讲过，可能没有遇到大数据量之前没有深刻的体会。下边例子中status是索引列:<br>select … where status=5    会用到索引<br>select … where status+1=6  全表扫描</p>
 <p>人能看明白status+1=6 等价于 status=5 但是MySQL无法解析，只能去原表一个一个的取一个一个的计算。<br>当然表达式还有类似于 func(status) = 5这种操作也是不行</p>
