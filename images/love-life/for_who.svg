@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="306" height="100" viewBox="0 0 306 100">
+  <defs>
+    <radialGradient id="radial-gradient" cx="0.384" cy="0" r="1.089" gradientTransform="matrix(0.09, 0.996, -0.262, 0.024, 0.349, -0.382)" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#e4d2d2"/>
+      <stop offset="0" stop-color="#e2ccc3"/>
+      <stop offset="1" stop-color="#c9932a"/>
+    </radialGradient>
+    <filter id="你在为谁工作" x="32" y="17" width="269" height="71" filterUnits="userSpaceOnUse">
+      <feOffset dy="3" input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="3" result="blur"/>
+      <feFlood flood-color="#ccb5b5" flood-opacity="0.161"/>
+      <feComposite operator="in" in2="blur"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+  </defs>
+  <g id="组_13" data-name="组 13" transform="translate(-35 -100)">
+    <rect id="矩形_1" data-name="矩形 1" width="306" height="100" transform="translate(35 100)" fill="url(#radial-gradient)"/>
+    <g transform="matrix(1, 0, 0, 1, 35, 100)" filter="url(#你在为谁工作)">
+      <text id="你在为谁工作-2" data-name="你在为谁工作" transform="translate(42 66)" fill="#707070" font-size="40" font-family="YuGothicUI-Bold, Yu Gothic UI" font-weight="700"><tspan x="0" y="0">你在</tspan><tspan y="0" font-family="MicrosoftJhengHeiUIBold, Microsoft JhengHei UI" font-weight="400">为谁</tspan><tspan y="0">工作</tspan></text>
+    </g>
+  </g>
+</svg>

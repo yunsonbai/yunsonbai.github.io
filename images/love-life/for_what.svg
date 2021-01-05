@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="343.5" height="155" viewBox="0 0 343.5 155">
+  <defs>
+    <linearGradient id="linear-gradient" x1="0.175" x2="0.508" y2="1.283" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#eee4db"/>
+      <stop offset="1" stop-color="#c9932a"/>
+    </linearGradient>
+    <radialGradient id="radial-gradient" cx="0.384" cy="0" r="1.089" gradientTransform="matrix(0.09, 0.996, -0.262, 0.024, 0.349, -0.382)" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#e4d2d2"/>
+      <stop offset="0" stop-color="#e2ccc3"/>
+      <stop offset="1" stop-color="#c9932a"/>
+    </radialGradient>
+    <filter id="你工作为了什么_" x="5.5" y="72" width="338" height="71" filterUnits="userSpaceOnUse">
+      <feOffset dy="3" input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="3" result="blur"/>
+      <feFlood flood-color="#ccb5b5" flood-opacity="0.161"/>
+      <feComposite operator="in" in2="blur"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+  </defs>
+  <g id="组_19" data-name="组 19" transform="translate(-18.5 -306)">
+    <g id="组_11" data-name="组 11" transform="translate(8 -33.528)">
+      <rect id="矩形_4" data-name="矩形 4" width="328" height="81" transform="translate(11 402.528)" fill="url(#linear-gradient)"/>
+      <text id="你工作为了什么" transform="translate(17 435.528)" fill="#673c3c" font-size="23" font-family="YuGothicUI-Bold, Yu Gothic UI" font-weight="700" opacity="0.79"><tspan x="0" y="0">你工作</tspan><tspan y="0" font-family="MicrosoftJhengHeiUIBold, Microsoft JhengHei UI" font-weight="400">为</tspan><tspan y="0">了什么</tspan></text>
+      <g id="组_17" data-name="组 17" transform="translate(11 340)">
+        <path id="联合_1" data-name="联合 1" d="M0,121.222V41.586H13A27.492,27.492,0,0,1,17.585,34.9a28.632,28.632,0,0,1,9.071-6.547,30.13,30.13,0,0,1,11.054-2.72,31.49,31.49,0,0,1,22.164,7.632,30.123,30.123,0,0,1,6.7,8.321H327.8v79.636Zm43.7-96.9a12.489,12.489,0,1,1,4.07.684A12.5,12.5,0,0,1,43.7,24.324Z" transform="translate(0 21.381)" fill="#d5ae73" stroke="#707070" stroke-width="1"/>
+        <g id="组_16" data-name="组 16" transform="translate(41.669)">
+          <g id="组_14" data-name="组 14" transform="translate(15.742)">
+            <text id="_" data-name="?" transform="translate(-0.411 20.528)" fill="#673c3c" font-size="9" font-family="Tahoma-Bold, Tahoma" font-weight="700"><tspan x="0" y="0">?</tspan></text>
+            <text id="_2" data-name="?" transform="translate(8.589 17.528)" fill="#673c3c" font-size="13" font-family="Tahoma-Bold, Tahoma" font-weight="700"><tspan x="0" y="0">?</tspan></text>
+            <text id="_3" data-name="?" transform="translate(18.589 17.528)" fill="#673c3c" font-size="18" font-family="Tahoma-Bold, Tahoma" font-weight="700"><tspan x="0" y="0">?</tspan></text>
+          </g>
+          <g id="组_15" data-name="组 15" transform="translate(0 28.706)">
+            <g id="椭圆_10" data-name="椭圆 10" transform="translate(5.331 1.823)" stroke="#707070" stroke-width="1" fill="url(#linear-gradient)">
+              <circle cx="1" cy="1" r="1" stroke="none"/>
+              <circle cx="1" cy="1" r="0.5" fill="none"/>
+            </g>
+            <g id="椭圆_11" data-name="椭圆 11" transform="translate(0.331 -0.177)" stroke="#707070" stroke-width="1" fill="url(#linear-gradient)">
+              <circle cx="1" cy="1" r="1" stroke="none"/>
+              <circle cx="1" cy="1" r="0.5" fill="none"/>
+            </g>
+            <line id="直线_2" data-name="直线 2" y1="0.926" x2="6.482" transform="translate(0.463 8.797)" fill="none" stroke="#707070" stroke-width="1"/>
+          </g>
+        </g>
+      </g>
+    </g>
+    <g id="组_18" data-name="组 18" transform="translate(-14.333 261)">
+      <rect id="矩形_1" data-name="矩形 1" width="324" height="100" transform="translate(35.333 100)" fill="url(#radial-gradient)"/>
+      <g transform="matrix(1, 0, 0, 1, 32.83, 45)" filter="url(#你工作为了什么_)">
+        <text id="你工作为了什么_2" data-name="你工作为了什么？" transform="translate(14.5 121)" fill="#707070" font-size="40" font-family="YuGothicUI-Bold, Yu Gothic UI" font-weight="700"><tspan x="0" y="0">你工作</tspan><tspan y="0" font-family="MicrosoftJhengHeiUIBold, Microsoft JhengHei UI" font-weight="400">为</tspan><tspan y="0">了什么？</tspan></text>
+      </g>
+    </g>
+  </g>
+</svg>
