@@ -9,7 +9,7 @@
       <content type="html"><![CDATA[<h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><p>原文链接：<a href="https://yunsonbai.top/2021/01/05/love-life/">https://yunsonbai.top/2021/01/05/love-life/</a><br>不管你从事什么行业都希望你能珍爱生命，珍惜健康，爱惜自己的身体。</p>
 <a id="more"></a>
 <h2 id="故事的起源"><a href="#故事的起源" class="headerlink" title="故事的起源"></a>故事的起源</h2><p>最近这两天几乎被某多多的员工猝死事件刷了屏，各种感慨和惋惜，正是美好年华，未来有着无限的可能，然而却止住了前进的脚步，静静的去了别的世界。这值得我们思考，最近几年类似的事情层出不断，为什么一直会有？我们到底该怎么选择？</p>
-<h2 id="该不该奋斗"><a href="#该不该奋斗" class="headerlink" title="该不该奋斗"></a>该不该奋斗</h2><p><img src="/image/love-life/for_what.svg" alt> <img src="/image/love-life/for_who.svg" alt></p>
+<h2 id="该不该奋斗"><a href="#该不该奋斗" class="headerlink" title="该不该奋斗"></a>该不该奋斗</h2><p><img src="/images/love-life/for_who.svg" alt> <img src="/images/love-life/for_what.svg" alt> </p>
 <p>这貌似是一句废话，怎么可能不奋斗呢？我们学习知识技能不就是为了更好的做事，创造更高的价值，收获更多的果实么？如果不奋斗何以实现我们的抱负和理想呢？在简单的说就是名和利，追逐这些是没有错的，社会因为有这驱使才能进步，我们也才能过上更好的生活，问题来了，怎么奋斗呢？</p>
 <p>先从自身谈起，公司很多，工作方式也很多，我们努力的工作到底为了什么？是为了更好的生活的话，那你需要思考你得工作方式，如果工作占据了一天60%的时间，甚至频繁的占据了你的休息时间，那么请问，你的生活在哪？</p>
 <p>那如果是为了获得更得的钱，生不生活无所谓，那接下来是没日没夜的干，看起来没有毛病，你干的多可能你就拿的多，只是可能，你首先需要弄明白你到底是拿到的空头支票还是实打实的支票。另外，自己的身体要弄清楚，能不能抗的住没日没夜的工作呢？即便你抗住了，从健康的角度讲，你的身体却承受了巨大的伤害，晚上正是养内脏，蓄精神的时候，你却让身体一直重负荷的工作，久而久之身体就埋下了”定时炸弹”，即便你拿到了实打实的支票，恐怕最后也不见得跟了你的姓。</p>
@@ -622,11 +622,11 @@ key_len: 4,8
         
         <tags>
             
+            <tag> 诗集 </tag>
+            
             <tag> 雪 </tag>
             
             <tag> 家乡雪景 </tag>
-            
-            <tag> 诗集 </tag>
             
         </tags>
         
@@ -1120,13 +1120,13 @@ key_len: 4,8
         
         <tags>
             
-            <tag> 诗集 </tag>
-            
             <tag> 北国冬天 </tag>
             
             <tag> 忆江南 </tag>
             
             <tag> 冬末 </tag>
+            
+            <tag> 诗集 </tag>
             
         </tags>
         
@@ -2197,37 +2197,6 @@ key_len: 4,8
     </entry>
     
     <entry>
-      <title><![CDATA[nginx实现https]]></title>
-      <url>https://yunsonbai.top/2016/06/09/nginx-https%E9%85%8D%E7%BD%AE/</url>
-      <content type="html"><![CDATA[<h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nginx是一个高性能的HTTP和反向代理服务器，也是一个IMAP/POP3/SMTP服务器，下边说一下nginx关于https的配置</span><br></pre></td></tr></table></figure>
-<a id="more"></a>
-<h2 id="使用ssl生成证书"><a href="#使用ssl生成证书" class="headerlink" title="使用ssl生成证书"></a>使用ssl生成证书</h2><h3 id="生成命令"><a href="#生成命令" class="headerlink" title="生成命令"></a>生成命令</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout </span></span><br><span class="line">   /etc/nginx/ssl/nginx.key -out /etc/nginx/ssl/nginx.crt</span><br></pre></td></tr></table></figure>
-<h3 id="输入完命令后的提示"><a href="#输入完命令后的提示" class="headerlink" title="输入完命令后的提示"></a>输入完命令后的提示</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">提示如下，一步一步完成即可（也可以使用默认，也可随意）：</span><br><span class="line">Country Name (2 letter code) [AU]:China</span><br><span class="line">   State or Province Name (full name) [Some-State]: Beijing</span><br><span class="line">   Locality Name (eg, city) []:Beijing</span><br><span class="line">   Organization Name (eg, company) [Internet Widgits Pty Ltd]:Bouncy Castles, Inc.</span><br><span class="line">   Organizational Unit Name (eg, section) []:Ministry of Water Slides</span><br><span class="line">   Common Name (e.g. server FQDN or YOUR name) []:your_domain.com</span><br><span class="line">   Email Address []:admin@your_domain.com</span><br></pre></td></tr></table></figure>
-<h2 id="配置nginx"><a href="#配置nginx" class="headerlink" title="配置nginx"></a>配置nginx</h2><h3 id="打开-conf文件"><a href="#打开-conf文件" class="headerlink" title="打开.conf文件"></a>打开.conf文件</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> /etc/nginx、nginx.conf文件</span><br><span class="line">   vim nginx.conf</span><br></pre></td></tr></table></figure>
-<h3 id="添加如下配置"><a href="#添加如下配置" class="headerlink" title="添加如下配置"></a>添加如下配置</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">server&#123;</span><br><span class="line">     listen 80;</span><br><span class="line">     server_name www.xxx.xxx;</span><br><span class="line">&#125;</span><br><span class="line">server&#123;</span><br><span class="line">	listen 443 ssl;</span><br><span class="line">    ssl_certificate /etc/nginx/ssl/nginx.crt;</span><br><span class="line">    ssl_certificate_key /etc/nginx/ssl/nginx.key;</span><br><span class="line">    location /static/ &#123;</span><br><span class="line">    	<span class="built_in">alias</span>   /<span class="built_in">test</span>/static/;</span><br><span class="line">        expires 24h;</span><br><span class="line">    &#125; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h2><h3 id="启动nginx"><a href="#启动nginx" class="headerlink" title="启动nginx"></a>启动nginx</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nginx -c /etc/nginx/nginx.conf</span><br></pre></td></tr></table></figure>
-<h3 id="创建静态页"><a href="#创建静态页" class="headerlink" title="创建静态页"></a>创建静态页</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cd /test/static</span><br><span class="line">touch test.html</span><br><span class="line">echo &apos;test https&apos; &gt; test.html</span><br></pre></td></tr></table></figure>
-<h3 id="访问"><a href="#访问" class="headerlink" title="访问"></a>访问</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">在浏览器中访问https:127..0.1/static/test.html</span><br></pre></td></tr></table></figure>
-<h2 id="补充"><a href="#补充" class="headerlink" title="补充"></a>补充</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">最近发现了一个很奇怪的问题，就是使用python在访问https下的链接的时候一切正常</span><br><span class="line">然而在ios9下访问就会时不时的出现1004问题（访问不到）,最后的解决办法是使用最</span><br><span class="line">新的nginx解决</span><br></pre></td></tr></table></figure>
-<p><a href="http://www.yunsonbai.top/2016/06/09/nginx%E5%B8%B8%E7%94%A8%E9%85%8D%E7%BD%AE/" target="_blank" rel="noopener">nginx常用配置</a></p>
-]]></content>
-      
-        <categories>
-            
-            <category> nginx </category>
-            
-        </categories>
-        
-        
-        <tags>
-            
-            <tag> nginx - https - nginx实现https - ssl - ios访问https的1004问题补充 </tag>
-            
-        </tags>
-        
-    </entry>
-    
-    <entry>
       <title><![CDATA[nginx常用配置]]></title>
       <url>https://yunsonbai.top/2016/06/09/nginx%E5%B8%B8%E7%94%A8%E9%85%8D%E7%BD%AE/</url>
       <content type="html"><![CDATA[<h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nginx是一个高性能的HTTP和反向代理服务器，也是一个IMAP/POP3/SMTP服务器，下边说一下这断时间用到的nginx配置</span><br></pre></td></tr></table></figure>
@@ -2257,6 +2226,37 @@ key_len: 4,8
         <tags>
             
             <tag> nginx - 配置 - nginx常用配置 - 反向代理 - 设置cookie </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[nginx实现https]]></title>
+      <url>https://yunsonbai.top/2016/06/09/nginx-https%E9%85%8D%E7%BD%AE/</url>
+      <content type="html"><![CDATA[<h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nginx是一个高性能的HTTP和反向代理服务器，也是一个IMAP/POP3/SMTP服务器，下边说一下nginx关于https的配置</span><br></pre></td></tr></table></figure>
+<a id="more"></a>
+<h2 id="使用ssl生成证书"><a href="#使用ssl生成证书" class="headerlink" title="使用ssl生成证书"></a>使用ssl生成证书</h2><h3 id="生成命令"><a href="#生成命令" class="headerlink" title="生成命令"></a>生成命令</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout </span></span><br><span class="line">   /etc/nginx/ssl/nginx.key -out /etc/nginx/ssl/nginx.crt</span><br></pre></td></tr></table></figure>
+<h3 id="输入完命令后的提示"><a href="#输入完命令后的提示" class="headerlink" title="输入完命令后的提示"></a>输入完命令后的提示</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">提示如下，一步一步完成即可（也可以使用默认，也可随意）：</span><br><span class="line">Country Name (2 letter code) [AU]:China</span><br><span class="line">   State or Province Name (full name) [Some-State]: Beijing</span><br><span class="line">   Locality Name (eg, city) []:Beijing</span><br><span class="line">   Organization Name (eg, company) [Internet Widgits Pty Ltd]:Bouncy Castles, Inc.</span><br><span class="line">   Organizational Unit Name (eg, section) []:Ministry of Water Slides</span><br><span class="line">   Common Name (e.g. server FQDN or YOUR name) []:your_domain.com</span><br><span class="line">   Email Address []:admin@your_domain.com</span><br></pre></td></tr></table></figure>
+<h2 id="配置nginx"><a href="#配置nginx" class="headerlink" title="配置nginx"></a>配置nginx</h2><h3 id="打开-conf文件"><a href="#打开-conf文件" class="headerlink" title="打开.conf文件"></a>打开.conf文件</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> /etc/nginx、nginx.conf文件</span><br><span class="line">   vim nginx.conf</span><br></pre></td></tr></table></figure>
+<h3 id="添加如下配置"><a href="#添加如下配置" class="headerlink" title="添加如下配置"></a>添加如下配置</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">server&#123;</span><br><span class="line">     listen 80;</span><br><span class="line">     server_name www.xxx.xxx;</span><br><span class="line">&#125;</span><br><span class="line">server&#123;</span><br><span class="line">	listen 443 ssl;</span><br><span class="line">    ssl_certificate /etc/nginx/ssl/nginx.crt;</span><br><span class="line">    ssl_certificate_key /etc/nginx/ssl/nginx.key;</span><br><span class="line">    location /static/ &#123;</span><br><span class="line">    	<span class="built_in">alias</span>   /<span class="built_in">test</span>/static/;</span><br><span class="line">        expires 24h;</span><br><span class="line">    &#125; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h2><h3 id="启动nginx"><a href="#启动nginx" class="headerlink" title="启动nginx"></a>启动nginx</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nginx -c /etc/nginx/nginx.conf</span><br></pre></td></tr></table></figure>
+<h3 id="创建静态页"><a href="#创建静态页" class="headerlink" title="创建静态页"></a>创建静态页</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cd /test/static</span><br><span class="line">touch test.html</span><br><span class="line">echo &apos;test https&apos; &gt; test.html</span><br></pre></td></tr></table></figure>
+<h3 id="访问"><a href="#访问" class="headerlink" title="访问"></a>访问</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">在浏览器中访问https:127..0.1/static/test.html</span><br></pre></td></tr></table></figure>
+<h2 id="补充"><a href="#补充" class="headerlink" title="补充"></a>补充</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">最近发现了一个很奇怪的问题，就是使用python在访问https下的链接的时候一切正常</span><br><span class="line">然而在ios9下访问就会时不时的出现1004问题（访问不到）,最后的解决办法是使用最</span><br><span class="line">新的nginx解决</span><br></pre></td></tr></table></figure>
+<p><a href="http://www.yunsonbai.top/2016/06/09/nginx%E5%B8%B8%E7%94%A8%E9%85%8D%E7%BD%AE/" target="_blank" rel="noopener">nginx常用配置</a></p>
+]]></content>
+      
+        <categories>
+            
+            <category> nginx </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> nginx - https - nginx实现https - ssl - ios访问https的1004问题补充 </tag>
             
         </tags>
         
